@@ -11,12 +11,16 @@ endif::[]
 
 
 == API
+
 === link:trip/trip-api.html[여행 API, window=blank]
+
 === link:itinerary/itinerary-api.html[여정 API, window=blank]
 
 == API Common Response
+
 [[overview-http-status-code]]
 === 1. HTTP Status Code
+
 |===
 | Status code | Useage
 | `200 OK` | 요청을 성공적으로 수행
@@ -30,6 +34,7 @@ endif::[]
 
 [[overview-common-response]]
 === 2. API Common Response
+
 * Toy Project 2 API 에서 공통적으로 제공하는 Response 요소들입니다.
 * 통상적인 상황이나 에러 발생시 모두 제공되는 포맷입니다.
 
