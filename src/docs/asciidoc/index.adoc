@@ -33,5 +33,5 @@ endif::[]
 * Toy Project 2 API 에서 공통적으로 제공하는 Response 요소들입니다.
 * 통상적인 상황이나 에러 발생시 모두 제공되는 포맷입니다.
 
-include::{snippets}/sample-controller-test/common/response-body.adoc[]
-include::{snippets}/sample-controller-test/common/response-fields.adoc[]
+include::{snippets}/sample-controller-docs-test/common/response-body.adoc[]
+include::{snippets}/sample-controller-docs-test/common/response-fields.adoc[]
