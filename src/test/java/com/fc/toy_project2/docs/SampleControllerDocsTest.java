@@ -6,18 +6,18 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.snippet.Attributes.key;
 
-import com.fc.toy_project2.docs.DocsTestController.SampleRequestDTO;
+import com.fc.toy_project2.docs.SampleController.SampleRequestDTO;
 import com.fc.toy_project2.util.RestDocsSupport;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.constraints.ConstraintDescriptions;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-public class SampleControllerTest extends RestDocsSupport {
+public class SampleControllerDocsTest extends RestDocsSupport {
 
     @Override
     public Object initController() {
-        return new DocsTestController();
+        return new SampleController();
     }
 
     private final ConstraintDescriptions sampleDescriptions = new ConstraintDescriptions(

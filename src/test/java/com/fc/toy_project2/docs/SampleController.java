@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * DocsTestController는 Spring REST Docs를 테스트 하기 위한 컨트롤러로, 실제로 작동하지 않습니다.
+ * SampleController는 Spring REST Docs를 테스트 하기 위한 컨트롤러로, 실제로 작동하지 않습니다.
  */
 @RestController
-public class DocsTestController {
+public class SampleController {
 
     @PostMapping("/docs")
     public ResponseEntity<Map<String, Object>> sample(
