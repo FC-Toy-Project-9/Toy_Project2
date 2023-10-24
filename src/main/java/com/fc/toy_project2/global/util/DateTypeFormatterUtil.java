@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class dateTypeFormatterUtil {
+public class DateTypeFormatterUtil {
 
     /**
      * String을 LocalDateTime으로 변환해주는 메서드
