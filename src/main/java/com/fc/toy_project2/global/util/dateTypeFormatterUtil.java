@@ -1,8 +1,10 @@
 package com.fc.toy_project2.global.util;
 
+import com.fc.toy_project2.global.exception.InvalidDateFormatException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class dateTypeFormatterUtil {
 
@@ -12,9 +14,14 @@ public class dateTypeFormatterUtil {
      * @return LocalDateTime 일시데이터
      */
     public static LocalDateTime dateTimeFormatter(String dateTimeString){
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return LocalDateTime.parse(dateTimeString, formatter);
+        try {
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            return LocalDateTime.parse(dateTimeString, formatter);
+        }catch (DateTimeParseException e){
+            e.printStackTrace();
+            throw new InvalidDateFormatException();
+        }
     }
 
     /**
@@ -23,8 +30,13 @@ public class dateTypeFormatterUtil {
      * @return LocalDate 일시데이터
      */
     public static LocalDate dateFormatter(String dateString){
-        String pattern = "yyyy-MM-dd";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return LocalDate.parse(dateString, formatter);
+        try {
+            String pattern = "yyyy-MM-dd";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            return LocalDate.parse(dateString, formatter);
+        }catch (DateTimeParseException e){
+            e.printStackTrace();
+            throw new InvalidDateFormatException();
+        }
     }
 }
