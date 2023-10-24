@@ -1,5 +1,6 @@
 package com.fc.toy_project2.domain.itinerary.entity;
 
+import com.fc.toy_project2.domain.trip.entity.Trip;
 import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -28,9 +29,10 @@ public class Transportation extends Itinerary {
 
     private LocalDateTime arrivalTime;
 
-    public Transportation(String transportation, String departurePlace,
+    public Transportation(Long id, Trip trip, String transportation, String departurePlace,
         String departurePlaceRoadAddressName, String destination,
         String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        super(id, trip);
         this.transportation = transportation;
         this.departurePlace = departurePlace;
         this.departurePlaceRoadAddressName = departurePlaceRoadAddressName;
