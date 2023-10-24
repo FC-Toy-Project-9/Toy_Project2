@@ -6,7 +6,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -20,7 +22,7 @@ public class Accommodation extends Itinerary {
 
     private LocalDateTime checkOut;
 
-    @Builder
+
     public Accommodation(String accommodationName, String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut){
         this.accommodationName = accommodationName;
         this.accommodationRoadAddressName = accommodationRoadAddressName;

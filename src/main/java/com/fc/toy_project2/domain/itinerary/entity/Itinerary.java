@@ -15,7 +15,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -31,7 +33,6 @@ public class Itinerary {
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @Builder
     public Itinerary(Long id, Trip trip){
         this.id = id;
         this.trip = trip;
