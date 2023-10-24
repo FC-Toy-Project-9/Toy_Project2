@@ -1,12 +1,22 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3307/toy-project2
+    url: jdbc:mariadb://localhost:3307/toypro2?createDatabaseIfNotExist=true
     username: root
     password: 1234
+    javax.persistence.jdbc.url: jdbc:mariadb://localhost:3307/toy-project2
   jpa:
     hibernate:
       show-sql: true
       ddl-auto: create
-      jdbc:
-        time_zone: Asia/Seoul
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MariaDBDialect
+          jdbc:
+            time_zone: Asia/Seoul
+
+
+
+kakao-api:
+  api-url: https://dapi.kakao.com/v2/local/search/keyword.json
+  api-key: ee9365450630d3cded7bc8d99d32ec04
