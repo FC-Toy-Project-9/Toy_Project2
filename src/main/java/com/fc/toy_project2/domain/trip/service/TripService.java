@@ -164,4 +164,13 @@ public class TripService {
         }
         return min;
     }
+
+    /**
+     * 특정 ID 값에 해당하는 여행 정보 삭제
+     * @param tripId 삭제할 여행 ID
+     */
+    public void deleteTripById(Long tripId){
+        Trip trip = getTrip(tripId);
+        tripRepository.delete(trip);
+    }
 }

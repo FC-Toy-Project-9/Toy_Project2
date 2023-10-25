@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,5 +55,12 @@ public class TripRestController {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseDTO.res(HttpStatus.OK, tripService.updateTrip(updateTripRequestDTO),
                 "성공적으로 여행 정보를 수정했습니다."));
+    }
+
+    @DeleteMapping("/{tripId}")
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> deleteTripById(@PathVariable long tripId){
+        tripService.deleteTripById(tripId);
+        return ResponseEntity.status(HttpStatus.OK).body(
+            ResponseDTO.res(HttpStatus.OK, "성공적으로 여행 정보를 삭제했습니다."));
     }
 }
