@@ -108,8 +108,8 @@ public class TripService {
                     max = ((Accommodation) itinerary).getCheckIn().toLocalDate();
                 }
             } else {
-                if (((Visit) itinerary).getDepartureTime().toLocalDate().isBefore(max)) {
-                    max = ((Visit) itinerary).getDepartureTime().toLocalDate();
+                if (((Visit) itinerary).getArrivalTime().toLocalDate().isBefore(max)) {
+                    max = ((Visit) itinerary).getArrivalTime().toLocalDate();
                 }
             }
         }
@@ -134,8 +134,8 @@ public class TripService {
                     min = ((Accommodation) itinerary).getCheckOut().toLocalDate();
                 }
             } else {
-                if (((Visit) itinerary).getArrivalTime().toLocalDate().isAfter(min)) {
-                    min = ((Visit) itinerary).getArrivalTime().toLocalDate();
+                if (((Visit) itinerary).getDepartureTime().toLocalDate().isAfter(min)) {
+                    min = ((Visit) itinerary).getDepartureTime().toLocalDate();
                 }
             }
         }
