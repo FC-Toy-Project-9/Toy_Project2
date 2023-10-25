@@ -11,6 +11,7 @@ import com.fc.toy_project2.domain.trip.exception.TripNotFoundException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripEndDateException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripStartDateException;
 import com.fc.toy_project2.domain.trip.repository.TripRepository;
+import jakarta.persistence.DiscriminatorColumn;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class TripService {
      * @param id 조회할 하는 여행 ID
      * @return 여행 정보 Entity
      */
-    private Trip getTrip(Long id) {
+    public Trip getTrip(Long id) {
         return tripRepository.findById(id).orElseThrow(TripNotFoundException::new);
     }
 
