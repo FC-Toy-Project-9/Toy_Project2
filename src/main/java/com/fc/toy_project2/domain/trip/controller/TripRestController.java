@@ -29,9 +29,10 @@ public class TripRestController {
     private final TripService tripService;
 
     @PostMapping
-    public ResponseDTO postTrip(@Valid @RequestBody PostTripRequestDTO postTripRequestDTO){
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> postTrip(@Valid @RequestBody PostTripRequestDTO postTripRequestDTO){
         tripService.postTrip(postTripRequestDTO);
-        return ResponseDTO.res(HttpStatus.CREATED, "성공적으로 여행을 등록했습니다.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+            ResponseDTO.res(HttpStatus.CREATED, "성공적으로 여행을 등록했습니다."));
     }
 
     @GetMapping
