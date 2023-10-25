@@ -2,9 +2,9 @@ package com.fc.toy_project2.global.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.fc.toy_project2.global.exception.InvalidDateFormatException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class DateTypeFormatterUtilTest {
-
-    DateTypeFormatterUtil dateTypeFormatterUtil = new DateTypeFormatterUtil();
 
     @Nested
     @DisplayName("dateTimeFormatter()는 ")
@@ -42,11 +40,11 @@ class DateTypeFormatterUtilTest {
 
 
             //then
-            assertThrows(DateTimeParseException.class, ()-> {
+            assertThrows(InvalidDateFormatException.class, ()-> {
                 DateTypeFormatterUtil.dateTimeFormatter(invalidDateTimeString);
             });
 
-            assertThrows(DateTimeParseException.class, ()->{
+            assertThrows(InvalidDateFormatException.class, ()->{
                 DateTypeFormatterUtil.dateTimeFormatter(outOfRangeDateTimeString);
             });
         }
@@ -78,11 +76,11 @@ class DateTypeFormatterUtilTest {
 
 
             //then
-            assertThrows(DateTimeParseException.class, ()-> {
+            assertThrows(InvalidDateFormatException.class, ()-> {
                 DateTypeFormatterUtil.dateFormatter(invalidDateString);
             });
 
-            assertThrows(DateTimeParseException.class, ()->{
+            assertThrows(InvalidDateFormatException.class, ()->{
                 DateTypeFormatterUtil.dateFormatter(outOfRangeDateString);
             });
         }
