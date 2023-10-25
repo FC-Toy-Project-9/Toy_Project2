@@ -1,8 +1,8 @@
 package com.fc.toy_project2.domain.itinerary.controller;
 
 
-import com.fc.toy_project2.domain.itinerary.dto.ResultResponse;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryGetDeleteService;
+import com.fc.toy_project2.global.DTO.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -20,29 +20,28 @@ public class ItineraryGetDeleteController {
 
     private final ItineraryGetDeleteService itineraryGetDeleteService;
 
-    @GetMapping("/get")
-    public ResponseEntity<ResultResponse> getItineraryByTripId(@RequestParam long tripId) {
-        ResultResponse res = ResultResponse.builder()
-            .code(HttpStatus.OK.value())
-            .message("itinerary get 성공")
-            .result(itineraryGetDeleteService.getItineraryByTripId(tripId))
-            .build();
+    @GetMapping("/keyword")
+    public ResponseEntity<ResponseDTO> getItinerarySearch(@RequestParam String query)
+        throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            ResponseDTO.res(HttpStatus.OK, itineraryGetDeleteService.getPlaceByKeyword(query),
+                "성공적으로 키워드로 장소를 조회했습니다."));
 
-        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<ResponseDTO> getItineraryByTripId(@RequestParam long tripId) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            ResponseDTO.res(HttpStatus.OK, itineraryGetDeleteService.getItineraryByTripId(tripId),
+                "성공적으로 여정을 조회했습니다."));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResultResponse> deleteItineray(@RequestParam long itineraryId)
+    public ResponseEntity<ResponseDTO> deleteItineray(@RequestParam long itineraryId)
         throws NotFoundException {
-        ResultResponse res = ResultResponse.builder()
-            .code(HttpStatus.OK.value())
-            .message("itinerary delete 성공")
-            .result(itineraryGetDeleteService.deleteItinerary(itineraryId))
-            .build();
-
-        return new ResponseEntity<>(res, HttpStatus.OK);
-
-
+        return ResponseEntity.status(HttpStatus.OK).body(
+            ResponseDTO.res(HttpStatus.OK, itineraryGetDeleteService.deleteItinerary(itineraryId),
+                "성공적으로 여정을 삭제했습니다."));
     }
 
 }

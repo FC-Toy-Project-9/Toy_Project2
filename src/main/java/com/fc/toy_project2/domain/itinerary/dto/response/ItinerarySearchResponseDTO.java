@@ -1,4 +1,4 @@
-package com.fc.toy_project2.domain.itinerary.dto;
+package com.fc.toy_project2.domain.itinerary.dto.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class ItinerarySearchResponseDto {
+public class ItinerarySearchResponseDTO {
 
     private String placeName;
     private String roadAddressName;
     private String placeUrl;
 
-    public static ItinerarySearchResponseDto of(String placeName, String roadAddressName,
+    public static ItinerarySearchResponseDTO of(String placeName, String roadAddressName,
         String placeUrl) {
-        return ItinerarySearchResponseDto.builder()
+        return ItinerarySearchResponseDTO.builder()
             .placeName(placeName)
             .roadAddressName(roadAddressName)
             .placeUrl(placeUrl)
