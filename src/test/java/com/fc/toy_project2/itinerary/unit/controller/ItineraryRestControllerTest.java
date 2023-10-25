@@ -58,7 +58,7 @@ public class ItineraryRestControllerTest {
                 itinerarys);
 
             // when, then
-            mockMvc.perform(get("/api/itinerary/get").param("tripId", "1")).andDo(print())
+            mockMvc.perform(get("/api/itinerary/search").param("tripId", "1")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").exists())
                 .andExpect(jsonPath("$.message").exists())
@@ -83,7 +83,7 @@ public class ItineraryRestControllerTest {
                 .endDate(LocalDate.of(2023, 10, 31)).build();
             ItineraryGetResponseDTO itinerary = ItineraryGetResponseDTO.of(1L, trip);
 
-            mockMvc.perform(delete("/api/itinerary/delete").param("itineraryId", "1"))
+            mockMvc.perform(delete("/api/itinerary").param("itineraryId", "1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
