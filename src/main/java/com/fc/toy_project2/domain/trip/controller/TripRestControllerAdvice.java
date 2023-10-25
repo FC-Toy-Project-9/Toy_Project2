@@ -1,10 +1,10 @@
 package com.fc.toy_project2.domain.trip.controller;
 
+import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.exception.TripNotFoundException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripEndDateException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripStartDateException;
-import java.util.HashMap;
-import java.util.Map;
+import com.fc.toy_project2.global.DTO.ResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,31 +17,23 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class TripRestControllerAdvice {
 
     @ExceptionHandler
-    public ResponseEntity<Map<String, Object>> tripNotFoundException(TripNotFoundException e) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", 401);
-        response.put("message", e.getMessage());
-        response.put("data", null);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> tripNotFoundException(
+        TripNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<Map<String, Object>> wrongTripStartDateException(
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> wrongTripStartDateException(
         WrongTripStartDateException e) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", 401);
-        response.put("message", e.getMessage());
-        response.put("data", null);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<Map<String, Object>> wrongTripEndDateException(
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> wrongTripEndDateException(
         WrongTripEndDateException e) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", 401);
-        response.put("message", e.getMessage());
-        response.put("data", null);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 }

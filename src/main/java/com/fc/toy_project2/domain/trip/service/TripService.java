@@ -11,9 +11,8 @@ import com.fc.toy_project2.domain.trip.exception.TripNotFoundException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripEndDateException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripStartDateException;
 import com.fc.toy_project2.domain.trip.repository.TripRepository;
-import jakarta.persistence.DiscriminatorColumn;
+import com.fc.toy_project2.global.util.DateTypeFormatterUtil;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -58,11 +57,9 @@ public class TripService {
 
     public TripResponseDTO updateTrip(UpdateTripRequestDTO updateTripRequestDTO) {
         Trip trip = getTrip(updateTripRequestDTO.getId());
-        // TODO String 파싱은 global util을 사용하도록 수정
-        checkTripDate(trip, LocalDate.parse(updateTripRequestDTO.getStartDate(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-            LocalDate.parse(updateTripRequestDTO.getEndDate(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        checkTripDate(trip,
+            DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getStartDate()),
+            DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getEndDate()));
         trip.updateTrip(updateTripRequestDTO);
         return trip.toTripResponseDTO();
     }
