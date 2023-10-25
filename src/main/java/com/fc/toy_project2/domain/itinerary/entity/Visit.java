@@ -4,7 +4,6 @@ import com.fc.toy_project2.domain.trip.entity.Trip;
 import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -24,8 +23,9 @@ public class Visit extends Itinerary {
     private LocalDateTime departureTime;
 
 
-    public Visit(Long id, Trip trip, String placeName, String placeRoadAddressName, LocalDateTime arrivalTime,
-        LocalDateTime departureTime){
+    public Visit(Long id, Trip trip, String placeName, String placeRoadAddressName,
+        LocalDateTime arrivalTime,
+        LocalDateTime departureTime) {
         super(id, trip);
         this.placeName = placeName;
         this.placeRoadAddressName = placeRoadAddressName;

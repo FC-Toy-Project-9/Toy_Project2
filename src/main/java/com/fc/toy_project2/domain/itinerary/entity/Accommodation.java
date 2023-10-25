@@ -1,11 +1,9 @@
 package com.fc.toy_project2.domain.itinerary.entity;
 
 import com.fc.toy_project2.domain.trip.entity.Trip;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -24,7 +22,8 @@ public class Accommodation extends Itinerary {
 
     private LocalDateTime checkOut;
 
-    public Accommodation(Long id, Trip trip, String accommodationName, String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut){
+    public Accommodation(Long id, Trip trip, String accommodationName,
+        String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut) {
         super(id, trip);
         this.accommodationName = accommodationName;
         this.accommodationRoadAddressName = accommodationRoadAddressName;

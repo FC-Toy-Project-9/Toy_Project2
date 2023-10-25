@@ -1,36 +1,36 @@
 package com.fc.toy_project2.domain.itinerary.service;
 
 import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryAccommodationDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryGetResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryTransportationDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryVisitDTO;
 import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
 import com.fc.toy_project2.domain.itinerary.entity.Transportation;
 import com.fc.toy_project2.domain.itinerary.entity.Visit;
+import com.fc.toy_project2.domain.itinerary.repository.ItineraryRepository;
 import com.fc.toy_project2.domain.trip.entity.Trip;
-import com.fc.toy_project2.domain.trip.repository.TripRepository;
+import com.fc.toy_project2.domain.trip.service.TripService;
 import jakarta.persistence.DiscriminatorValue;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class ItineraryGetDeleteService {
 
-    private final TripRepository tripRepository;
-    private Optional<Trip> trip;
+    private final TripService tripService;
+    private final ItineraryRepository itineraryRepository;
 
     public List getItineraryByTripId(Long tripId) {
-        trip = tripRepository.findById(tripId);
-        List<Itinerary> itineraryList = new ArrayList<>();
+        Trip trip = tripService.getTrip(tripId);
+        List<Itinerary> itineraryList = trip.getItineraries();
         List<Object> itineraryResponseList = new ArrayList<>();
-        if (trip.isPresent()) {
-            itineraryList = trip.get().getItineraries();
-        }
+
         for (Itinerary itinerary : itineraryList) {
             String dtype = itinerary.getClass().getAnnotation(DiscriminatorValue.class).value();
             switch (dtype) {
@@ -69,6 +69,17 @@ public class ItineraryGetDeleteService {
             }
         }
         return itineraryResponseList;
+    }
+
+    public ItineraryGetResponseDTO deleteItinerary(Long itineraryId) throws NotFoundException {
+        Itinerary itinerary = itineraryRepository.findById(itineraryId).orElseThrow(
+            NotFoundException::new);
+        itineraryRepository.delete(itinerary);
+        ItineraryGetResponseDTO itineraryGetResponseDTO = ItineraryGetResponseDTO.of(
+            itinerary.getId(), itinerary.getTrip());
+
+        return itineraryGetResponseDTO;
+
     }
 
 

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class ResultResponse {
+
     private int code;
     private String message;
     private Object result;

@@ -1,6 +1,5 @@
 package com.fc.toy_project2.domain.itinerary.service;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fc.toy_project2.domain.itinerary.dto.ItinerarySearchResponseDto;
 import jakarta.annotation.PostConstruct;
 import java.net.URI;
@@ -34,7 +33,7 @@ public class ItinerarySearchService {
     private HttpEntity<String> httpEntity;
 
     @PostConstruct
-    protected void init(){
+    protected void init() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set(HttpHeaders.AUTHORIZATION, "KakaoAK " + key);
@@ -48,18 +47,20 @@ public class ItinerarySearchService {
             .encode(StandardCharsets.UTF_8)
             .build().toUri();
 
-        Assert.notNull(query,"query");
-        ResponseEntity<String> response = new RestTemplate().exchange(tmp, HttpMethod.GET, httpEntity, String.class);
+        Assert.notNull(query, "query");
+        ResponseEntity<String> response = new RestTemplate().exchange(tmp, HttpMethod.GET,
+            httpEntity, String.class);
 
         JSONObject jsonObject = new JSONObject(response.getBody().toString());
         JSONArray jsonArray = jsonObject.getJSONArray("documents");
         List<ItinerarySearchResponseDto> itinerarySearchList = new ArrayList<>();
-        for(int i = 0; i< 10; i++){
+        for (int i = 0; i < 10; i++) {
             JSONObject subJsonObj = jsonArray.getJSONObject(i);
             String placeName = subJsonObj.getString("place_name");
             String roadAddressName = subJsonObj.getString("road_address_name");
             String placeUrl = subJsonObj.getString("place_url");
-            itinerarySearchList.add(ItinerarySearchResponseDto.of(placeName,roadAddressName,placeUrl));
+            itinerarySearchList.add(
+                ItinerarySearchResponseDto.of(placeName, roadAddressName, placeUrl));
         }
 
         return itinerarySearchList;

@@ -26,7 +26,7 @@ public class ItinerarySearchController {
             .result(itinerarySearchService.getPlaceByKeyword(query))
             .build();
 
-        return new ResponseEntity<>(res,HttpStatus.OK);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
 }

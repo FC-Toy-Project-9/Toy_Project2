@@ -11,4 +11,11 @@ public class ItineraryGetResponseDTO {
     private Long id;
     private Trip trip;
 
+    public static ItineraryGetResponseDTO of(Long id, Trip trip) {
+        return ItineraryGetResponseDTO.builder()
+            .id(id)
+            .trip(trip)
+            .build();
+    }
+
 }

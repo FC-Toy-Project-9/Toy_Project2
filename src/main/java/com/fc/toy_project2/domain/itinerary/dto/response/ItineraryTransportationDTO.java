@@ -1,6 +1,5 @@
 package com.fc.toy_project2.domain.itinerary.dto.response;
 
-import com.fc.toy_project2.domain.trip.entity.Trip;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +20,7 @@ public class ItineraryTransportationDTO {
     public static ItineraryTransportationDTO of(String transportation,
         String departurePlace,
         String departurePlaceRoadAddressName, String destination,
-        String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime){
+        String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         return ItineraryTransportationDTO.builder()
 
             .transportation(transportation)
