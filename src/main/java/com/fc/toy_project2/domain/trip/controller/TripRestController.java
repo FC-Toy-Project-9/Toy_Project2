@@ -1,10 +1,11 @@
 package com.fc.toy_project2.domain.trip.controller;
 
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
+import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.service.TripService;
+import com.fc.toy_project2.global.DTO.ResponseDTO;
 import jakarta.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,30 +27,23 @@ public class TripRestController {
     private final TripService tripService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getTrips() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", 200);
-        response.put("message", "성공적으로 여행 정보 목록을 조회했습니다.");
-        response.put("data", tripService.getTrips());
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<ResponseDTO<List<TripResponseDTO>>> getTrips() {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            ResponseDTO.res(HttpStatus.OK, tripService.getTrips(), "성공적으로 여행 정보 목록을 조회했습니다."));
     }
 
     @GetMapping("/{tripId}")
-    public ResponseEntity<Map<String, Object>> getTripById(@PathVariable long tripId) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", 200);
-        response.put("message", "성공적으로 여행 정보를 조회했습니다.");
-        response.put("data", tripService.getTripById(tripId));
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> getTripById(@PathVariable long tripId) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            ResponseDTO.res(HttpStatus.OK, tripService.getTripById(tripId),
+                "성공적으로 여행 정보를 조회했습니다."));
     }
 
     @PatchMapping
-    public ResponseEntity<Map<String, Object>> updateTrip(
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> updateTrip(
         @Valid @RequestBody UpdateTripRequestDTO updateTripRequestDTO) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", 200);
-        response.put("message", "성공적으로 여행 정보를 수정했습니다.");
-        response.put("data", tripService.updateTrip(updateTripRequestDTO));
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(
+            ResponseDTO.res(HttpStatus.OK, tripService.updateTrip(updateTripRequestDTO),
+                "성공적으로 여행 정보를 수정했습니다."));
     }
 }
