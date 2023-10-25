@@ -14,8 +14,8 @@ import org.springframework.lang.Nullable;
 public class ResponseDTO<T>{
 
     private int code;
-    private T data;
     private String message;
+    private T data;
 
     /**
      * HTTP 상태 코드, 데이터, 그리고 메시지를 이용하여 ResponseDTO 객체를 생성하는 메서드
@@ -29,8 +29,8 @@ public class ResponseDTO<T>{
     public static <T> ResponseDTO<T> res (HttpStatus httpStatus, @Nullable T data, String message) {
         return (ResponseDTO<T>) ResponseDTO.builder()
                 .code(httpStatus.value())
-                .data(data)
                 .message(message)
+                .data(data)
                 .build();
     }
 
