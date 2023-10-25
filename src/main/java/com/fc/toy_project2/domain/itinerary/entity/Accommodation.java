@@ -1,6 +1,7 @@
 package com.fc.toy_project2.domain.itinerary.entity;
 
 import com.fc.toy_project2.domain.trip.entity.Trip;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;

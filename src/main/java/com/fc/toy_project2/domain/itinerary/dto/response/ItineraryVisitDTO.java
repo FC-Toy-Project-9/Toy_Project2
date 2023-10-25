@@ -10,18 +10,15 @@ import lombok.Getter;
 @Builder
 public class ItineraryVisitDTO {
 
-    private Trip trip;
-
     private String placeName;
     private String placeRoadAddressName;
     private LocalDateTime visitArrivalTime;
     private LocalDateTime visitDepartureTime;
 
-    public static ItineraryVisitDTO of(Trip trip, String placeName, String placeRoadAddressName,
+    public static ItineraryVisitDTO of(String placeName, String placeRoadAddressName,
         LocalDateTime arrivalTime,
-        LocalDateTime departureTime){
+        LocalDateTime departureTime) {
         return ItineraryVisitDTO.builder()
-            .trip(trip)
             .placeName(placeName)
             .placeRoadAddressName(placeRoadAddressName)
             .visitArrivalTime(arrivalTime)

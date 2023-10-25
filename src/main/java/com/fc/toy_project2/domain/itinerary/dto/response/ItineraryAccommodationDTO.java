@@ -10,16 +10,14 @@ import lombok.Getter;
 @Builder
 public class ItineraryAccommodationDTO {
 
-    private Trip trip;
     private String accommodationName;
     private String accommodationRoadAddressName;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
 
-    public static ItineraryAccommodationDTO of(Trip trip, String accommodationName,
+    public static ItineraryAccommodationDTO of(String accommodationName,
         String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut){
         return ItineraryAccommodationDTO.builder()
-            .trip(trip)
             .accommodationName(accommodationName)
             .accommodationRoadAddressName(accommodationRoadAddressName)
             .checkIn(checkIn)
