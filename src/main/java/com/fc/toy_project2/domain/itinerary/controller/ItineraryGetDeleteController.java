@@ -29,15 +29,15 @@ public class ItineraryGetDeleteController {
 
     }
 
-    @GetMapping("/get")
+    @GetMapping("/search")
     public ResponseEntity<ResponseDTO> getItineraryByTripId(@RequestParam long tripId) {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseDTO.res(HttpStatus.OK, itineraryGetDeleteService.getItineraryByTripId(tripId),
                 "성공적으로 여정을 조회했습니다."));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDTO> deleteItineray(@RequestParam long itineraryId)
+    @DeleteMapping("")
+    public ResponseEntity<ResponseDTO> deleteItinerary(@RequestParam long itineraryId)
         throws NotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseDTO.res(HttpStatus.OK, itineraryGetDeleteService.deleteItinerary(itineraryId),
