@@ -1,5 +1,6 @@
 package com.fc.toy_project2.domain.trip.controller;
 
+import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.service.TripService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TripRestController {
 
     private final TripService tripService;
+
+    @PostMapping
+    public ResponseDTO postTrip(@Valid @RequestBody PostTripRequestDTO postTripRequestDTO){
+        tripService.postTrip(postTripRequestDTO);
+        return ResponseDTO.res(HttpStatus.CREATED, "성공적으로 여행을 등록했습니다.");
+    }
 
     @GetMapping
     public ResponseEntity<ResponseDTO<List<TripResponseDTO>>> getTrips() {

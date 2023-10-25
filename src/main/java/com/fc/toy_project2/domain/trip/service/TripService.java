@@ -4,9 +4,11 @@ import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
 import com.fc.toy_project2.domain.itinerary.entity.Transportation;
 import com.fc.toy_project2.domain.itinerary.entity.Visit;
+import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.entity.Trip;
+import com.fc.toy_project2.domain.trip.exception.InvalidTripDateRangeException;
 import com.fc.toy_project2.domain.trip.exception.TripNotFoundException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripEndDateException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripStartDateException;
@@ -30,6 +32,27 @@ import org.springframework.transaction.annotation.Transactional;
 public class TripService {
 
     private final TripRepository tripRepository;
+
+    /**
+     * 여행 정보 등록
+     *
+     * @param postTripRequestDTO 여행 등록 요청 DTO
+     */
+    public void postTrip(PostTripRequestDTO postTripRequestDTO){
+
+        LocalDate startDate = DateTypeFormatterUtil.dateFormatter(postTripRequestDTO.getStartDate());
+        LocalDate endDate = DateTypeFormatterUtil.dateFormatter(postTripRequestDTO.getEndDate());
+        if (startDate.isAfter(endDate)) {
+            throw new InvalidTripDateRangeException();
+        }
+        Trip trip = Trip.builder()
+            .name(postTripRequestDTO.getTripName())
+            .startDate(startDate)
+            .endDate(endDate)
+            .isDomestic(postTripRequestDTO.getIsDomestic())
+            .build();
+        tripRepository.save(trip);
+    }
 
     /**
      * 여행 정보 목록 조회
