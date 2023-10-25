@@ -36,4 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 /src/main/resources/application.yaml/
+=======
+/src/main/resources/application.yaml/
+>>>>>>> 83477730052721c7e5c4327edaa6f02bd4e6da42

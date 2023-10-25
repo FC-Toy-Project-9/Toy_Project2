@@ -9,6 +9,7 @@ spring:
     hibernate:
       show-sql: true
       ddl-auto: create
+<<<<<<< HEAD
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MariaDBDialect
@@ -20,3 +21,7 @@ spring:
 kakao-api:
   api-url: https://dapi.kakao.com/v2/local/search/keyword.json
   api-key: ee9365450630d3cded7bc8d99d32ec04
+=======
+      jdbc:
+        time_zone: Asia/Seoul
+>>>>>>> 83477730052721c7e5c4327edaa6f02bd4e6da42
