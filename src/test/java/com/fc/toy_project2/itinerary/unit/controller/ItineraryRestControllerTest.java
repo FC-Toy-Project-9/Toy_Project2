@@ -79,7 +79,7 @@ public class ItineraryRestControllerTest {
         @DisplayName("여정 정보를 삭제할 수 있다.")
         void _willSuccess() throws Exception {
             // given, when, then
-            Trip trip = Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
+            Trip trip = Trip.builder().id(1L).name("우도 여행").startDate(LocalDate.of(2023, 10, 25))
                 .endDate(LocalDate.of(2023, 10, 31)).build();
             ItineraryGetResponseDTO itinerary = ItineraryGetResponseDTO.of(1L, trip);
 
