@@ -3,6 +3,7 @@ package com.fc.toy_project2.domain.trip.entity;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
+import com.fc.toy_project2.global.util.DateTypeFormatterUtil;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -81,8 +82,8 @@ public class Trip {
      */
     public void updateTrip(UpdateTripRequestDTO updateTripRequestDTO) {
         this.name = updateTripRequestDTO.getName();
-        this.startDate = stringToLocalDate(updateTripRequestDTO.getStartDate());
-        this.endDate = stringToLocalDate(updateTripRequestDTO.getEndDate());
+        this.startDate = DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getStartDate());
+        this.endDate = DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getEndDate());
         this.isDomestic = updateTripRequestDTO.getIsDomestic();
     }
 
@@ -94,15 +95,5 @@ public class Trip {
      */
     private String localDateToString(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-
-    /**
-     * String 타입을 LocalDate 타입으로 변환
-     *
-     * @param date String 타입의 날짜
-     * @return LocalDate 타입의 날짜
-     */
-    private LocalDate stringToLocalDate(String date) {
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }
