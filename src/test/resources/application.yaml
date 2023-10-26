@@ -3,8 +3,5 @@ spring:
     include: test
   datasource:
     driver-class-name: org.h2.Driver
-
-
-kakao-api:
-  api-url: https://dapi.kakao.com/v2/local/search/keyword.json
-  api-key: ee9365450630d3cded7bc8d99d32ec04
+  config:
+    import: application-secret.yaml
