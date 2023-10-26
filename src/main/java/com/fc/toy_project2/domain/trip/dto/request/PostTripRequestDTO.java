@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostTripRequestDTO {
+
     @NotBlank(message = "여행 이름을 입력하세요.")
     private String tripName;
     @NotBlank(message = "여행 시작일을 입력하세요.(yyyy-MM-dd)")
