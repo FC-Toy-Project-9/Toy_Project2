@@ -10,10 +10,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.snippet.Attributes.key;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -183,7 +181,7 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/trip/{tripId}", 1L))
             .andExpect(status().isOk()).andDo(restDoc.document(
                 pathParameters(parameterWithName("tripId").description("여행 식별자")),
-                responseFields(responseCommon())));
+                responseFields(responseCommon()).and(fieldWithPath("data").type(null).description("응답데이터 없음"))));
         verify(tripService, times(1)).deleteTripById(any(Long.TYPE));
     }
 }
