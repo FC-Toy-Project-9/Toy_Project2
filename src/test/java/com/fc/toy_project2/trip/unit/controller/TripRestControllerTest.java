@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -391,6 +392,27 @@ public class TripRestControllerTest {
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("deleteTripById()는")
+    class Context_deleteTripById {
+
+        @Test
+        @DisplayName("여행 정보를 삭제할 수 있다")
+        void _willSuccess() throws Exception {
+            //given
+            TripResponseDTO trip = TripResponseDTO.builder().id(1L).name("제주도 여행")
+                .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+            given(tripService.getTripById(any(Long.TYPE))).willReturn(trip);
+
+            //when, then
+            mockMvc.perform(delete("/api/trip/{tripId}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
+                .andDo(print());
+            verify(tripService, times(1)).deleteTripById(any(Long.TYPE));
         }
     }
 }

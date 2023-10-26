@@ -202,4 +202,42 @@ public class TripServiceTest {
             verify(tripRepository, times(1)).findById(any(Long.TYPE));
         }
     }
+
+    @Nested
+    @DisplayName("deleteTripById()는 ")
+    class Context_deleteTripById {
+
+        @Test
+        @DisplayName("특정 id를 가진 여행 정보를 삭제할 수 있다.")
+        void _willSuccess() {
+            // given
+            Trip trip = Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
+                    .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true)
+                    .itineraries(new ArrayList<>()).build();
+            given(tripRepository.findById(any(Long.TYPE))).willReturn(Optional.of(trip));
+
+            // when
+            tripService.deleteTripById(1L);
+
+            // then
+            verify(tripRepository, times(1)).findById(any(Long.TYPE));
+            verify(tripRepository, times(1)).delete(trip);
+        }
+
+        @Test
+        @DisplayName("특정 id를 가진 여행 정보를 찾을 수 없으면 삭제할 수 없다.")
+        void tripNotFound_willFail() {
+            // given
+            Optional<Trip> trip = Optional.empty();
+            given(tripRepository.findById(any(Long.TYPE))).willReturn(trip);
+
+            // when, then
+            Throwable exception = assertThrows(TripNotFoundException.class, () -> {
+                tripService.getTripById(1L);
+            });
+            assertEquals("여행 기록을 찾을 수 없습니다.", exception.getMessage());
+            verify(tripRepository, times(1)).findById(any(Long.TYPE));
+            verify(tripRepository, never()).delete(any(Trip.class));
+        }
+    }
 }
