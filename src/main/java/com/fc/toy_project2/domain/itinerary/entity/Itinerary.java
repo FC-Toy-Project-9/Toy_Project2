@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="DTYPE")
+@DiscriminatorColumn(name = "DTYPE")
 public class Itinerary {
 
     @Id
@@ -32,7 +32,7 @@ public class Itinerary {
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    public Itinerary(Long id, Trip trip){
+    public Itinerary(Long id, Trip trip) {
         this.id = id;
         this.trip = trip;
     }

@@ -12,15 +12,4 @@ public class ItineraryAccommodationDTO {
     private String accommodationRoadAddressName;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
-
-    public static ItineraryAccommodationDTO of(String accommodationName,
-        String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut) {
-        return ItineraryAccommodationDTO.builder()
-            .accommodationName(accommodationName)
-            .accommodationRoadAddressName(accommodationRoadAddressName)
-            .checkIn(checkIn)
-            .checkOut(checkOut)
-            .build();
-    }
-
 }

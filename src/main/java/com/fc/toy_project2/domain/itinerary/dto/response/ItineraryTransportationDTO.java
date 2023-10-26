@@ -16,21 +16,4 @@ public class ItineraryTransportationDTO {
     private String destinationRoadAddressName;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
-
-    public static ItineraryTransportationDTO of(String transportation,
-        String departurePlace,
-        String departurePlaceRoadAddressName, String destination,
-        String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        return ItineraryTransportationDTO.builder()
-
-            .transportation(transportation)
-            .departurePlace(departurePlace)
-            .departurePlaceRoadAddressName(departurePlaceRoadAddressName)
-            .destination(destination)
-            .destinationRoadAddressName(destinationRoadAddressName)
-            .departureTime(departureTime)
-            .arrivalTime(arrivalTime)
-            .build();
-    }
-
 }

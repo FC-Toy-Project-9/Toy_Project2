@@ -1,6 +1,5 @@
 package com.fc.toy_project2.domain.itinerary.dto.response;
 
-import com.fc.toy_project2.domain.trip.entity.Trip;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,14 +7,5 @@ import lombok.Getter;
 @Builder
 public class ItineraryGetResponseDTO {
 
-    private Long id;
-    private Trip trip;
-
-    public static ItineraryGetResponseDTO of(Long id, Trip trip) {
-        return ItineraryGetResponseDTO.builder()
-            .id(id)
-            .trip(trip)
-            .build();
-    }
-
+    private Long itineraryId;
 }

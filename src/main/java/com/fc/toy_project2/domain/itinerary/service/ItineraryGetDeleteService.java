@@ -16,14 +16,12 @@ import com.fc.toy_project2.domain.trip.service.TripService;
 import jakarta.annotation.PostConstruct;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -85,9 +83,9 @@ public class ItineraryGetDeleteService {
         for (int i = 0; i < 10; i++) {
             JSONObject documentObj = jsonArray.getJSONObject(i);
             itinerarySearchList.add(
-                ItinerarySearchResponseDTO.of(documentObj.getString("place_name"),
-                    documentObj.getString("road_address_name"),
-                    documentObj.getString("place_url")));
+                ItinerarySearchResponseDTO.builder().placeName(documentObj.getString("place_name"))
+                    .roadAddressName(documentObj.getString("road_address_name"))
+                    .placeUrl(documentObj.getString("place_url")).build());
         }
         return itinerarySearchList;
     }
@@ -108,22 +106,33 @@ public class ItineraryGetDeleteService {
         for (Itinerary itinerary : itineraryList) {
             if (itinerary instanceof Accommodation) {
                 Accommodation accommodation = ((Accommodation) itinerary);
-                itineraryResponseList.add(ItineraryAccommodationDTO.of(
-                    accommodation.getAccommodationName(),
-                    accommodation.getAccommodationRoadAddressName(), accommodation.getCheckIn(),
-                    accommodation.getCheckOut()));
+                itineraryResponseList.add(ItineraryAccommodationDTO.builder()
+                    .accommodationName(accommodation.getAccommodationName())
+                    .accommodationRoadAddressName(accommodation.getAccommodationRoadAddressName())
+                    .checkIn(accommodation.getCheckIn()).checkOut(accommodation.getCheckOut())
+                    .build());
+
+
             } else if (itinerary instanceof Transportation) {
                 Transportation transportation = ((Transportation) itinerary);
-                itineraryResponseList.add(ItineraryTransportationDTO.of(
-                    transportation.getTransportation(), transportation.getDeparturePlace(),
-                    transportation.getDeparturePlaceRoadAddressName(),
-                    transportation.getDestination(), transportation.getDestinationRoadAddressName(),
-                    transportation.getDepartureTime(), transportation.getArrivalTime()));
+                itineraryResponseList.add(ItineraryTransportationDTO.builder()
+                    .transportation(transportation.getTransportation())
+                    .departurePlace(transportation.getDeparturePlace())
+                    .departurePlaceRoadAddressName(
+                        transportation.getDeparturePlaceRoadAddressName())
+                    .destination(transportation.getDestination())
+                    .destinationRoadAddressName(transportation.getDestinationRoadAddressName())
+                    .departureTime(transportation.getDepartureTime())
+                    .arrivalTime(transportation.getArrivalTime()).build());
+
+
             } else if (itinerary instanceof Visit) {
                 Visit visit = ((Visit) itinerary);
-                itineraryResponseList.add(ItineraryVisitDTO.of(visit.getPlaceName(),
-                    visit.getPlaceRoadAddressName(), visit.getArrivalTime(),
-                    visit.getDepartureTime()));
+                itineraryResponseList.add(
+                    ItineraryVisitDTO.builder().placeName(visit.getPlaceName())
+                        .placeRoadAddressName(visit.getPlaceRoadAddressName())
+                        .visitArrivalTime(visit.getArrivalTime())
+                        .visitDepartureTime(visit.getDepartureTime()).build());
             }
         }
         return itineraryResponseList;
@@ -135,12 +144,12 @@ public class ItineraryGetDeleteService {
      * @param itineraryId 여정 Id
      * @return 삭제된 여정 정보
      */
-    public ItineraryGetResponseDTO deleteItinerary(Long itineraryId) throws NotFoundException {
+    public ItineraryGetResponseDTO deleteItinerary(Long itineraryId) {
         Itinerary itinerary = itineraryRepository.findById(itineraryId).orElseThrow(
             ItineraryNotFoundException::new);
         itineraryRepository.delete(itinerary);
-        ItineraryGetResponseDTO itineraryGetResponseDTO = ItineraryGetResponseDTO.of(
-            itinerary.getId(), itinerary.getTrip());
+        ItineraryGetResponseDTO itineraryGetResponseDTO = ItineraryGetResponseDTO.builder()
+            .itineraryId(itinerary.getId()).build();
 
         return itineraryGetResponseDTO;
 
