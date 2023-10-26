@@ -34,7 +34,7 @@ include::{snippets}/trip-rest-controller-docs-test/get-trips/http-request.adoc[]
 include::{snippets}/trip-rest-controller-docs-test/get-trips/http-response.adoc[]
 include::{snippets}/trip-rest-controller-docs-test/get-trips/response-fields.adoc[]
 
-[[trip-Search]]
+[[Trip-Search]]
 == 특정 여행 정보 조회
 
 특정 여행 정보를 조회하는 API 입니다.
@@ -64,7 +64,7 @@ include::{snippets}/trip-rest-controller-docs-test/update-trip/request-fields.ad
 include::{snippets}/trip-rest-controller-docs-test/update-trip/http-response.adoc[]
 include::{snippets}/trip-rest-controller-docs-test/update-trip/response-fields.adoc[]
 
-[[trip-Delete]]
+[[Trip-Delete]]
 == 특정 여행 정보 삭제
 
 특정 여행 정보를 삭제하는 API 입니다.
