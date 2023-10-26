@@ -40,4 +40,4 @@ out/
 **/*.yaml
 
 ### REST Docs Html ###
-**.*.html
+**/*.html
