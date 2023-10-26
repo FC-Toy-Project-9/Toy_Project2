@@ -66,7 +66,7 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isCreated()).andDo(restDoc.document(
                 requestFields(
-                    fieldWithPath("name").type(JsonFieldType.STRING).description("여행 이름")
+                    fieldWithPath("tripName").type(JsonFieldType.STRING).description("여행 이름")
                         .attributes(key("constraints").value(postDescriptions.descriptionsForProperty("tripName"))),
                     fieldWithPath("startDate").type(JsonFieldType.STRING).description("여행 시작일")
                         .attributes(key("constraints").value(postDescriptions.descriptionsForProperty("startDate"))),
