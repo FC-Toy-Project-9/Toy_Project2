@@ -9,8 +9,8 @@
 - [멤버](#멤버)
 - [설정](#설정)
 - [설계](#설계)
-- [DB 설계](#DB-설계)
-- [API 설계](#API-설계)
+    - [DB 설계](#DB-설계)
+    - [API 설계](#API-설계)
 - [개발 내용](#개발-내용)
 - [API 문서](#API-Docs)
 
@@ -91,7 +91,8 @@
 ---
 
 ## API 문서
-※ Spring REST Docs로 문서화했습니다. 
+
+※ Spring REST Docs로 문서화했습니다.
 
 > ![](src/main/resources/image/api_docs_index.png)
 > ![](src/main/resources/image/api_docs_trip.png)
