@@ -5,12 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.entity.Trip;
+import com.fc.toy_project2.domain.trip.exception.InvalidTripDateRangeException;
 import com.fc.toy_project2.domain.trip.exception.TripNotFoundException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripStartDateException;
 import com.fc.toy_project2.domain.trip.repository.TripRepository;
@@ -42,6 +45,46 @@ public class TripServiceTest {
 
     @Mock
     private TripRepository tripRepository;
+
+    @Nested
+    @DisplayName("postTrip()은")
+    class Context_postTrip {
+
+        @Test
+        @DisplayName("여행 정보를 저장할 수 있다.")
+        void _willSuccess() {
+            //given
+            PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+            Trip trip = Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
+                    .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true)
+                    .itineraries(new ArrayList<>()).build();
+            given(tripRepository.save(any(Trip.class))).willReturn(trip);
+
+            // when
+            TripResponseDTO result = tripService.postTrip(postTripRequestDTO);
+
+            // then
+            assertThat(result).extracting("id", "name", "startDate", "endDate", "isDomestic")
+                .containsExactly(1L, "제주도 여행", "2023-10-25", "2023-10-26", true);
+            verify(tripRepository, times(1)).save(any(Trip.class));
+        }
+
+        @Test
+        @DisplayName("여행 종료일이 시작일보다 빠르면 여행 정보를 저장할 수 없다.")
+        void InvalidTripDateRange_willFail() {
+            // given
+            PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                .startDate("2023-10-26").endDate("2023-10-25").isDomestic(true).build();
+
+            // when, then
+            Throwable exception = assertThrows(InvalidTripDateRangeException.class, () -> {
+                tripService.postTrip(postTripRequestDTO);
+            });
+            assertEquals("시작일이 종료일보다 빨라야 합니다.", exception.getMessage());
+            verify(tripRepository, never()).save(any(Trip.class));
+        }
+    }
 
     @Nested
     @DisplayName("getTrips()은 ")
