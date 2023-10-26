@@ -36,9 +36,10 @@ public class TripService {
     /**
      * 여행 정보 등록
      *
-     * @param postTripRequestDTO 여행 등록 요청 DTO
+     * @param postTripRequestDTO 여행 정보 등록 요청 DTO
+     * @return 여행 정보 응답 DTO
      */
-    public void postTrip(PostTripRequestDTO postTripRequestDTO){
+    public TripResponseDTO postTrip(PostTripRequestDTO postTripRequestDTO){
 
         LocalDate startDate = DateTypeFormatterUtil.dateFormatter(postTripRequestDTO.getStartDate());
         LocalDate endDate = DateTypeFormatterUtil.dateFormatter(postTripRequestDTO.getEndDate());
@@ -51,7 +52,7 @@ public class TripService {
             .endDate(endDate)
             .isDomestic(postTripRequestDTO.getIsDomestic())
             .build();
-        tripRepository.save(trip);
+        return tripRepository.save(trip).toTripResponseDTO();
     }
 
     /**

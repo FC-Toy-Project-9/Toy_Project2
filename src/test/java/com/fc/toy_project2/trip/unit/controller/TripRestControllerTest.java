@@ -51,15 +51,21 @@ public class TripRestControllerTest {
             // given
             PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
                 .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
-            Mockito.doNothing().when(tripService).postTrip(postTripRequestDTO);
+            TripResponseDTO trip = TripResponseDTO.builder().id(1L).name("제주도 여행")
+                .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+            given(tripService.postTrip(any(PostTripRequestDTO.class))).willReturn(trip);
 
             // when, then
             mockMvc.perform(post("/api/trip")
                     .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.code").exists())
-                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.data").isMap()).andExpect(jsonPath("$.data.id").exists())
+                .andExpect(jsonPath("$.data.name").exists())
+                .andExpect(jsonPath("$.data.startDate").exists())
+                .andExpect(jsonPath("$.data.endDate").exists())
+                .andExpect(jsonPath("$.data.isDomestic").exists())
                 .andDo(print());
             verify(tripService, times(1)).postTrip((any(PostTripRequestDTO.class)));
         }
