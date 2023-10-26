@@ -16,7 +16,7 @@ include::{snippets}/itinerary-rest-controller-docs-test/get-place-by-keyword/pat
 
 
 === HttpResponse
-include::{snippets{/itinerary-rest-controller-docs-test/get-place-by-keyword/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/get-place-by-keyword/http-response.adoc[]
 include::{snippets}/itinerary-rest-controller-docs-test/get-place-by-keyword/response-fields.adoc[]
 
 [[Itinerary-Search]]
@@ -30,7 +30,7 @@ include::{snippets}/itinerary-rest-controller-docs-test/get-itinerary-by-trip-id
 
 
 === HttpResponse
-include::{snippets{/itinerary-rest-controller-docs-test/get-itinerary-by-trip-id/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/get-itinerary-by-trip-id/http-response.adoc[]
 include::{snippets}/itinerary-rest-controller-docs-test/get-itinerary-by-trip-id/response-fields.adoc[]
 
 
@@ -45,7 +45,7 @@ include::{snippets}/itinerary-rest-controller-docs-test/delete-itinerary/path-pa
 
 
 === HttpResponse
-include::{snippets{/itinerary-rest-controller-docs-test/delete-itinerary/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/delete-itinerary/http-response.adoc[]
 include::{snippets}/itinerary-rest-controller-docs-test/delete-itinerary/response-fields.adoc[]
 
 
