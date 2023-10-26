@@ -1,6 +1,7 @@
 package com.fc.toy_project2.domain.trip.controller;
 
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
+import com.fc.toy_project2.domain.trip.exception.InvalidTripDateRangeException;
 import com.fc.toy_project2.domain.trip.exception.TripNotFoundException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripEndDateException;
 import com.fc.toy_project2.domain.trip.exception.WrongTripStartDateException;
@@ -15,6 +16,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class TripRestControllerAdvice {
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseDTO<TripResponseDTO>> invalidTripDateRangeException(
+        InvalidTripDateRangeException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
 
     @ExceptionHandler
     public ResponseEntity<ResponseDTO<TripResponseDTO>> tripNotFoundException(

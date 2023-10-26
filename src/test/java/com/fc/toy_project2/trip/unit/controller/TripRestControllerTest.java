@@ -5,14 +5,17 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fc.toy_project2.domain.trip.controller.TripRestController;
+import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.service.TripService;
@@ -21,6 +24,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,6 +42,145 @@ public class TripRestControllerTest {
 
     @MockBean
     TripService tripService;
+
+    @Nested
+    @DisplayName("postTrip()은")
+    class Context_postTrip {
+        @Test
+        @DisplayName("여행정보를 저장할 수 있다.")
+        void _willSuccess() throws Exception {
+            // given
+            PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+            TripResponseDTO trip = TripResponseDTO.builder().id(1L).name("제주도 여행")
+                .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+            given(tripService.postTrip(any(PostTripRequestDTO.class))).willReturn(trip);
+
+            // when, then
+            mockMvc.perform(post("/api/trip")
+                    .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.data").isMap()).andExpect(jsonPath("$.data.id").exists())
+                .andExpect(jsonPath("$.data.name").exists())
+                .andExpect(jsonPath("$.data.startDate").exists())
+                .andExpect(jsonPath("$.data.endDate").exists())
+                .andExpect(jsonPath("$.data.isDomestic").exists())
+                .andDo(print());
+            verify(tripService, times(1)).postTrip((any(PostTripRequestDTO.class)));
+        }
+
+        @Nested
+        @DisplayName("name이 ")
+        class Element_name {
+
+            @Test
+            @DisplayName("null일 경우 여행 정보를 저장할 수 없다.")
+            void null_willFail() throws Exception {
+                // given
+                PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName(null)
+                    .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+
+                // when, then
+                mockMvc.perform(post("/api/trip")
+                        .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
+                    .andDo(print());
+                verify(tripService, never()).postTrip(any(PostTripRequestDTO.class));
+            }
+        }
+
+        @Nested
+        @DisplayName("startDate가 ")
+        class Element_startDate {
+
+            @Test
+            @DisplayName("null일 경우 여행 정보를 저장할 수 없다.")
+            void null_willFail() throws Exception {
+                // given
+                PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                    .startDate(null).endDate("2023-10-26").isDomestic(true).build();
+
+                // when, then
+                mockMvc.perform(post("/api/trip")
+                        .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
+                    .andDo(print());
+                verify(tripService, never()).postTrip(any(PostTripRequestDTO.class));
+            }
+
+            @Test
+            @DisplayName("빈 칸일 경우 여행 정보를 저장할 수 없다.")
+            void blank_willFail() throws Exception {
+                // given
+                PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                    .startDate(" ").endDate("2023-10-26").isDomestic(true).build();
+
+                // when, then
+                mockMvc.perform(post("/api/trip")
+                        .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
+                    .andDo(print());
+                verify(tripService, never()).postTrip(any(PostTripRequestDTO.class));
+            }
+        }
+
+        @Nested
+        @DisplayName("endDate가 ")
+        class Element_endDate {
+
+            @Test
+            @DisplayName("null일 경우 여행 정보를 저장할 수 없다.")
+            void null_willFail() throws Exception {
+                // given
+                PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                    .startDate("2023-10-26").endDate(null).isDomestic(true).build();
+
+                // when, then
+                mockMvc.perform(post("/api/trip")
+                        .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
+                    .andDo(print());
+                verify(tripService, never()).postTrip(any(PostTripRequestDTO.class));
+            }
+
+            @Test
+            @DisplayName("빈 칸일 경우 여행 정보를 저장할 수 없다.")
+            void blank_willFail() throws Exception {
+                // given
+                PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                    .startDate("2023-10-26").endDate(" ").isDomestic(true).build();
+
+                // when, then
+                mockMvc.perform(post("/api/trip")
+                        .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
+                    .andDo(print());
+                verify(tripService, never()).postTrip(any(PostTripRequestDTO.class));
+            }
+        }
+
+        @Nested
+        @DisplayName("isDomestic이 ")
+        class Element_isDomestic {
+
+            @Test
+            @DisplayName("null일 경우 여행 정보를 저장할 수 없다.")
+            void null_willFail() throws Exception {
+                // given
+                PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+                    .startDate("2023-10-26").endDate("2023-10-26").isDomestic(null).build();
+
+                // when, then
+                mockMvc.perform(post("/api/trip")
+                        .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
+                    .andDo(print());
+                verify(tripService, never()).postTrip(any(PostTripRequestDTO.class));
+            }
+        }
+    }
 
     @Nested
     @DisplayName("getTrips()은")
@@ -249,6 +392,27 @@ public class TripRestControllerTest {
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("deleteTripById()는")
+    class Context_deleteTripById {
+
+        @Test
+        @DisplayName("여행 정보를 삭제할 수 있다")
+        void _willSuccess() throws Exception {
+            //given
+            TripResponseDTO trip = TripResponseDTO.builder().id(1L).name("제주도 여행")
+                .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+            given(tripService.getTripById(any(Long.TYPE))).willReturn(trip);
+
+            //when, then
+            mockMvc.perform(delete("/api/trip/{tripId}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
+                .andDo(print());
+            verify(tripService, times(1)).deleteTripById(any(Long.TYPE));
         }
     }
 }
