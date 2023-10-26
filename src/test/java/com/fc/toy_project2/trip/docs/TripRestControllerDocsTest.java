@@ -10,12 +10,15 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.snippet.Attributes.key;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fc.toy_project2.domain.trip.controller.TripRestController;
+import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.service.TripService;
@@ -43,8 +46,43 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         return new TripRestController(tripService);
     }
 
-    private final ConstraintDescriptions updateDescriptions = new ConstraintDescriptions(
-        UpdateTripRequestDTO.class);
+    private final ConstraintDescriptions postDescriptions = new ConstraintDescriptions(PostTripRequestDTO.class);
+
+    private final ConstraintDescriptions updateDescriptions = new ConstraintDescriptions(UpdateTripRequestDTO.class);
+
+    @Test
+    @DisplayName("postTrip()은 여행 정보를 저장할 수 있다.")
+    void postTrip() throws Exception {
+        // given
+        PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
+            .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+        TripResponseDTO trip = TripResponseDTO.builder().id(1L).name("제주도 여행")
+            .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+        given(tripService.postTrip(any(PostTripRequestDTO.class))).willReturn(trip);
+
+        // when, then
+        mockMvc.perform(post("/api/trip")
+                .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isCreated()).andDo(restDoc.document(
+                requestFields(
+                    fieldWithPath("name").type(JsonFieldType.STRING).description("여행 이름")
+                        .attributes(key("constraints").value(postDescriptions.descriptionsForProperty("tripName"))),
+                    fieldWithPath("startDate").type(JsonFieldType.STRING).description("여행 시작일")
+                        .attributes(key("constraints").value(postDescriptions.descriptionsForProperty("startDate"))),
+                    fieldWithPath("endDate").type(JsonFieldType.STRING).description("여행 종료일")
+                        .attributes(key("constraints").value(postDescriptions.descriptionsForProperty("endDate"))),
+                    fieldWithPath("isDomestic").type(JsonFieldType.BOOLEAN).description("국내 여행 여부")
+                        .attributes(key("constraints").value(postDescriptions.descriptionsForProperty("isDomestic")))),
+                responseFields(responseCommon()).and(
+                    fieldWithPath("data").type(JsonFieldType.OBJECT).description("응답 데이터"),
+                    fieldWithPath("data.id").type(JsonFieldType.NUMBER).description("여행 식별자"),
+                    fieldWithPath("data.name").type(JsonFieldType.STRING).description("여행 이름"),
+                    fieldWithPath("data.startDate").type(JsonFieldType.STRING).description("여행 시작일"),
+                    fieldWithPath("data.endDate").type(JsonFieldType.STRING).description("여행 종료일"),
+                    fieldWithPath("data.isDomestic").type(JsonFieldType.BOOLEAN).description("국내 여행 여부"))));
+        verify(tripService, times(1)).postTrip((any(PostTripRequestDTO.class)));
+    }
 
     @Test
     @DisplayName("getTrips()은 여행 정보 목록을 조회할 수 있다.")
@@ -131,5 +169,21 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
                     fieldWithPath("data.isDomestic").type(JsonFieldType.BOOLEAN)
                         .description("국내 여행 여부"))));
         verify(tripService, times(1)).updateTrip(any(UpdateTripRequestDTO.class));
+    }
+
+    @Test
+    @DisplayName("deleteTripById()은 특정 id를 가진 여행 정보를 삭제할 수 있다.")
+    void deleteTripById() throws Exception {
+        //given
+        TripResponseDTO trip = TripResponseDTO.builder().id(1L).name("제주도 여행")
+            .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
+        given(tripService.getTripById(any(Long.TYPE))).willReturn(trip);
+
+        //when, then
+        mockMvc.perform(delete("/api/trip/{tripId}", 1L))
+            .andExpect(status().isOk()).andDo(restDoc.document(
+                pathParameters(parameterWithName("tripId").description("여행 식별자")),
+                responseFields(responseCommon())));
+        verify(tripService, times(1)).deleteTripById(any(Long.TYPE));
     }
 }
