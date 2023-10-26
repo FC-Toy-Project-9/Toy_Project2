@@ -41,7 +41,7 @@ public class Trip {
     @Comment("국내 = 1, 국외 = 0")
     private Boolean isDomestic;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Itinerary> itineraries = new ArrayList<>();
 
     /**
