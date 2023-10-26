@@ -31,6 +31,8 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v2.6.0
       with:
+        kakao-api.api-url: ${{ secrets.MY_API_URL }}
+        kakao-api.api-key: ${{ secrets.MY_API_KEY }
         arguments: build
         cache-read-only: ${{ github.ref != 'ref/heads/main' && github.ref != 'ref/heads/develop' }}
   
