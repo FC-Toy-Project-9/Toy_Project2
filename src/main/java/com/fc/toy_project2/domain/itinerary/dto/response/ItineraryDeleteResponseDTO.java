@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ItineraryGetResponseDTO {
+public class ItineraryDeleteResponseDTO {
 
     private Long itineraryId;
 }
