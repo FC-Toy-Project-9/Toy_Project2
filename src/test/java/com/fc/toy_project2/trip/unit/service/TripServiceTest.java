@@ -65,7 +65,7 @@ public class TripServiceTest {
             TripResponseDTO result = tripService.postTrip(postTripRequestDTO);
 
             // then
-            assertThat(result).extracting("id", "name", "startDate", "endDate", "isDomestic")
+            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate", "isDomestic")
                 .containsExactly(1L, "제주도 여행", "2023-10-25", "2023-10-26", true);
             verify(tripRepository, times(1)).save(any(Trip.class));
         }
@@ -134,7 +134,7 @@ public class TripServiceTest {
             TripResponseDTO result = tripService.getTripById(1L);
 
             // then
-            assertThat(result).extracting("id", "name", "startDate", "endDate", "isDomestic")
+            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate", "isDomestic")
                 .containsExactly(1L, "제주도 여행", "2023-10-23", "2023-10-27", true);
             verify(tripRepository, times(1)).findById(any(Long.TYPE));
         }
@@ -163,8 +163,8 @@ public class TripServiceTest {
         @DisplayName("여행 정보를 수정할 수 있다.")
         void _willSuccess() {
             // given
-            UpdateTripRequestDTO updateTripRequestDTO = UpdateTripRequestDTO.builder().id(1L)
-                .name("울릉도 여행").startDate("2023-10-25").endDate("2023-10-26").isDomestic(true)
+            UpdateTripRequestDTO updateTripRequestDTO = UpdateTripRequestDTO.builder().tripId(1L)
+                .tripName("울릉도 여행").startDate("2023-10-25").endDate("2023-10-26").isDomestic(true)
                 .build();
             Optional<Trip> trip = Optional.of(
                 Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 23))
@@ -176,7 +176,7 @@ public class TripServiceTest {
             TripResponseDTO result = tripService.updateTrip(updateTripRequestDTO);
 
             // then
-            assertThat(result).extracting("id", "name", "startDate", "endDate", "isDomestic")
+            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate", "isDomestic")
                 .containsExactly(1L, "울릉도 여행", "2023-10-25", "2023-10-26", true);
             verify(tripRepository, times(1)).findById(any(Long.TYPE));
         }
@@ -185,8 +185,8 @@ public class TripServiceTest {
         @DisplayName("여행 시작일이 알맞지 않으면 수정할 수 없다.")
         void WrongStartDate_willFail() {
             // given
-            UpdateTripRequestDTO updateTripRequestDTO = UpdateTripRequestDTO.builder().id(1L)
-                .name("울릉도 여행").startDate("2023-10-25").endDate("2023-10-24").isDomestic(true)
+            UpdateTripRequestDTO updateTripRequestDTO = UpdateTripRequestDTO.builder().tripId(1L)
+                .tripName("울릉도 여행").startDate("2023-10-25").endDate("2023-10-24").isDomestic(true)
                 .build();
             Optional<Trip> trip = Optional.of(
                 Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 23))

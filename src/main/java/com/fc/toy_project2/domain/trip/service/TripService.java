@@ -80,7 +80,7 @@ public class TripService {
     }
 
     public TripResponseDTO updateTrip(UpdateTripRequestDTO updateTripRequestDTO) {
-        Trip trip = getTrip(updateTripRequestDTO.getId());
+        Trip trip = getTrip(updateTripRequestDTO.getTripId());
         checkTripDate(trip,
             DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getStartDate()),
             DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getEndDate()));
