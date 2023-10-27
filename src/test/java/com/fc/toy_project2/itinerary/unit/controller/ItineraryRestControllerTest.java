@@ -11,13 +11,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fc.toy_project2.domain.itinerary.controller.ItineraryGetDeleteController;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryAccommodationDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryGetResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryDeleteResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.ItinerarySearchResponseDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryTransportationDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryVisitDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryGetDeleteService;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -85,20 +84,20 @@ public class ItineraryRestControllerTest {
         void _willSuccess() throws Exception {
             // given
             List<Object> itinerarys = new ArrayList<>();
-            itinerarys.add(ItineraryAccommodationDTO.builder().accommodationName("제주신라호텔")
+            itinerarys.add(AccommodationResponseDTO.builder().id(1L).accommodationName("제주신라호텔")
                 .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
-                .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
-                .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0)).build());
-            itinerarys.add(ItineraryTransportationDTO.builder()
+                .checkIn("2023-10-25 15:00")
+                .checkOut("2023-10-26 11:00").build());
+            itinerarys.add(TransportationResponseDTO.builder().id(2L)
                 .transportation("카카오택시").departurePlace("제주신라호텔")
                 .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
-                .departureTime(LocalDateTime.of(2023, 10, 26, 12, 0))
-                .arrivalTime(LocalDateTime.of(2023, 10, 26, 13, 0)).build());
-            itinerarys.add(ItineraryVisitDTO.builder().placeName("카멜리아힐")
+                .departureTime("2023-10-26 12:00")
+                .arrivalTime("2023-10-26 13:00").build());
+            itinerarys.add(VisitResponseDTO.builder().id(3L).placeName("카멜리아힐")
                 .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
-                .visitDepartureTime(LocalDateTime.of(2023, 10, 26, 14, 0))
-                .visitArrivalTime(LocalDateTime.of(2023, 10, 26, 16, 0)).build());
+                .departureTime("2023-10-26 14:00")
+                .arrivalTime("2023-10-26 16:00").build());
 
             given(itineraryGetDeleteService.getItineraryByTripId(any(Long.TYPE))).willReturn(
                 itinerarys);
@@ -125,7 +124,7 @@ public class ItineraryRestControllerTest {
         @DisplayName("여정 정보를 삭제할 수 있다.")
         void _willSuccess() throws Exception {
             // given
-            ItineraryGetResponseDTO itinerary = ItineraryGetResponseDTO.builder().itineraryId(1L)
+            ItineraryDeleteResponseDTO itinerary = ItineraryDeleteResponseDTO.builder().itineraryId(1L)
                 .build();
             given(itineraryGetDeleteService.deleteItinerary(any(Long.TYPE))).willReturn(itinerary);
 

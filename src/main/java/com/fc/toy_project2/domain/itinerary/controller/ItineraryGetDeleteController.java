@@ -1,7 +1,7 @@
 package com.fc.toy_project2.domain.itinerary.controller;
 
 
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryGetResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryDeleteResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.ItinerarySearchResponseDTO;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryGetDeleteService;
 import com.fc.toy_project2.global.DTO.ResponseDTO;
@@ -41,7 +41,7 @@ public class ItineraryGetDeleteController {
     }
 
     @DeleteMapping("/{itineraryId}")
-    public ResponseEntity<ResponseDTO<ItineraryGetResponseDTO>> deleteItinerary(
+    public ResponseEntity<ResponseDTO<ItineraryDeleteResponseDTO>> deleteItinerary(
         @PathVariable long itineraryId)
         throws NotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(
