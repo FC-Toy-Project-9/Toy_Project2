@@ -77,17 +77,17 @@ public class ItineraryServiceTest {
             itineraryList.add(visit);
 
             List<Object> itinerarys = new ArrayList<>();
-            itinerarys.add(AccommodationResponseDTO.builder().accommodationName("제주신라호텔")
+            itinerarys.add(AccommodationResponseDTO.builder().itineraryId(1L).accommodationName("제주신라호텔")
                 .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .checkIn(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 25, 15, 0)))
                 .checkOut(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 11, 0))).build());
-            itinerarys.add(TransportationResponseDTO.builder()
+            itinerarys.add(TransportationResponseDTO.builder().itineraryId(2L)
                 .transportation("카카오택시").departurePlace("제주신라호텔")
                 .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
                 .departureTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 12, 0)))
                 .arrivalTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 13, 0))));
-            itinerarys.add(VisitResponseDTO.builder().placeName("카멜리아힐")
+            itinerarys.add(VisitResponseDTO.builder().itineraryId(3L).placeName("카멜리아힐")
                 .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                 .departureTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 14, 0)))
                 .arrivalTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 16, 0))));
