@@ -3,19 +3,18 @@ package com.fc.toy_project2.domain.itinerary.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Builder
 public class AccommodationResponseDTO {
 
+    private Long itineraryId;
     private String accommodationName;
     private String accommodationRoadAddressName;
-    private LocalDateTime checkIn;
-    private LocalDateTime checkOut;
+    private String checkIn;
+    private String checkOut;
 
     public static AccommodationResponseDTO of(String accommodationName,
-                                              String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut) {
+                                              String accommodationRoadAddressName, String checkIn, String checkOut) {
         return AccommodationResponseDTO.builder()
                 .accommodationName(accommodationName)
                 .accommodationRoadAddressName(accommodationRoadAddressName)
@@ -23,5 +22,4 @@ public class AccommodationResponseDTO {
                 .checkOut(checkOut)
                 .build();
     }
-
 }

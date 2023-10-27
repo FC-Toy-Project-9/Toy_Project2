@@ -6,8 +6,8 @@ package com.fc.toy_project2.domain.itinerary.exception;
 public class ItineraryNotFoundException extends RuntimeException {
 
     public ItineraryNotFoundException() {
+
         super("여정 기록을 찾을 수 없습니다.");
     }
 
 }
-
