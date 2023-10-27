@@ -16,20 +16,4 @@ public class TransportationResponseDTO {
     private String destinationRoadAddressName;
     private String departureTime;
     private String arrivalTime;
-
-//    public static TransportationResponseDTO of(String transportation,
-//                                               String departurePlace,
-//                                               String departurePlaceRoadAddressName, String destination,
-//                                               String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-//        return TransportationResponseDTO.builder()
-//
-//                .transportation(transportation)
-//                .departurePlace(departurePlace)
-//                .departurePlaceRoadAddressName(departurePlaceRoadAddressName)
-//                .destination(destination)
-//                .destinationRoadAddressName(destinationRoadAddressName)
-//                .departureTime(departureTime)
-//                .arrivalTime(arrivalTime)
-//                .build();
-//    }
 }

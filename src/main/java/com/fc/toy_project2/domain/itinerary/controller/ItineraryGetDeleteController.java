@@ -40,8 +40,7 @@ public class ItineraryGetDeleteController {
     }
 
     @DeleteMapping("/{itineraryId}")
-    public ResponseEntity<ResponseDTO<ItineraryDeleteResponseDTO>> deleteItinerary(
-            @PathVariable long itineraryId) {
+    public ResponseEntity<ResponseDTO<ItineraryDeleteResponseDTO>> deleteItinerary(@PathVariable long itineraryId) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 ResponseDTO.res(HttpStatus.OK, itineraryGetDeleteService.deleteItinerary(itineraryId),
                         "성공적으로 여정을 삭제했습니다."));

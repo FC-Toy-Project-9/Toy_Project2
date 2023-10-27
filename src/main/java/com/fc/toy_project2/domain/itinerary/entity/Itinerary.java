@@ -60,6 +60,7 @@ public class Itinerary {
 
     private LocalDateTime departureTime;
 
+
     /** 체류 **/
     private String placeName;
 

@@ -27,7 +27,7 @@ public class ResponseDTO<T>{
      * @return 생성된 ResponseDTO 객체
      */
     public static <T> ResponseDTO<T> res (HttpStatus httpStatus, @Nullable T data, String message) {
-        return (ResponseDTO<T>) ResponseDTO.builder()
+        return ResponseDTO.<T>builder()
                 .code(httpStatus.value())
                 .message(message)
                 .data(data)
@@ -43,7 +43,7 @@ public class ResponseDTO<T>{
      * @return 생성된 ResponseDTO 객체
      */
     public static <T> ResponseDTO<T> res (HttpStatus httpStatus, String message) {
-        return (ResponseDTO<T>) ResponseDTO.builder()
+        return ResponseDTO.<T>builder()
                 .code(httpStatus.value())
                 .message(message)
                 .build();

@@ -10,8 +10,8 @@ import lombok.Getter;
 @Builder
 public class TripResponseDTO {
 
-    private Long id;
-    private String name;
+    private Long tripId;
+    private String tripName;
     private String startDate;
     private String endDate;
     private Boolean isDomestic;
