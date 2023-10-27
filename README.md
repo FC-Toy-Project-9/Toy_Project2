@@ -53,18 +53,18 @@
 
 ### API 설계
 
-> | 기능        | Method  | URI                           |
-> |-----------|---------|-------------------------------|
-> | 여행 등록     | POST    | api/trip                      |
-> | 여정 등록     | POST    | api/itinerary                 |
-> | 전체 여행 조회  | GET     | api/trip                      |
-> | 특정 여행 조회  | GET     | api/trip/{trip_id}            |
-> | 여행 수정     | PATCH   | api/trip                      |
-> | 여행 삭제     | DELETE  | api/trip/{trip_id}            |
-> | 여정 조회     | GET     | api/itinerary/{trip_id}       |
-> | 키워드 장소 검색 | GET     | api/itinerary/keyword/{query} |                          |
-> | 여정 수정     | PATCH   | api/itinerary                 |
-> | 여정 삭제     | DELELTE | api/itinerary/{itinerary_id}  |
+> | 기능        | Method  | URI                             |
+> |-----------|---------|---------------------------------|
+> | 여행 등록     | POST    | api/trips                       |
+> | 여정 등록     | POST    | api/itineraries                 |
+> | 전체 여행 조회  | GET     | api/trips                       |
+> | 특정 여행 조회  | GET     | api/trips/{tripId}              |
+> | 여행 수정     | PATCH   | api/trips                       |
+> | 여행 삭제     | DELETE  | api/trips/{tripId}              |
+> | 여정 조회     | GET     | api/itineraries/{tripId}        |
+> | 키워드 장소 검색 | GET     | api/itineraries/keyword/{query} |                          |
+> | 여정 수정     | PATCH   | api/itineraries                 |
+> | 여정 삭제     | DELELTE | api/itineraries/{itineraryId}   |
 ※ 더 상세한 내용은 [REST Docs](#API-Docs)를 통해 확인하실 수 있습니다.
 
 ---
