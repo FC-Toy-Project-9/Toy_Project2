@@ -56,7 +56,7 @@ public class TripRestControllerTest {
             given(tripService.postTrip(any(PostTripRequestDTO.class))).willReturn(trip);
 
             // when, then
-            mockMvc.perform(post("/api/trip")
+            mockMvc.perform(post("/api/trips")
                     .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -82,7 +82,7 @@ public class TripRestControllerTest {
                     .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
 
                 // when, then
-                mockMvc.perform(post("/api/trip")
+                mockMvc.perform(post("/api/trips")
                         .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
@@ -102,7 +102,7 @@ public class TripRestControllerTest {
                     .startDate(null).endDate("2023-10-26").isDomestic(true).build();
 
                 // when, then
-                mockMvc.perform(post("/api/trip")
+                mockMvc.perform(post("/api/trips")
                         .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
@@ -117,7 +117,7 @@ public class TripRestControllerTest {
                     .startDate(" ").endDate("2023-10-26").isDomestic(true).build();
 
                 // when, then
-                mockMvc.perform(post("/api/trip")
+                mockMvc.perform(post("/api/trips")
                         .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
@@ -137,7 +137,7 @@ public class TripRestControllerTest {
                     .startDate("2023-10-26").endDate(null).isDomestic(true).build();
 
                 // when, then
-                mockMvc.perform(post("/api/trip")
+                mockMvc.perform(post("/api/trips")
                         .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
@@ -152,7 +152,7 @@ public class TripRestControllerTest {
                     .startDate("2023-10-26").endDate(" ").isDomestic(true).build();
 
                 // when, then
-                mockMvc.perform(post("/api/trip")
+                mockMvc.perform(post("/api/trips")
                         .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
@@ -172,7 +172,7 @@ public class TripRestControllerTest {
                     .startDate("2023-10-26").endDate("2023-10-26").isDomestic(null).build();
 
                 // when, then
-                mockMvc.perform(post("/api/trip")
+                mockMvc.perform(post("/api/trips")
                         .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
@@ -199,7 +199,7 @@ public class TripRestControllerTest {
             given(tripService.getTrips()).willReturn(trips);
 
             // when, then
-            mockMvc.perform(get("/api/trip")).andExpect(status().isOk())
+            mockMvc.perform(get("/api/trips")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
                 .andExpect(jsonPath("$.data").isArray())
                 .andExpect(jsonPath("$.data[0].tripId").exists())
@@ -224,7 +224,7 @@ public class TripRestControllerTest {
             given(tripService.getTripById(any(Long.TYPE))).willReturn(trip);
 
             // when, then
-            mockMvc.perform(get("/api/trip/{tripId}", 1L)).andExpect(status().isOk())
+            mockMvc.perform(get("/api/trips/{tripId}", 1L)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
                 .andExpect(jsonPath("$.data").isMap()).andExpect(jsonPath("$.data.tripId").exists())
                 .andExpect(jsonPath("$.data.tripName").exists())
@@ -251,7 +251,7 @@ public class TripRestControllerTest {
 
             // when, then
             mockMvc.perform(
-                    patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                    patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
                 .andExpect(jsonPath("$.data").isMap()).andExpect(jsonPath("$.data.tripId").exists())
@@ -276,7 +276,7 @@ public class TripRestControllerTest {
 
                 // when, then
                 mockMvc.perform(
-                        patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                        patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
@@ -296,7 +296,7 @@ public class TripRestControllerTest {
 
                 // when, then
                 mockMvc.perform(
-                        patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                        patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
@@ -316,7 +316,7 @@ public class TripRestControllerTest {
 
                 // when, then
                 mockMvc.perform(
-                        patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                        patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
@@ -331,7 +331,7 @@ public class TripRestControllerTest {
 
                 // when, then
                 mockMvc.perform(
-                        patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                        patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
@@ -351,7 +351,7 @@ public class TripRestControllerTest {
 
                 // when, then
                 mockMvc.perform(
-                        patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                        patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
@@ -366,7 +366,7 @@ public class TripRestControllerTest {
 
                 // when, then
                 mockMvc.perform(
-                        patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                        patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
@@ -386,7 +386,7 @@ public class TripRestControllerTest {
 
                 // when, then
                 mockMvc.perform(
-                        patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+                        patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
                             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest())
                     .andDo(print());
                 verify(tripService, never()).updateTrip(any(UpdateTripRequestDTO.class));
@@ -407,7 +407,7 @@ public class TripRestControllerTest {
             given(tripService.getTripById(any(Long.TYPE))).willReturn(trip);
 
             //when, then
-            mockMvc.perform(delete("/api/trip/{tripId}", 1L))
+            mockMvc.perform(delete("/api/trips/{tripId}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").exists()).andExpect(jsonPath("$.message").exists())
                 .andDo(print());

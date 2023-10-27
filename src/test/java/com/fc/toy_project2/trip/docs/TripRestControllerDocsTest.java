@@ -59,7 +59,7 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         given(tripService.postTrip(any(PostTripRequestDTO.class))).willReturn(trip);
 
         // when, then
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/api/trip")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/api/trips")
                 .content(new ObjectMapper().writeValueAsString(postTripRequestDTO))
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isCreated()).andDo(restDoc.document(
@@ -96,7 +96,7 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         given(tripService.getTrips()).willReturn(trips);
 
         // when, then
-        mockMvc.perform(get("/api/trip")).andExpect(status().isOk()).andDo(restDoc.document(
+        mockMvc.perform(get("/api/trips")).andExpect(status().isOk()).andDo(restDoc.document(
             responseFields(responseCommon()).and(
                 fieldWithPath("data").type(JsonFieldType.ARRAY).description("응답 데이터"),
                 fieldWithPath("data[].tripId").type(JsonFieldType.NUMBER).description("여행 식별자"),
@@ -116,7 +116,7 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         given(tripService.getTripById(any(Long.TYPE))).willReturn(trip);
 
         // when, then
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/trip/{tripId}", 1L))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/trips/{tripId}", 1L))
             .andExpect(status().isOk()).andDo(
                 restDoc.document(pathParameters(parameterWithName("tripId").description("여행 식별자")),
                     responseFields(responseCommon()).and(
@@ -141,7 +141,7 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         given(tripService.updateTrip(any(UpdateTripRequestDTO.class))).willReturn(trip);
 
         // when, then
-        mockMvc.perform(patch("/api/trip").content(new ObjectMapper().writeValueAsString(request))
+        mockMvc.perform(patch("/api/trips").content(new ObjectMapper().writeValueAsString(request))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(
             restDoc.document(requestFields(
                     fieldWithPath("tripId").type(JsonFieldType.NUMBER).description("여행 식별자").attributes(
@@ -178,7 +178,7 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         given(tripService.getTripById(any(Long.TYPE))).willReturn(trip);
 
         //when, then
-        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/trip/{tripId}", 1L))
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/trips/{tripId}", 1L))
             .andExpect(status().isOk()).andDo(restDoc.document(
                 pathParameters(parameterWithName("tripId").description("여행 식별자")),
                 responseFields(responseCommon()).and(fieldWithPath("data").type(null).description("응답데이터 없음"))));
