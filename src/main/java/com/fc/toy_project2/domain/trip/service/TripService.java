@@ -122,12 +122,12 @@ public class TripService {
         LocalDate max = LocalDate.MAX;
         for (Itinerary itinerary : itineraries) {
             if (itinerary.getType() == 0) {
-                if (itinerary.getDepartureTime().toLocalDate().isBefore(max)) {
-                    max = itinerary.getDepartureTime().toLocalDate();
-                }
-            } else if (itinerary.getType() == 1) {
                 if (itinerary.getCheckIn().toLocalDate().isBefore(max)) {
                     max = itinerary.getCheckIn().toLocalDate();
+                }
+            } else if (itinerary.getType() == 1) {
+                if (itinerary.getDepartureTime().toLocalDate().isBefore(max)) {
+                    max = itinerary.getDepartureTime().toLocalDate();
                 }
             } else if (itinerary.getType() == 2) {
                 if (itinerary.getArrivalTime().toLocalDate().isBefore(max)) {
@@ -148,12 +148,12 @@ public class TripService {
         LocalDate min = LocalDate.MIN;
         for (Itinerary itinerary : itineraries) {
             if (itinerary.getType() == 0) {
-                if (itinerary.getArrivalTime().toLocalDate().isAfter(min)) {
-                    min = itinerary.getArrivalTime().toLocalDate();
-                }
-            } else if (itinerary.getType() == 1) {
                 if (itinerary.getCheckOut().toLocalDate().isAfter(min)) {
                     min = itinerary.getCheckOut().toLocalDate();
+                }
+            } else if (itinerary.getType() == 1) {
+                if (itinerary.getArrivalTime().toLocalDate().isAfter(min)) {
+                    min = itinerary.getArrivalTime().toLocalDate();
                 }
             } else if (itinerary.getType() == 2) {
                 if (itinerary.getDepartureTime().toLocalDate().isAfter(min)) {
