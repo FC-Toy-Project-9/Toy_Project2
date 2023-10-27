@@ -22,27 +22,27 @@ public class ItineraryPostController {
     private final ItineraryPostUpdateService itinerarypostUpdateService;
 
 
-    @PostMapping("/accommodation/{tripId}")
-    public ResponseEntity<ResponseDTO<AccommodationResponseDTO>> createAccommodation(@PathVariable Long tripId,
+    @PostMapping("/accommodation/{tripId}/{itineraryId}")
+    public ResponseEntity<ResponseDTO<AccommodationResponseDTO>> createAccommodation(@PathVariable Long tripId, @PathVariable Long itineraryId,
                                                                                      @Valid @RequestBody ItineraryAccommodationCreateDTO itineraryAccommodationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.CREATED,
-                itinerarypostUpdateService.createAccommodation(itineraryAccommodationCreateDTO, tripId),
+                itinerarypostUpdateService.Accommodation(itineraryAccommodationCreateDTO, tripId, itineraryId),
                 "숙박 여정을 성공적으로 등록했습니다."));
     }
 
-    @PostMapping("/transportation/{tripId}")
-    public ResponseEntity<ResponseDTO<TransportationResponseDTO>> createTransportation(@PathVariable Long tripId,
+    @PostMapping("/transportation/{tripId}/{itineraryId}")
+    public ResponseEntity<ResponseDTO<TransportationResponseDTO>> createTransportation(@PathVariable Long tripId,@PathVariable Long itineraryId,
                                                                                        @Valid @RequestBody ItineraryTransportationCreateDTO itineraryTransportationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.CREATED,
-                itinerarypostUpdateService.createTransportation(itineraryTransportationCreateDTO, tripId),
+                itinerarypostUpdateService.Transportation(itineraryTransportationCreateDTO, tripId, itineraryId),
                 "이동 여정을 성공적으로 등록했습니다."));
     }
 
-    @PostMapping("/visit/{tripId}")
-    public ResponseEntity<ResponseDTO<VisitResponseDTO>> createVisit(@PathVariable Long tripId,
+    @PostMapping("/visit/{tripId}/{itineraryId}")
+    public ResponseEntity<ResponseDTO<VisitResponseDTO>> createVisit(@PathVariable Long tripId, @PathVariable Long itineraryId,
                                                                      @Valid @RequestBody ItineraryVisitCreateDTO itineraryVisitCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.CREATED,
-                itinerarypostUpdateService.createVisit(itineraryVisitCreateDTO, tripId),
+                itinerarypostUpdateService.Visit(itineraryVisitCreateDTO, tripId, itineraryId),
                 "체류 여정을 성공적으로 등록했습니다."));
     }
 }

@@ -92,8 +92,8 @@ class ItineraryPostControllerTest {
                 .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .destination("오설록 티 뮤지엄")
                 .destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
-                .departureTime(LocalDateTime.of(2023, 10, 26, 12, 0, 0))
-                .arrivalTime(LocalDateTime.of(2023, 10, 26, 13, 0, 0))
+                .departureTime(String.valueOf(LocalDateTime.of(2023, 10, 26, 12, 0, 0)))
+                .arrivalTime(String.valueOf(LocalDateTime.of(2023, 10, 26, 13, 0, 0)))
                 .build();
         given(itineraryPostUpdateService.createTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L))).willReturn(expectedResponse);
 

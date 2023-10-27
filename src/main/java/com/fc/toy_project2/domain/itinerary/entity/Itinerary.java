@@ -1,6 +1,8 @@
 package com.fc.toy_project2.domain.itinerary.entity;
 
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
 import com.fc.toy_project2.domain.trip.entity.Trip;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -54,14 +56,18 @@ public class Itinerary {
 
     private String destinationRoadAddressName;
 
+    private LocalDateTime arrivalTime;
+
+    private LocalDateTime departureTime;
+
     /** 체류 **/
     private String placeName;
 
     private String placeRoadAddressName;
 
-    private LocalDateTime arrivalTime;
+    private LocalDateTime visitArrivalTime;
 
-    private LocalDateTime departureTime;
+    private LocalDateTime visitDepartureTime;
 
     public AccommodationResponseDTO toAccommodationResponseDTO(){
     return AccommodationResponseDTO.builder()
@@ -72,34 +78,62 @@ public class Itinerary {
             .build();
     }
 
+    public TransportationResponseDTO toTransportationResponseDTO(){
+    return TransportationResponseDTO.builder()
+            .transportation(this.transportation)
+            .departurePlace(this.departurePlace)
+            .departurePlaceRoadAddressName(this.departurePlaceRoadAddressName)
+            .destination(this.destination)
+            .destinationRoadAddressName(this.destinationRoadAddressName)
+            .departureTime(String.valueOf(this.departureTime))
+            .arrivalTime(String.valueOf(this.arrivalTime))
+            .build();
+    }
+
+    public VisitResponseDTO toVisitResponseDTO(){
+    return VisitResponseDTO.builder()
+            .placeName(this.placeName)
+            .placeRoadAddressName(this.placeRoadAddressName)
+            .departureTime(String.valueOf(this.departureTime))
+            .arrivalTime(String.valueOf(this.arrivalTime))
+            .build();
+    }
+    public void updateAccommodationInfo(
+            String accommodationName,
+            String accommodationRoadAddressName,
+            LocalDateTime checkIn,
+            LocalDateTime checkOut) {
+        this.accommodationName = accommodationName;
+        this.accommodationRoadAddressName = accommodationRoadAddressName;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
+
+    public void updateTransportationInfo(
+            String transportation,
+            String departurePlace,
+            String departurePlaceRoadAddressName,
+            String destination,
+            String destinationRoadAddressName,
+            LocalDateTime departureTime,
+            LocalDateTime arrivalTime) {
+        this.transportation = transportation;
+        this.departurePlace = departurePlace;
+        this.departurePlaceRoadAddressName = departurePlaceRoadAddressName;
+        this.destination = destination;
+        this.destinationRoadAddressName = destinationRoadAddressName;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+    }
+
+    public void updateVisitInfo(
+            String placeName,
+            String placeRoadAddressName,
+            LocalDateTime visitDepartureTime,
+            LocalDateTime visitArrivalTime) {
+        this.placeName = placeName;
+        this.placeRoadAddressName = placeRoadAddressName;
+        this.visitDepartureTime = visitDepartureTime;
+        this.visitArrivalTime = visitArrivalTime;
+    }
 }
-//package com.fc.toy_project2.domain.itinerary.entity;
-//
-//import com.fc.toy_project2.domain.trip.entity.Trip;
-//import jakarta.persistence.*;
-//import lombok.AccessLevel;
-//import lombok.Getter;
-//import lombok.NoArgsConstructor;
-//import lombok.experimental.SuperBuilder;
-//
-//@SuperBuilder
-//@Getter
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn(name = "DTYPE")
-//public class Itinerary {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "trip_id")
-//    private Trip trip;
-//
-//    public Itinerary(Long id, Trip trip) {
-//        this.id = id;
-//        this.trip = trip;
-//    }
-//}

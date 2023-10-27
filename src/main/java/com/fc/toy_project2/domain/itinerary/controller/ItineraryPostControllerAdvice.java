@@ -1,6 +1,6 @@
 package com.fc.toy_project2.domain.itinerary.controller;
 
-import com.fc.toy_project2.domain.itinerary.dto.response.GetResponseDTO;
+//import com.fc.toy_project2.domain.itinerary.dto.response.GetResponseDTO;
 import com.fc.toy_project2.domain.itinerary.exception.InvalidAccommodationException;
 import com.fc.toy_project2.domain.itinerary.exception.InvalidTransportationException;
 import com.fc.toy_project2.domain.itinerary.exception.InvalidVisitException;
@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ItineraryPostControllerAdvice {
 
     @ExceptionHandler
-    public ResponseEntity<ResponseDTO<GetResponseDTO>> invalidAccommodationException(
+    public ResponseEntity<ResponseDTO> invalidAccommodationException(
             InvalidAccommodationException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<ResponseDTO<GetResponseDTO>> invalidTransportationException(
+    public ResponseEntity<ResponseDTO> invalidTransportationException(
             InvalidTransportationException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<ResponseDTO<GetResponseDTO>> invalidVisitException(
+    public ResponseEntity<ResponseDTO> invalidVisitException(
             InvalidVisitException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));

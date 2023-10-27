@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ItineraryRepository extends JpaRepository<Itinerary, Long> {
 
     List<Itinerary> findAllByTripId(Long tripId);
+    Itinerary findByTripIdAndId(Long tripId, Long id);
+
 }

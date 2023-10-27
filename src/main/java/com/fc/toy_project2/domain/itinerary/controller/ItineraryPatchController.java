@@ -1,8 +1,8 @@
 package com.fc.toy_project2.domain.itinerary.controller;
 
-import com.fc.toy_project2.domain.itinerary.dto.request.patchDTO.ItineraryAccommodationPatchDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.patchDTO.ItineraryVisitPatchDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.patchDTO.ItineraryTransportationPatchDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryAccommodationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryTransportationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisitCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
@@ -23,25 +23,25 @@ public class ItineraryPatchController {
 
     @PatchMapping("/accommodation/{tripId}/{itineraryId}")
     public ResponseEntity<ResponseDTO<AccommodationResponseDTO>> updateAccommodation(@PathVariable Long tripId, @PathVariable Long itineraryId,
-                                                                                     @Valid @RequestBody ItineraryAccommodationPatchDTO ItineraryAccommodationPatchDTO) {
+                                                                                     @Valid @RequestBody ItineraryAccommodationCreateDTO itineraryAccommodationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.OK,
-                itinerarypostUpdateService.patchAccommodation(ItineraryAccommodationPatchDTO, tripId, itineraryId),
+                itinerarypostUpdateService.Accommodation(itineraryAccommodationCreateDTO, tripId, itineraryId),
                 "숙박 여정을 성공적으로 수정했습니다."));
     }
 
     @PatchMapping("/transportation/{tripId}/{itineraryId}")
     public ResponseEntity<ResponseDTO<TransportationResponseDTO>> updateTransportation(@PathVariable Long tripId, @PathVariable Long itineraryId,
-                                                                                       @Valid @RequestBody ItineraryTransportationPatchDTO itineraryTransportationPatchDTO) {
+                                                                                       @Valid @RequestBody ItineraryTransportationCreateDTO itineraryTransportationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.OK,
-                itinerarypostUpdateService.patchTransportation(itineraryTransportationPatchDTO, tripId, itineraryId),
+                itinerarypostUpdateService.Transportation(itineraryTransportationCreateDTO, tripId, itineraryId),
                 "이동 여정을 성공적으로 수정했습니다."));
     }
 
     @PatchMapping("/visit/{tripId}/{itineraryId}")
     public ResponseEntity<ResponseDTO<VisitResponseDTO>> updateVisit(@PathVariable Long tripId, @PathVariable Long itineraryId,
-                                                                     @Valid @RequestBody ItineraryVisitPatchDTO itineraryVisitPatchDTO) {
+                                                                     @Valid @RequestBody ItineraryVisitCreateDTO itineraryVisitCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.OK,
-                itinerarypostUpdateService.patchVisit(itineraryVisitPatchDTO, tripId, itineraryId),
+                itinerarypostUpdateService.Visit(itineraryVisitCreateDTO, tripId, itineraryId),
                 "체류 여정을 성공적으로 수정했습니다."));
     }
 }
