@@ -19,7 +19,6 @@ public class DateTypeFormatterUtil {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             return LocalDateTime.parse(dateTimeString, formatter);
         }catch (DateTimeParseException e){
-            e.printStackTrace();
             throw new InvalidDateFormatException();
         }
     }
@@ -35,7 +34,6 @@ public class DateTypeFormatterUtil {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             return LocalDate.parse(dateString, formatter);
         }catch (DateTimeParseException e){
-            e.printStackTrace();
             throw new InvalidDateFormatException();
         }
     }

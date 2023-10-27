@@ -20,7 +20,6 @@ import org.hibernate.annotations.Comment;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@DiscriminatorColumn(name="DTYPE")
 public class Itinerary {
 
     @Id

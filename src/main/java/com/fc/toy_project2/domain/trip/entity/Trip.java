@@ -70,7 +70,7 @@ public class Trip {
      * @return TripResponseDTO
      */
     public TripResponseDTO toTripResponseDTO() {
-        return TripResponseDTO.builder().id(this.id).name(this.name)
+        return TripResponseDTO.builder().tripId(this.id).tripName(this.name)
             .startDate(localDateToString(this.startDate)).endDate(localDateToString(this.endDate))
             .isDomestic(this.isDomestic).build();
     }
@@ -81,7 +81,7 @@ public class Trip {
      * @param updateTripRequestDTO 여행 정보 수정 요청 DTO
      */
     public void updateTrip(UpdateTripRequestDTO updateTripRequestDTO) {
-        this.name = updateTripRequestDTO.getName();
+        this.name = updateTripRequestDTO.getTripName();
         this.startDate = DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getStartDate());
         this.endDate = DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getEndDate());
         this.isDomestic = updateTripRequestDTO.getIsDomestic();
