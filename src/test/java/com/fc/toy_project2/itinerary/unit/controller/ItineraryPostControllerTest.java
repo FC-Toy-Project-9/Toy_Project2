@@ -5,9 +5,9 @@ import com.fc.toy_project2.domain.itinerary.controller.ItineraryPostController;
 import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryAccommodationCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryTransportationCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisitCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryAccommodationResponseDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryTransportationResponseDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryVisitResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryPostUpdateService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -49,7 +49,7 @@ class ItineraryPostControllerTest {
                     .checkIn("2023-10-25 15:00:00")
                     .checkOut("2023-10-26 11:00:00")
                     .build();
-            ItineraryAccommodationResponseDTO expectedResponse = ItineraryAccommodationResponseDTO.builder()
+            AccommodationResponseDTO expectedResponse = AccommodationResponseDTO.builder()
                     .accommodationName("제주신라호텔")
                     .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                     .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
@@ -86,7 +86,7 @@ class ItineraryPostControllerTest {
                 .departureTime("2023-10-26 12:00:00")
                 .arrivalTime("2023-10-26 13:00:00")
                 .build();
-        ItineraryTransportationResponseDTO expectedResponse = ItineraryTransportationResponseDTO.builder()
+        TransportationResponseDTO expectedResponse = TransportationResponseDTO.builder()
                 .transportation("카카오택시")
                 .departurePlace("제주신라호텔")
                 .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
@@ -125,7 +125,7 @@ class ItineraryPostControllerTest {
                 .departureTime("2023-10-26 14:00:00")
                 .arrivalTime("2023-10-26 16:00:00")
                 .build();
-        ItineraryVisitResponseDTO expectedResponse = ItineraryVisitResponseDTO.builder()
+        VisitResponseDTO expectedResponse = VisitResponseDTO.builder()
                 .placeName("카멜리아힐")
                 .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                 .departureTime(LocalDateTime.of(2023, 10, 26, 14, 0, 0))

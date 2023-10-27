@@ -6,13 +6,14 @@ import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisit
 import com.fc.toy_project2.domain.itinerary.dto.request.patchDTO.ItineraryAccommodationPatchDTO;
 import com.fc.toy_project2.domain.itinerary.dto.request.patchDTO.ItineraryTransportationPatchDTO;
 import com.fc.toy_project2.domain.itinerary.dto.request.patchDTO.ItineraryVisitPatchDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryAccommodationResponseDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryTransportationResponseDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryVisitResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
 import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Transportation;
 import com.fc.toy_project2.domain.itinerary.entity.Visit;
 import com.fc.toy_project2.domain.itinerary.exception.InvalidAccommodationException;
+import com.fc.toy_project2.domain.itinerary.exception.InvalidVisitException;
 import com.fc.toy_project2.domain.itinerary.exception.InvalidTransportationException;
 import com.fc.toy_project2.domain.itinerary.repository.AccommodationRepository;
 import com.fc.toy_project2.domain.itinerary.repository.TransportationRepository;
@@ -46,7 +47,7 @@ public class ItineraryPostUpdateService {
      * @param tripId                          여정을 추가할 여행의 ID
      * @return 생성된 숙박 여정 응답 DTO
      */
-    public ItineraryAccommodationResponseDTO createAccommodation(
+    public AccommodationResponseDTO createAccommodation(
             ItineraryAccommodationCreateDTO itineraryAccommodationCreateDTO, Long tripId) {
 
         LocalDateTime checkIn = DateTypeFormatterUtil.dateTimeFormatter(itineraryAccommodationCreateDTO.getCheckIn());
@@ -94,7 +95,7 @@ public class ItineraryPostUpdateService {
      * @param tripId                           여정을 추가할 여행의 ID
      * @return 생성된 이동에 관한 여정 응답 DTO
      */
-    public ItineraryTransportationResponseDTO createTransportation(
+    public TransportationResponseDTO createTransportation(
             ItineraryTransportationCreateDTO itineraryTransportationCreateDTO, Long tripId) {
         Trip trip = tripService.getTrip(tripId);
 
@@ -123,7 +124,7 @@ public class ItineraryPostUpdateService {
      * @param tripId                  여정을 추가할 여행의 ID
      * @return 생성된 체류에 관한 여정 응답 DTO
      */
-    public ItineraryVisitResponseDTO createVisit(
+    public VisitResponseDTO createVisit(
             ItineraryVisitCreateDTO itineraryVisitCreateDTO, Long tripId) {
         Trip trip = tripService.getTrip(tripId);
 
@@ -174,12 +175,13 @@ public class ItineraryPostUpdateService {
      * @throws EntityNotFoundException        숙박 여정을 찾을 수 없는 경우
      * @throws InvalidAccommodationException 숙박 여정이 주어진 여행에 속해 있지 않거나 날짜 유효성 검사 실패 시 발생
      */
-    public ItineraryAccommodationResponseDTO patchAccommodation(
+    public AccommodationResponseDTO patchAccommodation(
             ItineraryAccommodationPatchDTO patchDTO, Long tripId, Long itineraryId) {
 
         Accommodation existingAccommodation = (Accommodation) accommodationRepository.findById(itineraryId)
                 .orElseThrow(() -> new EntityNotFoundException("숙박 여정을 찾을 수 없습니다."));
 
+        System.out.println(existingAccommodation);
         Trip trip = tripService.getTrip(tripId);
         if (!existingAccommodation.getTrip().equals(trip)) {
             throw new InvalidAccommodationException("숙박 여정이 주어진 여행에 속해 있지 않습니다.");
@@ -205,7 +207,7 @@ public class ItineraryPostUpdateService {
      * @throws EntityNotFoundException           이동 여정을 찾을 수 없는 경우
      * @throws InvalidTransportationException    이동 여정이 주어진 여행에 속해 있지 않거나 날짜 유효성 검사 실패 시 발생
      */
-    public ItineraryTransportationResponseDTO patchTransportation(
+    public TransportationResponseDTO patchTransportation(
             ItineraryTransportationPatchDTO patchDTO, Long tripId, Long itineraryId) {
 
         Transportation existingTransportation = (Transportation) transportationRepository.findById(itineraryId)
@@ -236,15 +238,16 @@ public class ItineraryPostUpdateService {
      * @throws EntityNotFoundException        체류 여정을 찾을 수 없는 경우
      * @throws InvalidAccommodationException 체류 여정이 주어진 여행에 속해 있지 않거나 날짜 유효성 검사 실패 시 발생
      */
-    public ItineraryVisitResponseDTO patchVisit(
+    public VisitResponseDTO patchVisit(
             ItineraryVisitPatchDTO patchDTO, Long tripId, Long itineraryId) {
 
-        Visit existingVisit = (Visit) visitRepository.findById(itineraryId)
+        System.out.println(visitRepository.findById(itineraryId));
+        Visit existingVisit = visitRepository.findById(itineraryId)
                 .orElseThrow(() -> new EntityNotFoundException("숙박 여정을 찾을 수 없습니다."));
 
         Trip trip = tripService.getTrip(tripId);
         if (!existingVisit.getTrip().equals(trip)) {
-            throw new InvalidAccommodationException("숙박 여정이 주어진 여행에 속해 있지 않습니다.");
+            throw new InvalidVisitException("체류 여정이 주어진 여행에 속해 있지 않습니다.");
         }
 
         // ItineraryAccommodationPatchDTO에서 엔티티로 값 복사

@@ -1,6 +1,6 @@
 package com.fc.toy_project2.domain.itinerary.entity;
 
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryAccommodationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,8 +21,8 @@ public class Accommodation extends Itinerary {
     private LocalDateTime checkOut;
     private String accommodationRoadAddressName;
 
-    public ItineraryAccommodationResponseDTO toAccommodationResponseDTO(){
-        return ItineraryAccommodationResponseDTO.builder()
+    public AccommodationResponseDTO toAccommodationResponseDTO(){
+        return AccommodationResponseDTO.builder()
                 .accommodationName(this.accommodationName)
                 .accommodationRoadAddressName(this.accommodationRoadAddressName)
                 .checkIn(this.checkIn)

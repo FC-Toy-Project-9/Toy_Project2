@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
-public class ItineraryTransportationResponseDTO {
+public class TransportationResponseDTO {
 
     private String transportation;
     private String departurePlace;
@@ -18,11 +18,11 @@ public class ItineraryTransportationResponseDTO {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
 
-    public static ItineraryTransportationResponseDTO of(String transportation,
-                                                        String departurePlace,
-                                                        String departurePlaceRoadAddressName, String destination,
-                                                        String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        return ItineraryTransportationResponseDTO.builder()
+    public static TransportationResponseDTO of(String transportation,
+                                               String departurePlace,
+                                               String departurePlaceRoadAddressName, String destination,
+                                               String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        return TransportationResponseDTO.builder()
 
                 .transportation(transportation)
                 .departurePlace(departurePlace)

@@ -6,12 +6,12 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ItineraryGetResponseDTO {
+public class GetResponseDTO {
 
     private Long id;
     private Trip trip;
-    public static ItineraryGetResponseDTO of(Long id, Trip trip) {
-        return ItineraryGetResponseDTO.builder()
+    public static GetResponseDTO of(Long id, Trip trip) {
+        return GetResponseDTO.builder()
                 .id(id)
                 .trip(trip)
                 .build();

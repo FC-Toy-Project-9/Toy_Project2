@@ -14,6 +14,6 @@ public class ItineraryTransportationPatchDTO {
     private String departurePlaceRoadAddressName;
     private String destination;
     private String destinationRoadAddressName;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    private String departureTime;
+    private String arrivalTime;
 }

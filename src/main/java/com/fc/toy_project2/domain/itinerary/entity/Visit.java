@@ -1,6 +1,6 @@
 package com.fc.toy_project2.domain.itinerary.entity;
 
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryVisitResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,10 +21,10 @@ public class Visit extends Itinerary {
     private LocalDateTime arrivalTime;
     private LocalDateTime departureTime;
 
-    public ItineraryVisitResponseDTO toVisitResponseDTO(){
-        return ItineraryVisitResponseDTO.builder()
+    public VisitResponseDTO toVisitResponseDTO(){
+        return VisitResponseDTO.builder()
                 .placeName(this.placeName)
-                .arrivalTime(this.arrivalTime)
+                .placeRoadAddressName(this.placeRoadAddressName)
                 .departureTime(this.departureTime)
                 .arrivalTime(this.arrivalTime)
                 .build();

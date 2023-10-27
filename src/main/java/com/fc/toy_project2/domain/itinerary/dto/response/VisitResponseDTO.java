@@ -6,16 +6,16 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 @Getter
 @Builder
-public class ItineraryVisitResponseDTO {
+public class VisitResponseDTO {
     private String placeName;
     private String placeRoadAddressName;
     private LocalDateTime arrivalTime;
     private LocalDateTime departureTime;
 
 
-    public static ItineraryVisitResponseDTO of(String placeName, String placeRoadAddressName,
-                                               LocalDateTime arrivalTime, LocalDateTime departureTime) {
-        return ItineraryVisitResponseDTO.builder()
+    public static VisitResponseDTO of(String placeName, String placeRoadAddressName,
+                                      LocalDateTime arrivalTime, LocalDateTime departureTime) {
+        return VisitResponseDTO.builder()
                 .placeName(placeName)
                 .arrivalTime(arrivalTime)
                 .departureTime(departureTime)

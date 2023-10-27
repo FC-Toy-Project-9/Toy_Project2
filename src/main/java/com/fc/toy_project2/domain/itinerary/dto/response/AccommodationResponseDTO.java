@@ -7,16 +7,16 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
-public class ItineraryAccommodationResponseDTO {
+public class AccommodationResponseDTO {
 
     private String accommodationName;
     private String accommodationRoadAddressName;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
 
-    public static ItineraryAccommodationResponseDTO of(String accommodationName,
-                                                       String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut) {
-        return ItineraryAccommodationResponseDTO.builder()
+    public static AccommodationResponseDTO of(String accommodationName,
+                                              String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut) {
+        return AccommodationResponseDTO.builder()
                 .accommodationName(accommodationName)
                 .accommodationRoadAddressName(accommodationRoadAddressName)
                 .checkIn(checkIn)

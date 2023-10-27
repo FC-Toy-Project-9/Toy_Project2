@@ -6,15 +6,15 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class ItinerarySearchResponseDTO {
+public class SearchResponseDTO {
 
     private String placeName;
     private String roadAddressName;
     private String placeUrl;
 
-    public static ItinerarySearchResponseDTO of(String placeName, String roadAddressName,
-                                                String placeUrl) {
-        return ItinerarySearchResponseDTO.builder()
+    public static SearchResponseDTO of(String placeName, String roadAddressName,
+                                       String placeUrl) {
+        return SearchResponseDTO.builder()
                 .placeName(placeName)
                 .roadAddressName(roadAddressName)
                 .placeUrl(placeUrl)
