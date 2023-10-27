@@ -76,17 +76,17 @@ public class ItineraryRestControllerDocsTest extends RestDocsSupport {
     void getItineraryByTripId() throws Exception {
         // given
         List<Object> itinerarys = new ArrayList<>();
-        itinerarys.add(AccommodationResponseDTO.builder().id(1L).accommodationName("제주신라호텔")
+        itinerarys.add(AccommodationResponseDTO.builder().itineraryId(1L).accommodationName("제주신라호텔")
             .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
             .checkIn("2023-10-25 15:00")
             .checkOut("2023-10-26 11:00").build());
-        itinerarys.add(TransportationResponseDTO.builder().id(2L)
+        itinerarys.add(TransportationResponseDTO.builder().itineraryId(2L)
             .transportation("카카오택시").departurePlace("제주신라호텔")
             .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
             .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
             .departureTime("2023-10-26 12:00")
             .arrivalTime("2023-10-26 13:00").build());
-        itinerarys.add(VisitResponseDTO.builder().id(3L).placeName("카멜리아힐")
+        itinerarys.add(VisitResponseDTO.builder().itineraryId(3L).placeName("카멜리아힐")
             .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
             .departureTime("2023-10-26 14:00")
             .arrivalTime("2023-10-26 16:00").build());
@@ -101,7 +101,7 @@ public class ItineraryRestControllerDocsTest extends RestDocsSupport {
                 restDoc.document(pathParameters(parameterWithName("tripId").description("여행 식별자")),
                     responseFields(responseCommon()).and(
                         fieldWithPath("data").type(JsonFieldType.ARRAY).description("응답 데이터"),
-                        fieldWithPath("data[].id").type(JsonFieldType.NUMBER).optional().description("여정 식별자"),
+                        fieldWithPath("data[].itineraryId").type(JsonFieldType.NUMBER).optional().description("여정 식별자"),
                         fieldWithPath("data[].accommodationName").type(JsonFieldType.STRING)
                             .optional()
                             .description("숙소명"),
