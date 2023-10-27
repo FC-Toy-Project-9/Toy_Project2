@@ -1,13 +1,13 @@
-package com.fc.toy_project2.domain.itinerary.dto.response;
+package com.fc.toy_project2.domain.itinerary.dto.request.patchDTO;
 
-import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
-public class ItineraryTransportationDTO {
+public class ItineraryTransportationPatchDTO {
 
     private String transportation;
     private String departurePlace;
