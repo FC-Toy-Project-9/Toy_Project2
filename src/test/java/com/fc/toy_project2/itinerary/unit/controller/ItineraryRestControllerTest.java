@@ -64,7 +64,7 @@ public class ItineraryRestControllerTest {
                 itinerarySearchList);
 
             // when, then
-            mockMvc.perform(get("/api/itinerary/keyword/{query}", "카카오프렌즈"))
+            mockMvc.perform(get("/api/itineraries/keyword/{query}", "카카오프렌즈"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").exists())
                 .andExpect(jsonPath("$.message").exists())
@@ -103,7 +103,7 @@ public class ItineraryRestControllerTest {
                 itinerarys);
 
             // when, then
-            mockMvc.perform(get("/api/itinerary/{tripId}", 1L))
+            mockMvc.perform(get("/api/itineraries/{tripId}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").exists())
                 .andExpect(jsonPath("$.message").exists())
@@ -129,7 +129,7 @@ public class ItineraryRestControllerTest {
             given(itineraryGetDeleteService.deleteItinerary(any(Long.TYPE))).willReturn(itinerary);
 
             // when, then
-            mockMvc.perform(delete("/api/itinerary/{itineraryId}", 1L))
+            mockMvc.perform(delete("/api/itineraries/{itineraryId}", 1L))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();

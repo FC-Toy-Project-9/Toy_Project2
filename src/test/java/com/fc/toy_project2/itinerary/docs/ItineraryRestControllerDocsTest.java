@@ -57,7 +57,7 @@ public class ItineraryRestControllerDocsTest extends RestDocsSupport {
 
         // when, then
         mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/api/itinerary/keyword/{query}", "카카오프렌즈"))
+                RestDocumentationRequestBuilders.get("/api/itineraries/keyword/{query}", "카카오프렌즈"))
             .andExpect(status().isOk())
             .andDo(
                 restDoc.document(pathParameters(parameterWithName("query").description("키워드")),
@@ -95,7 +95,7 @@ public class ItineraryRestControllerDocsTest extends RestDocsSupport {
             itinerarys);
 
         // when, then
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/itinerary/{tripId}", 1L))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/itineraries/{tripId}", 1L))
             .andExpect(status().isOk())
             .andDo(
                 restDoc.document(pathParameters(parameterWithName("tripId").description("여행 식별자")),
@@ -151,7 +151,7 @@ public class ItineraryRestControllerDocsTest extends RestDocsSupport {
         given(itineraryGetDeleteService.deleteItinerary(any(Long.TYPE))).willReturn(itinerary);
 
         // when, then
-        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/itinerary/{itineraryId}", 1L))
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/itineraries/{itineraryId}", 1L))
             .andExpect(status().isOk()).andDo(
                 restDoc.document(pathParameters(parameterWithName("itineraryId").description("여정 식별자")),
                     responseFields(responseCommon()).and(
