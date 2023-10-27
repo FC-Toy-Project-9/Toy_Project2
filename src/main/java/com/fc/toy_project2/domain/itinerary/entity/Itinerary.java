@@ -33,6 +33,8 @@ public class Itinerary {
     @Comment("0: Accommodation, 1: Transportation, 2: Visit")
     private int type;
 
+    private String itineraryName;
+
     /** 숙박 **/
     private String accommodationName;
 
