@@ -1,13 +1,12 @@
 package com.fc.toy_project2.domain.itinerary.controller;
 
 
-import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryGetResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryDeleteResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.ItinerarySearchResponseDTO;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryGetDeleteService;
 import com.fc.toy_project2.global.DTO.ResponseDTO;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/itinerary")
+@RequestMapping("/api/itineraries")
 public class ItineraryGetDeleteController {
 
     private final ItineraryGetDeleteService itineraryGetDeleteService;
@@ -41,9 +40,8 @@ public class ItineraryGetDeleteController {
     }
 
     @DeleteMapping("/{itineraryId}")
-    public ResponseEntity<ResponseDTO<ItineraryGetResponseDTO>> deleteItinerary(
-        @PathVariable long itineraryId)
-        throws NotFoundException {
+    public ResponseEntity<ResponseDTO<ItineraryDeleteResponseDTO>> deleteItinerary(
+        @PathVariable long itineraryId) {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseDTO.res(HttpStatus.OK, itineraryGetDeleteService.deleteItinerary(itineraryId),
                 "성공적으로 여정을 삭제했습니다."));

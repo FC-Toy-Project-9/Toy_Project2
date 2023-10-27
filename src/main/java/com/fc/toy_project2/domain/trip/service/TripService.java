@@ -1,9 +1,6 @@
 package com.fc.toy_project2.domain.trip.service;
 
-import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
-import com.fc.toy_project2.domain.itinerary.entity.Transportation;
-import com.fc.toy_project2.domain.itinerary.entity.Visit;
 import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
@@ -39,9 +36,10 @@ public class TripService {
      * @param postTripRequestDTO 여행 정보 등록 요청 DTO
      * @return 여행 정보 응답 DTO
      */
-    public TripResponseDTO postTrip(PostTripRequestDTO postTripRequestDTO){
+    public TripResponseDTO postTrip(PostTripRequestDTO postTripRequestDTO) {
 
-        LocalDate startDate = DateTypeFormatterUtil.dateFormatter(postTripRequestDTO.getStartDate());
+        LocalDate startDate = DateTypeFormatterUtil.dateFormatter(
+            postTripRequestDTO.getStartDate());
         LocalDate endDate = DateTypeFormatterUtil.dateFormatter(postTripRequestDTO.getEndDate());
         if (startDate.isAfter(endDate)) {
             throw new InvalidTripDateRangeException();
@@ -80,7 +78,7 @@ public class TripService {
     }
 
     public TripResponseDTO updateTrip(UpdateTripRequestDTO updateTripRequestDTO) {
-        Trip trip = getTrip(updateTripRequestDTO.getId());
+        Trip trip = getTrip(updateTripRequestDTO.getTripId());
         checkTripDate(trip,
             DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getStartDate()),
             DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getEndDate()));
@@ -123,17 +121,17 @@ public class TripService {
     private LocalDate getMaxDate(List<Itinerary> itineraries) {
         LocalDate max = LocalDate.MAX;
         for (Itinerary itinerary : itineraries) {
-            if (itinerary instanceof Transportation) {
-                if (((Transportation) itinerary).getDepartureTime().toLocalDate().isBefore(max)) {
-                    max = ((Transportation) itinerary).getDepartureTime().toLocalDate();
+            if (itinerary.getType() == 0) {
+                if (itinerary.getDepartureTime().toLocalDate().isBefore(max)) {
+                    max = itinerary.getDepartureTime().toLocalDate();
                 }
-            } else if (itinerary instanceof Accommodation) {
-                if (((Accommodation) itinerary).getCheckIn().toLocalDate().isBefore(max)) {
-                    max = ((Accommodation) itinerary).getCheckIn().toLocalDate();
+            } else if (itinerary.getType() == 1) {
+                if (itinerary.getCheckIn().toLocalDate().isBefore(max)) {
+                    max = itinerary.getCheckIn().toLocalDate();
                 }
-            } else {
-                if (((Visit) itinerary).getArrivalTime().toLocalDate().isBefore(max)) {
-                    max = ((Visit) itinerary).getArrivalTime().toLocalDate();
+            } else if (itinerary.getType() == 2) {
+                if (itinerary.getArrivalTime().toLocalDate().isBefore(max)) {
+                    max = itinerary.getArrivalTime().toLocalDate();
                 }
             }
         }
@@ -149,17 +147,17 @@ public class TripService {
     private LocalDate getMinDate(List<Itinerary> itineraries) {
         LocalDate min = LocalDate.MIN;
         for (Itinerary itinerary : itineraries) {
-            if (itinerary instanceof Transportation) {
-                if (((Transportation) itinerary).getArrivalTime().toLocalDate().isAfter(min)) {
-                    min = ((Transportation) itinerary).getArrivalTime().toLocalDate();
+            if (itinerary.getType() == 0) {
+                if (itinerary.getArrivalTime().toLocalDate().isAfter(min)) {
+                    min = itinerary.getArrivalTime().toLocalDate();
                 }
-            } else if (itinerary instanceof Accommodation) {
-                if (((Accommodation) itinerary).getCheckOut().toLocalDate().isAfter(min)) {
-                    min = ((Accommodation) itinerary).getCheckOut().toLocalDate();
+            } else if (itinerary.getType() == 1) {
+                if (itinerary.getCheckOut().toLocalDate().isAfter(min)) {
+                    min = itinerary.getCheckOut().toLocalDate();
                 }
-            } else {
-                if (((Visit) itinerary).getDepartureTime().toLocalDate().isAfter(min)) {
-                    min = ((Visit) itinerary).getDepartureTime().toLocalDate();
+            } else if (itinerary.getType() == 2) {
+                if (itinerary.getDepartureTime().toLocalDate().isAfter(min)) {
+                    min = itinerary.getDepartureTime().toLocalDate();
                 }
             }
         }
@@ -168,9 +166,10 @@ public class TripService {
 
     /**
      * 특정 ID 값에 해당하는 여행 정보 삭제
+     *
      * @param tripId 삭제할 여행 ID
      */
-    public void deleteTripById(Long tripId){
+    public void deleteTripById(Long tripId) {
         Trip trip = getTrip(tripId);
         tripRepository.delete(trip);
     }

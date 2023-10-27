@@ -1,16 +1,16 @@
 package com.fc.toy_project2.domain.itinerary.dto.response;
 
-import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
 
 @Getter
 @Builder
-public class ItineraryVisitDTO {
+public class VisitResponseDTO {
 
+    private Long itineraryId;
     private String placeName;
     private String placeRoadAddressName;
-    private LocalDateTime visitArrivalTime;
-    private LocalDateTime visitDepartureTime;
+    private String arrivalTime;
+    private String departureTime;
 }
