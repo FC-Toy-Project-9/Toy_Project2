@@ -12,8 +12,6 @@
 //
 //import com.fc.toy_project2.domain.itinerary.controller.ItineraryGetDeleteController;
 //import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
-//import com.fc.toy_project2.domain.itinerary.dto.response.GetResponseDTO;
-//import com.fc.toy_project2.domain.itinerary.dto.response.SearchResponseDTO;
 //import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 //import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
 //import com.fc.toy_project2.domain.itinerary.service.ItineraryGetDeleteService;

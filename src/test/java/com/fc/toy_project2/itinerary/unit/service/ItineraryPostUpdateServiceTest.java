@@ -7,18 +7,14 @@ import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisit
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
-import com.fc.toy_project2.domain.itinerary.entity.Transportation;
-import com.fc.toy_project2.domain.itinerary.entity.Visit;
-import com.fc.toy_project2.domain.itinerary.repository.AccommodationRepository;
-import com.fc.toy_project2.domain.itinerary.repository.TransportationRepository;
-import com.fc.toy_project2.domain.itinerary.repository.VisitRepository;
+import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
+import com.fc.toy_project2.domain.itinerary.repository.ItineraryRepository;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryPostUpdateService;
 import com.fc.toy_project2.domain.trip.service.TripService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -45,15 +41,12 @@ class ItineraryPostUpdateServiceTest {
 
     @InjectMocks
     private ItineraryPostUpdateService itineraryPostUpdateService;
-    @Mock
-    private AccommodationRepository accommodationRepository;
-    @Mock
-    private TransportationRepository transportationRepository;
-    @Mock
-    private VisitRepository visitRepository;
 
     @MockBean
     TripService tripService;
+
+    @MockBean
+    ItineraryRepository itineraryRepository;
 
     @Nested
     @DisplayName("createAccommodation()은")
@@ -70,14 +63,14 @@ class ItineraryPostUpdateServiceTest {
             AccommodationResponseDTO expectedAccommodation = AccommodationResponseDTO.builder()
                     .accommodationName("제주신라호텔")
                     .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
-                    .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
-                    .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0))
+                    .checkIn("2023-10-25 15:00:00")
+                    .checkOut("2023-10-26 11:00:00")
                     .build();
             given(tripService.getTrip(any(Long.TYPE)));
-            given(accommodationRepository.save(any(Visit.class)));
+            given(itineraryRepository.save(any(Itinerary.class)));
 
             // when
-            AccommodationResponseDTO result = itineraryPostUpdateService.createAccommodation(createDTO, 1L);
+            AccommodationResponseDTO result = itineraryPostUpdateService.Accommodation(createDTO, 1L,1L);
 
             // then
             assertThat(result)
@@ -105,14 +98,14 @@ class ItineraryPostUpdateServiceTest {
                 .departurePlaceRoadAddressName("인천광역시 중구 공항로 272")
                 .destination("제주공항")
                 .destinationRoadAddressName("제주특별자치도 제주시 특별자치도, 공항로 2")
-                .departureTime(LocalDateTime.of(2023, 10, 24, 12, 0, 0))
-                .arrivalTime(LocalDateTime.of(2023, 10, 25, 12, 0, 0))
+                .departureTime("2023-10-24 12:00:00")
+                .arrivalTime("2023-10-25 12:00:00")
                 .build();
-        given(itineraryPostUpdateService.createTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.Transportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
         given(tripService.getTrip(any(Long.TYPE)));
-        given(transportationRepository.save(any(Visit.class)));
+        given(itineraryRepository.save(any(Itinerary.class)));
         // when
-        TransportationResponseDTO result = itineraryPostUpdateService.createTransportation(createDTO, 1L);
+        TransportationResponseDTO result = itineraryPostUpdateService.Transportation(createDTO, 1L, 1L);
 
         // itineraryPostUpdateService.createTransportation()의 호출을 확인
         assertThat(result)
@@ -121,7 +114,7 @@ class ItineraryPostUpdateServiceTest {
                 .containsExactly("비행기", "인천공항", "인천광역시 중구 공항로 272", "제주공항",
                         "제주특별자치도 제주시 특별자치도, 공항로 2",
                         LocalDateTime.of(2023, 10, 24, 12, 0, 0), LocalDateTime.of(2023, 10, 25, 12, 0, 0));
-        verify(transportationRepository, times(1)).save(any(Transportation.class));
+        verify(itineraryRepository, times(1)).save(any(Itinerary.class));
     }
 
     @Test
@@ -136,19 +129,19 @@ class ItineraryPostUpdateServiceTest {
         VisitResponseDTO expectedResponse = VisitResponseDTO.builder()
                 .placeName("제주공항")
                 .placeRoadAddressName("제주특별자치도 제주시 특별자치도, 공항로 2")
-                .departureTime(LocalDateTime.of(2023, 10, 24, 12, 0, 0))
-                .arrivalTime(LocalDateTime.of(2023, 10, 25, 12, 0, 0))
+                .departureTime("2023-10-24 12:00:00")
+                .arrivalTime("2023-10-25 12:00:00")
                 .build();
         given(tripService.getTrip(any(Long.TYPE)));
-        given(transportationRepository.save(any(Visit.class)));
-        VisitResponseDTO result = itineraryPostUpdateService.createVisit(createDTO, 1L);
+        given(itineraryRepository.save(any(Itinerary.class)));
+        VisitResponseDTO result = itineraryPostUpdateService.Visit(createDTO, 1L, 1L);
 
         assertThat(result)
                 .extracting("placeName", "placeRoadAddressName", "departureTime", "arrivalTime")
                 .containsExactly("제주공항", "제주특별자치도 제주시 특별자치도, 공항로 2",
                         LocalDateTime.of(2023, 10, 24, 12, 0, 0), LocalDateTime.of(2023, 10, 25, 12, 0, 0));
 
-        verify(visitRepository, times(1)).save(any(Visit.class));
+        verify(itineraryRepository, times(1)).save(any(Itinerary.class));
     }
 
     @Test
@@ -163,19 +156,19 @@ class ItineraryPostUpdateServiceTest {
         VisitResponseDTO expectedResponse = VisitResponseDTO.builder()
                 .placeName("제주공항")
                 .placeRoadAddressName("제주특별자치도 제주시 특별자치도, 공항로 2")
-                .departureTime(LocalDateTime.of(2023, 10, 24, 12, 0, 0))
-                .arrivalTime(LocalDateTime.of(2023, 10, 25, 12, 0, 0))
+                .departureTime("2023-10-24 12:00:00")
+                .arrivalTime("2023-10-25 12:00:00")
                 .build();
         given(tripService.getTrip(any(Long.TYPE)));
-        given(transportationRepository.save(any(Visit.class)));
-        VisitResponseDTO result = itineraryPostUpdateService.createVisit(createDTO, 1L);
+        given(itineraryRepository.save(any(Itinerary.class)));
+        VisitResponseDTO result = itineraryPostUpdateService.Visit(createDTO, 1L, eq(1L));
 
         assertThat(result)
                 .extracting("placeName", "placeRoadAddressName", "departureTime", "arrivalTime")
                 .containsExactly("제주공항", "제주특별자치도 제주시 특별자치도, 공항로 2",
                         LocalDateTime.of(2023, 10, 24, 12, 0, 0), LocalDateTime.of(2023, 10, 25, 12, 0, 0));
 
-        verify(visitRepository, times(1)).save(any(Visit.class));
+        verify(itineraryRepository, times(1)).save(any(Itinerary.class));
     }
 
     @Test
@@ -196,10 +189,10 @@ class ItineraryPostUpdateServiceTest {
                 .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .destination("오설록 티 뮤지엄")
                 .destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
-                .departureTime(LocalDateTime.of(2023, 10, 26, 11, 0, 0))
-                .arrivalTime(LocalDateTime.of(2023, 10, 26, 13, 0, 0))
+                .departureTime("2023-10-26 11:00:00")
+                .arrivalTime("2023-10-26 13:00:00")
                 .build();
-        given(itineraryPostUpdateService.createTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.Transportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}", 1L)
                         .content(new ObjectMapper().writeValueAsString(createDTO))
@@ -232,10 +225,10 @@ class ItineraryPostUpdateServiceTest {
         AccommodationResponseDTO expectedResponse = AccommodationResponseDTO.builder()
                 .accommodationName("제주신라호텔")
                 .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
-                .checkIn(LocalDateTime.of(2023, 10, 24, 15, 0))
-                .checkOut(LocalDateTime.of(2023, 10, 25, 10, 0))
+                .checkIn("2023-10-24 15:00:00")
+                .checkOut("2023-10-25 10:00:00")
                 .build();
-        given(itineraryPostUpdateService.createAccommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.Accommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L),eq(1L))).willReturn(expectedResponse);
 
         // when, then
         mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}", 1L)

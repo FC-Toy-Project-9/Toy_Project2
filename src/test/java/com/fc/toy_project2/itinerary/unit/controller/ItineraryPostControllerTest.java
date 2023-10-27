@@ -52,12 +52,12 @@ class ItineraryPostControllerTest {
             AccommodationResponseDTO expectedResponse = AccommodationResponseDTO.builder()
                     .accommodationName("제주신라호텔")
                     .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
-                    .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
-                    .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0))
+                    .checkIn("2023-10-25 15:00:00")
+                    .checkOut("2023-10-26 11:00:00")
                     .build();
-            given(itineraryPostUpdateService.createAccommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L))).willReturn(expectedResponse);
+            given(itineraryPostUpdateService.Accommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
-            mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}", 1L)
+            mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}/{itineraryId}", 1L)
                             .content(new ObjectMapper().writeValueAsString(createDTO))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -95,9 +95,9 @@ class ItineraryPostControllerTest {
                 .departureTime(String.valueOf(LocalDateTime.of(2023, 10, 26, 12, 0, 0)))
                 .arrivalTime(String.valueOf(LocalDateTime.of(2023, 10, 26, 13, 0, 0)))
                 .build();
-        given(itineraryPostUpdateService.createTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.Transportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}", 1L)
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}/{itineraryId}", 1L)
                         .content(new ObjectMapper().writeValueAsString(createDTO))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -128,12 +128,12 @@ class ItineraryPostControllerTest {
         VisitResponseDTO expectedResponse = VisitResponseDTO.builder()
                 .placeName("카멜리아힐")
                 .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
-                .departureTime(LocalDateTime.of(2023, 10, 26, 14, 0, 0))
-                .arrivalTime(LocalDateTime.of(2023, 10, 26, 16, 0, 0))
+                .departureTime("2023-10-26 14:00:00")
+                .arrivalTime("2023-10-26 16:00:00")
                 .build();
-        given(itineraryPostUpdateService.createVisit(any(ItineraryVisitCreateDTO.class), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.Visit(any(ItineraryVisitCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/visit/{tripId}", 1L)
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/visit/{tripId}/{itineraryId}", 1L)
 //                        .content(asJsonString(createDTO))
                         .content(new ObjectMapper().writeValueAsString(createDTO))
                         .contentType(MediaType.APPLICATION_JSON))
