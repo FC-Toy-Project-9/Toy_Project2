@@ -192,6 +192,8 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
                             .description("여정 리스트"),
                         fieldWithPath("data.itineraries[].itineraryId").type(JsonFieldType.NUMBER)
                             .optional().description("여정 식별자"),
+                        fieldWithPath("data.itineraries[].itineraryName").type(JsonFieldType.STRING)
+                            .optional().description("여정 이름"),
                         fieldWithPath("data.itineraries[].accommodationName").type(JsonFieldType.STRING)
                             .optional().description("숙소명"),
                         fieldWithPath("data.itineraries[].accommodationRoadAddressName").type(
