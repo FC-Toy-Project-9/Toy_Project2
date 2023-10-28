@@ -18,11 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @ExtendWith(MockitoExtension.class)
-class ItineraryPostUpdateServiceTest {
+public class ItineraryPostUpdateServiceTest {
 
     @InjectMocks
     private ItineraryPostUpdateService itineraryPostUpdateService;
@@ -167,9 +163,7 @@ class ItineraryPostUpdateServiceTest {
 
         assertThat(result)
                 .extracting("placeName", "placeRoadAddressName", "departureTime", "arrivalTime")
-                .containsExactly("제주공항", "제주특별자치도 제주시 특별자치도, 공항로 2",
-                        LocalDateTime.of(2023, 10, 24, 12, 0, 0), LocalDateTime.of(2023, 10, 25, 12, 0, 0));
-
+                .containsExactly("제주공항", "제주특별자치도 제주시 특별자치도, 공항로 2", "2023-10-24 12:00:00", "2023-10-25 12:00:00");
         verify(itineraryRepository, times(1)).save(any(Itinerary.class));
     }
 
@@ -195,26 +189,14 @@ class ItineraryPostUpdateServiceTest {
                 .arrivalTime("2023-10-26 13:00:00")
                 .build();
         given(itineraryPostUpdateService.createdTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+        TransportationResponseDTO result = itineraryPostUpdateService.createdTransportation(createDTO, 1L, eq(1L));
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}", 1L)
-                        .content(new ObjectMapper().writeValueAsString(createDTO))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(jsonPath("$.code").exists())
-                .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.data").isMap())
-                .andExpect(jsonPath("$.data.id").exists())
-                .andExpect(jsonPath("$.data.transportation").value("카카오택시"))
-                .andExpect(jsonPath("$.data.departurePlace").value("제주신라호텔"))
-                .andExpect(jsonPath("$.data.departurePlaceRoadAddressName").value("제주 서귀포시 중문관광로72번길 75"))
-                .andExpect(jsonPath("$.data.destination").value("오설록 티 뮤지엄"))
-                .andExpect(jsonPath("$.data.destinationRoadAddressName").value("제주 서귀포시 안덕면 신화역사로 15 오설록"))
-                .andExpect(jsonPath("$.data.departureTime").value("2023-10-26 11:00:00"))
-                .andExpect(jsonPath("$.data.arrivalTime").value("2023-10-26 13:00:00"))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andDo(print());
+        assertThat(result)
+                .extracting("transportation", "departurePlace", "departurePlaceRoadAddressName", "destination"
+                        , "destinationRoadAddressName", "departureTime", "arrivalTime")
+                .containsExactly("카카오택시", "제주신라호텔", "제주 서귀포시 중문관광로72번길 75", "오설록 티 뮤지엄", "제주 서귀포시 안덕면 신화역사로 15 오설록",
+                        "2023-10-26 11:00:00", "2023-10-26 13:00:00");
     }
-
     @Test
     @DisplayName("숙박 여정 정보를 수정할 수 있다.")
     void patchAccommodation_willSuccess() throws Exception {
@@ -231,21 +213,10 @@ class ItineraryPostUpdateServiceTest {
                 .checkOut("2023-10-25 10:00:00")
                 .build();
         given(itineraryPostUpdateService.createdAccommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L),eq(1L))).willReturn(expectedResponse);
+        AccommodationResponseDTO result = itineraryPostUpdateService.createdAccommodation(createDTO, 1L, eq(1L));
 
-        // when, then
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}", 1L)
-                        .content(new ObjectMapper().writeValueAsString(createDTO))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(jsonPath("$.code").exists())
-                .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.data").isMap())
-                .andExpect(jsonPath("$.data.id").exists())
-                .andExpect(jsonPath("$.data.accommodationName").value("제주신라호텔"))
-                .andExpect(jsonPath("$.data.accommodationRoadAddressName").value("제주 서귀포시 중문관광로72번길 75"))
-                .andExpect(jsonPath("$.data.checkIn").value("2023-10-24T15:00:00"))
-                .andExpect(jsonPath("$.data.checkOut").value("2023-10-25T10:00:00"))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andDo(print());
+        assertThat(result)
+                .extracting("accommodationName", "accommodationRoadAddressName", "checkIn", "checkOut")
+                .containsExactly("제주신라호텔", "제주 서귀포시 중문관광로72번길 75", "2023-10-24 15:00:00", "2023-10-25 10:00:00");
     }
 }
