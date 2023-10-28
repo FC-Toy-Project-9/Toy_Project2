@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,19 +53,20 @@ public class ItineraryServiceTest {
         @DisplayName("tripId를 통해 Itinerary를 조회할 수 있다.")
         void _willSuccess() throws TripNotFoundException {
             // given
-            Itinerary accommodation = Itinerary.builder().id(1L).accommodationName("제주신라호텔")
+            Itinerary accommodation = Itinerary.builder().id(1L).itineraryName("제주여정1")
+                .accommodationName("제주신라호텔")
                 .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
                 .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0)).build();
 
-            Itinerary transportation = Itinerary.builder().id(2L)
+            Itinerary transportation = Itinerary.builder().id(2L).itineraryName("제주여정2")
                 .transportation("카카오택시").departurePlace("제주신라호텔")
                 .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
                 .departureTime(LocalDateTime.of(2023, 10, 26, 12, 0))
                 .arrivalTime(LocalDateTime.of(2023, 10, 26, 13, 0)).build();
 
-            Itinerary visit = Itinerary.builder().id(3L).placeName("카멜리아힐")
+            Itinerary visit = Itinerary.builder().id(3L).itineraryName("제주여정2").placeName("카멜리아힐")
                 .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                 .departureTime(LocalDateTime.of(2023, 10, 26, 14, 0))
                 .arrivalTime(LocalDateTime.of(2023, 10, 26, 16, 0)).build();
@@ -77,29 +77,40 @@ public class ItineraryServiceTest {
             itineraryList.add(visit);
 
             List<Object> itinerarys = new ArrayList<>();
-            itinerarys.add(AccommodationResponseDTO.builder().itineraryId(1L).accommodationName("제주신라호텔")
-                .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
-                .checkIn(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 25, 15, 0)))
-                .checkOut(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 11, 0))).build());
-            itinerarys.add(TransportationResponseDTO.builder().itineraryId(2L)
-                .transportation("카카오택시").departurePlace("제주신라호텔")
-                .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
-                .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
-                .departureTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 12, 0)))
-                .arrivalTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 13, 0))));
-            itinerarys.add(VisitResponseDTO.builder().itineraryId(3L).placeName("카멜리아힐")
-                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
-                .departureTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 14, 0)))
-                .arrivalTime(itineraryGetDeleteService.localDateTimeToString(LocalDateTime.of(2023, 10, 26, 16, 0))));
+            itinerarys.add(
+                AccommodationResponseDTO.builder().itineraryId(1L).itineraryName("제주여정1")
+                    .accommodationName("제주신라호텔")
+                    .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
+                    .checkIn(itineraryGetDeleteService.localDateTimeToString(
+                        LocalDateTime.of(2023, 10, 25, 15, 0)))
+                    .checkOut(itineraryGetDeleteService.localDateTimeToString(
+                        LocalDateTime.of(2023, 10, 26, 11, 0))).build());
+            itinerarys.add(
+                TransportationResponseDTO.builder().itineraryId(2L).itineraryName("제주여정2")
+                    .transportation("카카오택시").departurePlace("제주신라호텔")
+                    .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
+                    .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
+                    .departureTime(itineraryGetDeleteService.localDateTimeToString(
+                        LocalDateTime.of(2023, 10, 26, 12, 0)))
+                    .arrivalTime(itineraryGetDeleteService.localDateTimeToString(
+                        LocalDateTime.of(2023, 10, 26, 13, 0))));
+            itinerarys.add(
+                VisitResponseDTO.builder().itineraryId(3L).itineraryName("제주여정3").placeName("카멜리아힐")
+                    .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
+                    .departureTime(itineraryGetDeleteService.localDateTimeToString(
+                        LocalDateTime.of(2023, 10, 26, 14, 0)))
+                    .arrivalTime(itineraryGetDeleteService.localDateTimeToString(
+                        LocalDateTime.of(2023, 10, 26, 16, 0))));
             given(itineraryRepository.findAllByTripId(any(Long.TYPE))).willReturn(itineraryList);
 
             // when
             List<Object> itineraryResponseList = itineraryGetDeleteService.getItineraryByTripId(1L);
 
             // then
-            assertThat(itineraryResponseList.get(0)).extracting("accommodationName",
+            assertThat(itineraryResponseList.get(0)).extracting("itineraryName",
+                    "accommodationName",
                     "accommodationRoadAddressName")
-                .containsExactly("제주신라호텔", "제주 서귀포시 중문관광로72번길 75");
+                .containsExactly("제주여정1", "제주신라호텔", "제주 서귀포시 중문관광로72번길 75");
         }
 
     }

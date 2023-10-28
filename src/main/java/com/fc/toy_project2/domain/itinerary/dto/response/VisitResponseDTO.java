@@ -7,6 +7,7 @@ import lombok.Getter;
 @Builder
 public class VisitResponseDTO {
     private Long itineraryId;
+    private String itineraryName;
     private String placeName;
     private String placeRoadAddressName;
     private String arrivalTime;

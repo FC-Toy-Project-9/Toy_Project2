@@ -100,50 +100,52 @@ public class ItineraryRestControllerDocsTest extends RestDocsSupport {
 
         // when, then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/itineraries/{tripId}", 1L))
-                .andExpect(status().isOk())
-                .andDo(
-                        restDoc.document(pathParameters(parameterWithName("tripId").description("여행 식별자")),
-                                responseFields(responseCommon()).and(
-                                        fieldWithPath("data").type(JsonFieldType.ARRAY).description("응답 데이터"),
-                                        fieldWithPath("data[].itineraryId").type(JsonFieldType.NUMBER).optional().description("여정 식별자"),
-                                        fieldWithPath("data[].accommodationName").type(JsonFieldType.STRING)
-                                                .optional()
-                                                .description("숙소명"),
-                                        fieldWithPath("data[].accommodationRoadAddressName").type(
-                                                        JsonFieldType.STRING)
-                                                .optional().description("숙소 도로명"),
-                                        fieldWithPath("data[].checkIn").type(JsonFieldType.STRING).optional()
-                                                .description("체크인 일시"),
-                                        fieldWithPath("data[].checkOut").type(JsonFieldType.STRING).optional()
-                                                .description("체크아웃 일시"),
-                                        fieldWithPath("data[].transportation").type(JsonFieldType.STRING).optional()
-                                                .description("이동 수단"),
-                                        fieldWithPath("data[].departurePlace").type(JsonFieldType.STRING).optional()
-                                                .description("출발지"),
-                                        fieldWithPath("data[].departurePlaceRoadAddressName").type(
-                                                        JsonFieldType.STRING)
-                                                .optional().description("출발지 도로명"),
-                                        fieldWithPath("data[].destination").type(JsonFieldType.STRING).optional()
-                                                .description("도착지"),
-                                        fieldWithPath("data[].destinationRoadAddressName").type(
-                                                        JsonFieldType.STRING)
-                                                .optional().description("도착지 도로명"),
-                                        fieldWithPath("data[].departureTime").type(JsonFieldType.STRING).optional()
-                                                .description("출발 일시"),
-                                        fieldWithPath("data[].arrivalTime").type(JsonFieldType.STRING).optional()
-                                                .description("도착 일시"),
-                                        fieldWithPath("data[].placeName").type(JsonFieldType.STRING).optional()
-                                                .description("장소명"),
-                                        fieldWithPath("data[].placeRoadAddressName").type(JsonFieldType.STRING)
-                                                .optional()
-                                                .description("장소 도로명"),
-                                        fieldWithPath("data[].departureTime").type(JsonFieldType.STRING)
-                                                .optional()
-                                                .description("도착 일시"),
-                                        fieldWithPath("data[].arrivalTime").type(JsonFieldType.STRING)
-                                                .optional()
-                                                .description("출발 일시"))));
-
+            .andExpect(status().isOk())
+            .andDo(
+                restDoc.document(pathParameters(parameterWithName("tripId").description("여행 식별자")),
+                    responseFields(responseCommon()).and(
+                        fieldWithPath("data").type(JsonFieldType.ARRAY).description("응답 데이터"),
+                        fieldWithPath("data[].itineraryId").type(JsonFieldType.NUMBER).optional()
+                            .description("여정 식별자"),
+                        fieldWithPath("data[].itineraryName").type(JsonFieldType.STRING).optional()
+                            .description("여정 이름"),
+                        fieldWithPath("data[].accommodationName").type(JsonFieldType.STRING)
+                            .optional()
+                            .description("숙소명"),
+                        fieldWithPath("data[].accommodationRoadAddressName").type(
+                                JsonFieldType.STRING)
+                            .optional().description("숙소 도로명"),
+                        fieldWithPath("data[].checkIn").type(JsonFieldType.STRING).optional()
+                            .description("체크인 일시"),
+                        fieldWithPath("data[].checkOut").type(JsonFieldType.STRING).optional()
+                            .description("체크아웃 일시"),
+                        fieldWithPath("data[].transportation").type(JsonFieldType.STRING).optional()
+                            .description("이동 수단"),
+                        fieldWithPath("data[].departurePlace").type(JsonFieldType.STRING).optional()
+                            .description("출발지"),
+                        fieldWithPath("data[].departurePlaceRoadAddressName").type(
+                                JsonFieldType.STRING)
+                            .optional().description("출발지 도로명"),
+                        fieldWithPath("data[].destination").type(JsonFieldType.STRING).optional()
+                            .description("도착지"),
+                        fieldWithPath("data[].destinationRoadAddressName").type(
+                                JsonFieldType.STRING)
+                            .optional().description("도착지 도로명"),
+                        fieldWithPath("data[].departureTime").type(JsonFieldType.STRING).optional()
+                            .description("출발 일시"),
+                        fieldWithPath("data[].arrivalTime").type(JsonFieldType.STRING).optional()
+                            .description("도착 일시"),
+                        fieldWithPath("data[].placeName").type(JsonFieldType.STRING).optional()
+                            .description("장소명"),
+                        fieldWithPath("data[].placeRoadAddressName").type(JsonFieldType.STRING)
+                            .optional()
+                            .description("장소 도로명"),
+                        fieldWithPath("data[].departureTime").type(JsonFieldType.STRING)
+                            .optional()
+                            .description("도착 일시"),
+                        fieldWithPath("data[].arrivalTime").type(JsonFieldType.STRING)
+                            .optional()
+                            .description("출발 일시"))));
     }
 
     @Test
@@ -155,12 +157,13 @@ public class ItineraryRestControllerDocsTest extends RestDocsSupport {
         given(itineraryGetDeleteService.deleteItinerary(any(Long.TYPE))).willReturn(itinerary);
 
         // when, then
-        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/itineraries/{itineraryId}", 1L, 1L))
-                .andExpect(status().isOk()).andDo(
-                        restDoc.document(pathParameters(parameterWithName("itineraryId").description("여정 식별자")),
-                                responseFields(responseCommon()).and(
-                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("응답 데이터"),
-                                        fieldWithPath("data.itineraryId").type(JsonFieldType.NUMBER)
-                                                .description("여정 식별자"))));
+        mockMvc.perform(
+                RestDocumentationRequestBuilders.delete("/api/itineraries/{itineraryId}", 1L))
+            .andExpect(status().isOk()).andDo(
+                restDoc.document(pathParameters(parameterWithName("itineraryId").description("여정 식별자")),
+                    responseFields(responseCommon()).and(
+                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("응답 데이터"),
+                        fieldWithPath("data.itineraryId").type(JsonFieldType.NUMBER)
+                            .description("여정 식별자"))));
     }
 }

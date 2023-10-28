@@ -1,7 +1,12 @@
 package com.fc.toy_project2.domain.trip.entity;
 
+import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripResponseDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripsResponseDTO;
+import com.fc.toy_project2.domain.trip.dto.response.ItineraryInfoDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.global.util.DateTypeFormatterUtil;
 import jakarta.persistence.CascadeType;
@@ -11,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +82,77 @@ public class Trip {
     }
 
     /**
+     * Trip Entity를 GetTripsResponseDTO로 변환
+     *
+     * @return GetTripsResponseDTO
+     */
+    public GetTripsResponseDTO toGetTripsResponseDTO() {
+        return GetTripsResponseDTO.builder().tripId(this.id).tripName(this.name)
+            .startDate(localDateToString(this.startDate)).endDate(localDateToString(this.endDate))
+            .isDomestic(this.isDomestic).itineraries(getItineraryInfoDTO()).build();
+    }
+
+    /**
+     * Trip Entity를 GetTripsResponseDTO로 변환
+     *
+     * @return GetTripsResponseDTO
+     */
+    public GetTripResponseDTO toGetTripResponseDTO() {
+        return GetTripResponseDTO.builder().tripId(this.id).tripName(this.name)
+            .startDate(localDateToString(this.startDate)).endDate(localDateToString(this.endDate))
+            .isDomestic(this.isDomestic).itineraries(getItineraryResponseDTO()).build();
+    }
+
+    /**
+     * Itinerary ID와 Name를 담은 ItineraryInfoDTO 추출
+     *
+     * @return ItineraryInfoDTO 리스트
+     */
+    public List<ItineraryInfoDTO> getItineraryInfoDTO() {
+        List<ItineraryInfoDTO> itineraries = new ArrayList<>();
+        for (Itinerary itinerary : this.itineraries) {
+            itineraries.add(ItineraryInfoDTO.builder().itineraryId(itinerary.getId())
+                .itineraryName(itinerary.getItineraryName()).build());
+        }
+        return itineraries;
+    }
+
+    public List<Object> getItineraryResponseDTO() {
+        List<Object> itineraryList = new ArrayList<>();
+        for (Itinerary itinerary : this.itineraries) {
+            if (itinerary.getType() == 0) {
+                itineraryList.add(AccommodationResponseDTO.builder().itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
+                    .accommodationName(itinerary.getAccommodationName())
+                    .accommodationRoadAddressName(itinerary.getAccommodationRoadAddressName())
+                    .checkIn(localDateTimeToString(itinerary.getCheckIn()))
+                    .checkOut(localDateTimeToString(itinerary.getCheckOut())).build());
+            } else if (itinerary.getType() == 1) {
+                itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
+                    .transportation(itinerary.getTransportation())
+                    .departurePlace(itinerary.getDeparturePlace())
+                    .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
+                    .destination(itinerary.getDestination())
+                    .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
+                    .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
+                    .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
+            } else if (itinerary.getType() == 2) {
+                itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
+                    .transportation(itinerary.getTransportation())
+                    .departurePlace(itinerary.getDeparturePlace())
+                    .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
+                    .destination(itinerary.getDestination())
+                    .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
+                    .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
+                    .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
+            }
+        }
+        return itineraryList;
+    }
+
+    /**
      * 여행 정보를 수정
      *
      * @param updateTripRequestDTO 여행 정보 수정 요청 DTO
@@ -95,5 +172,15 @@ public class Trip {
      */
     private String localDateToString(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    /**
+     * LocalDateTime 타입을 String 타입으로 변환
+     *
+     * @param date LocalDateTime 타입의 날짜
+     * @return String 타입의 날짜
+     */
+    private String localDateTimeToString(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }

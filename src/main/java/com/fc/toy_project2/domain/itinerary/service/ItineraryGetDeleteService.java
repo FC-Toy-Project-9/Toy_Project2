@@ -97,35 +97,38 @@ public class ItineraryGetDeleteService {
         for (Itinerary itinerary : itineraryList) {
             if (itinerary.getType() == 0) {
                 itineraryResponseList.add(AccommodationResponseDTO.builder()
-                        .itineraryId(itinerary.getId())
-                        .accommodationName(itinerary.getAccommodationName())
-                        .accommodationRoadAddressName(
-                                itinerary.getAccommodationRoadAddressName())
-                        .checkIn(localDateTimeToString(itinerary.getCheckIn()))
-                        .checkOut(localDateTimeToString(itinerary.getCheckOut()))
-                        .build());
+                    .itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
+                    .accommodationName(itinerary.getAccommodationName())
+                    .accommodationRoadAddressName(
+                        itinerary.getAccommodationRoadAddressName())
+                    .checkIn(localDateTimeToString(itinerary.getCheckIn()))
+                    .checkOut(localDateTimeToString(itinerary.getCheckOut()))
+                    .build());
             } else if (itinerary.getType() == 1) {
                 itineraryResponseList.add(TransportationResponseDTO.builder()
-                        .itineraryId(itinerary.getId())
-                        .transportation(itinerary.getTransportation())
-                        .departurePlace(itinerary.getDeparturePlace())
-                        .departurePlaceRoadAddressName(
-                                itinerary.getDeparturePlaceRoadAddressName())
-                        .destination(itinerary.getDestination())
-                        .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
-                        .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
-                        .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
+                    .itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
+                    .transportation(itinerary.getTransportation())
+                    .departurePlace(itinerary.getDeparturePlace())
+                    .departurePlaceRoadAddressName(
+                        itinerary.getDeparturePlaceRoadAddressName())
+                    .destination(itinerary.getDestination())
+                    .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
+                    .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
+                    .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
             } else if (itinerary.getType() == 2) {
                 itineraryResponseList.add(TransportationResponseDTO.builder()
-                        .itineraryId(itinerary.getId())
-                        .transportation(itinerary.getTransportation())
-                        .departurePlace(itinerary.getDeparturePlace())
-                        .departurePlaceRoadAddressName(
-                                itinerary.getDeparturePlaceRoadAddressName())
-                        .destination(itinerary.getDestination())
-                        .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
-                        .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
-                        .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
+                    .itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
+                    .transportation(itinerary.getTransportation())
+                    .departurePlace(itinerary.getDeparturePlace())
+                    .departurePlaceRoadAddressName(
+                        itinerary.getDeparturePlaceRoadAddressName())
+                    .destination(itinerary.getDestination())
+                    .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
+                    .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
+                    .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
             }
         }
         return itineraryResponseList;
