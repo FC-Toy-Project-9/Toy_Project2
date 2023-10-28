@@ -16,8 +16,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -77,7 +75,8 @@ public class Trip {
      */
     public TripResponseDTO toTripResponseDTO() {
         return TripResponseDTO.builder().tripId(this.id).tripName(this.name)
-            .startDate(localDateToString(this.startDate)).endDate(localDateToString(this.endDate))
+            .startDate(DateTypeFormatterUtil.localDateToString(this.startDate))
+            .endDate(DateTypeFormatterUtil.localDateToString(this.endDate))
             .isDomestic(this.isDomestic).build();
     }
 
@@ -88,7 +87,8 @@ public class Trip {
      */
     public GetTripsResponseDTO toGetTripsResponseDTO() {
         return GetTripsResponseDTO.builder().tripId(this.id).tripName(this.name)
-            .startDate(localDateToString(this.startDate)).endDate(localDateToString(this.endDate))
+            .startDate(DateTypeFormatterUtil.localDateToString(this.startDate))
+            .endDate(DateTypeFormatterUtil.localDateToString(this.endDate))
             .isDomestic(this.isDomestic).itineraries(getItineraryInfoDTO()).build();
     }
 
@@ -99,7 +99,8 @@ public class Trip {
      */
     public GetTripResponseDTO toGetTripResponseDTO() {
         return GetTripResponseDTO.builder().tripId(this.id).tripName(this.name)
-            .startDate(localDateToString(this.startDate)).endDate(localDateToString(this.endDate))
+            .startDate(DateTypeFormatterUtil.localDateToString(this.startDate))
+            .endDate(DateTypeFormatterUtil.localDateToString(this.endDate))
             .isDomestic(this.isDomestic).itineraries(getItineraryResponseDTO()).build();
     }
 
@@ -125,8 +126,9 @@ public class Trip {
                     .itineraryName(itinerary.getItineraryName())
                     .accommodationName(itinerary.getAccommodationName())
                     .accommodationRoadAddressName(itinerary.getAccommodationRoadAddressName())
-                    .checkIn(localDateTimeToString(itinerary.getCheckIn()))
-                    .checkOut(localDateTimeToString(itinerary.getCheckOut())).build());
+                    .checkIn(DateTypeFormatterUtil.localDateTimeToString(itinerary.getCheckIn()))
+                    .checkOut(DateTypeFormatterUtil.localDateTimeToString(itinerary.getCheckOut()))
+                    .build());
             } else if (itinerary.getType() == 1) {
                 itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
                     .itineraryName(itinerary.getItineraryName())
@@ -135,8 +137,11 @@ public class Trip {
                     .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
                     .destination(itinerary.getDestination())
                     .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
-                    .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
-                    .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
+                    .departureTime(
+                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getDepartureTime()))
+                    .arrivalTime(
+                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getArrivalTime()))
+                    .build());
             } else if (itinerary.getType() == 2) {
                 itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
                     .itineraryName(itinerary.getItineraryName())
@@ -145,8 +150,11 @@ public class Trip {
                     .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
                     .destination(itinerary.getDestination())
                     .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
-                    .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
-                    .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
+                    .departureTime(
+                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getDepartureTime()))
+                    .arrivalTime(
+                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getArrivalTime()))
+                    .build());
             }
         }
         return itineraryList;
@@ -162,25 +170,5 @@ public class Trip {
         this.startDate = DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getStartDate());
         this.endDate = DateTypeFormatterUtil.dateFormatter(updateTripRequestDTO.getEndDate());
         this.isDomestic = updateTripRequestDTO.getIsDomestic();
-    }
-
-    /**
-     * LocalDate 타입을 String 타입으로 변환
-     *
-     * @param date LocalDate 타입의 날짜
-     * @return String 타입의 날짜
-     */
-    private String localDateToString(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-
-    /**
-     * LocalDateTime 타입을 String 타입으로 변환
-     *
-     * @param date LocalDateTime 타입의 날짜
-     * @return String 타입의 날짜
-     */
-    private String localDateTimeToString(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }
