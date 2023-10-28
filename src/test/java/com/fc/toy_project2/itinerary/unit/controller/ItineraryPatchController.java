@@ -1,9 +1,9 @@
 package com.fc.toy_project2.itinerary.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryAccommodationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryTransportationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisitCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryAccommodationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryTransportationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryVisitCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
@@ -55,7 +55,7 @@ public class ItineraryPatchController {
             given(itineraryPostUpdateService.createdAccommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
             // when, then
-            mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}/{itineraryId}", 1L)
+            mockMvc.perform(MockMvcRequestBuilders.post("/api/itineraries/accommodation/{tripId}/{itineraryId}", 1L, 1L)
                             .content(new ObjectMapper().writeValueAsString(createDTO))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -95,7 +95,7 @@ public class ItineraryPatchController {
                     .build();
             given(itineraryPostUpdateService.createdTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
-            mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}/{itineraryId}", 1L)
+            mockMvc.perform(MockMvcRequestBuilders.post("/api/itineraries/transportation/{tripId}/{itineraryId}", 1L,1L)
                             .content(new ObjectMapper().writeValueAsString(createDTO))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -131,7 +131,7 @@ public class ItineraryPatchController {
                     .build();
             given(itineraryPostUpdateService.createdVisit(any(ItineraryVisitCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
-            mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/visit/{tripId}/{itineraryId}", 1L)
+            mockMvc.perform(MockMvcRequestBuilders.post("/api/itineraries/visit/{tripId}/{itineraryId}", 1L, 1L)
                             .content(new ObjectMapper().writeValueAsString(createDTO))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(MockMvcResultMatchers.status().isCreated())

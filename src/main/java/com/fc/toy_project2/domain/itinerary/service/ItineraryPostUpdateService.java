@@ -1,8 +1,8 @@
 package com.fc.toy_project2.domain.itinerary.service;
 
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryAccommodationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryTransportationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisitCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryAccommodationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryTransportationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryVisitCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;

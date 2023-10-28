@@ -1,8 +1,8 @@
 package com.fc.toy_project2.domain.itinerary.controller;
 
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryAccommodationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryTransportationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisitCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryAccommodationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryTransportationCreateDTO;
+import com.fc.toy_project2.domain.itinerary.dto.request.ItineraryVisitCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/itinerary")
+@RequestMapping("/api/itineraries")
 public class ItineraryPatchController {
 
     private final ItineraryPostUpdateService itinerarypostUpdateService;

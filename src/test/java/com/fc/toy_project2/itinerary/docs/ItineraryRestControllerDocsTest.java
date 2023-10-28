@@ -1,11 +1,6 @@
 package com.fc.toy_project2.itinerary.docs;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fc.toy_project2.domain.itinerary.controller.ItineraryGetDeleteController;
-import com.fc.toy_project2.domain.itinerary.controller.ItineraryPostController;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryAccommodationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryTransportationCreateDTO;
-import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisitCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.*;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryGetDeleteService;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryPostUpdateService;
@@ -13,20 +8,15 @@ import com.fc.toy_project2.util.RestDocsSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;

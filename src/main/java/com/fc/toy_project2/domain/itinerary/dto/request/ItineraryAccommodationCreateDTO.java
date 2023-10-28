@@ -1,4 +1,4 @@
-package com.fc.toy_project2.domain.itinerary.dto.request.createDTO;
+package com.fc.toy_project2.domain.itinerary.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
