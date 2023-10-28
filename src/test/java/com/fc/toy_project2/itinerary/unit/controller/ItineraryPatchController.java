@@ -47,6 +47,7 @@ public class ItineraryPatchController {
                     .checkOut("2023-10-25 10:00:00")
                     .build();
             AccommodationResponseDTO expectedResponse = AccommodationResponseDTO.builder()
+                    .itineraryId(1L)
                     .accommodationName("제주신라호텔")
                     .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                     .checkIn("2023-10-24 15:00:00")
@@ -85,6 +86,7 @@ public class ItineraryPatchController {
                     .arrivalTime("2023-10-26 13:00:00")
                     .build();
             TransportationResponseDTO expectedResponse = TransportationResponseDTO.builder()
+                    .itineraryId(1L)
                     .transportation("카카오택시")
                     .departurePlace("제주신라호텔")
                     .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
@@ -124,6 +126,7 @@ public class ItineraryPatchController {
                     .arrivalTime("2023-10-26 16:00:00")
                     .build();
             VisitResponseDTO expectedResponse = VisitResponseDTO.builder()
+                    .itineraryId(1L)
                     .placeName("카멜리아힐")
                     .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                     .departureTime("2023-10-26 14:00:00")
