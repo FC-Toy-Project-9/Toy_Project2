@@ -98,6 +98,7 @@ public class ItineraryGetDeleteService {
             if (itinerary.getType() == 0) {
                 itineraryResponseList.add(AccommodationResponseDTO.builder()
                     .itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
                     .accommodationName(itinerary.getAccommodationName())
                     .accommodationRoadAddressName(
                         itinerary.getAccommodationRoadAddressName())
@@ -107,6 +108,7 @@ public class ItineraryGetDeleteService {
             } else if (itinerary.getType() == 1) {
                 itineraryResponseList.add(TransportationResponseDTO.builder()
                     .itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
                     .transportation(itinerary.getTransportation())
                     .departurePlace(itinerary.getDeparturePlace())
                     .departurePlaceRoadAddressName(
@@ -118,6 +120,7 @@ public class ItineraryGetDeleteService {
             } else if (itinerary.getType() == 2) {
                 itineraryResponseList.add(TransportationResponseDTO.builder()
                     .itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
                     .transportation(itinerary.getTransportation())
                     .departurePlace(itinerary.getDeparturePlace())
                     .departurePlaceRoadAddressName(
