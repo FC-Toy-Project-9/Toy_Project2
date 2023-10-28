@@ -103,16 +103,22 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         List<ItineraryInfoDTO> itineraries1 = new ArrayList<>();
         itineraries1.add(
             ItineraryInfoDTO.builder().itineraryId(1L).itineraryName("제주 신라 호텔에서 숙박!").build());
-        itineraries1.add(ItineraryInfoDTO.builder().itineraryId(2L).itineraryName("카카오 택시타고 이동!").build());
-        itineraries1.add(ItineraryInfoDTO.builder().itineraryId(3L).itineraryName("카멜리아힐 구경!").build());
+        itineraries1.add(
+            ItineraryInfoDTO.builder().itineraryId(2L).itineraryName("카카오 택시타고 이동!").build());
+        itineraries1.add(
+            ItineraryInfoDTO.builder().itineraryId(3L).itineraryName("카멜리아힐 구경!").build());
         List<ItineraryInfoDTO> itineraries2 = new ArrayList<>();
-        itineraries2.add(ItineraryInfoDTO.builder().itineraryId(1L).itineraryName("속초 호텔에서 숙면!").build());
-        itineraries2.add(ItineraryInfoDTO.builder().itineraryId(2L).itineraryName("버스타고 이동!").build());
+        itineraries2.add(
+            ItineraryInfoDTO.builder().itineraryId(1L).itineraryName("속초 호텔에서 숙면!").build());
+        itineraries2.add(
+            ItineraryInfoDTO.builder().itineraryId(2L).itineraryName("버스타고 이동!").build());
         itineraries2.add(
             ItineraryInfoDTO.builder().itineraryId(3L).itineraryName("속초 해수욕장에서 놀기!").build());
         List<ItineraryInfoDTO> itineraries3 = new ArrayList<>();
-        itineraries3.add(ItineraryInfoDTO.builder().itineraryId(1L).itineraryName("뉴욕 호텔에서 꿀잠!").build());
-        itineraries3.add(ItineraryInfoDTO.builder().itineraryId(2L).itineraryName("지하철타고 이동").build());
+        itineraries3.add(
+            ItineraryInfoDTO.builder().itineraryId(1L).itineraryName("뉴욕 호텔에서 꿀잠!").build());
+        itineraries3.add(
+            ItineraryInfoDTO.builder().itineraryId(2L).itineraryName("지하철타고 이동").build());
         itineraries3.add(
             ItineraryInfoDTO.builder().itineraryId(3L).itineraryName("뉴욕 유명 거리 걷기").build());
         List<GetTripsResponseDTO> trips = new ArrayList<>();
@@ -139,10 +145,10 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
                     .description("국내 여행 여부"),
                 fieldWithPath("data[].itineraries").optional().type(JsonFieldType.ARRAY)
                     .description("여정 리스트"),
-                fieldWithPath("data[].itineraries[].itineraryId").optional().type(JsonFieldType.NUMBER)
-                    .description("여정 식별자"),
-                fieldWithPath("data[].itineraries[].itineraryName").optional().type(JsonFieldType.STRING)
-                    .description("여정 이름"))));
+                fieldWithPath("data[].itineraries[].itineraryId").optional()
+                    .type(JsonFieldType.NUMBER).description("여정 식별자"),
+                fieldWithPath("data[].itineraries[].itineraryName").optional()
+                    .type(JsonFieldType.STRING).description("여정 이름"))));
     }
 
     @Test
@@ -151,17 +157,19 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
         // given
         List<Object> itineraries = new ArrayList<>();
         itineraries.add(
-            //TODO itineraryName 추가
-            AccommodationResponseDTO.builder().itineraryId(1L).accommodationName("제주신라호텔")
-                .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75").checkIn("2023-10-25 15:00")
-                .checkOut("2023-10-26 11:00").build());
-        itineraries.add(TransportationResponseDTO.builder().itineraryId(2L).transportation("카카오택시")
-            .departurePlace("제주신라호텔").departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
-            .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
-            .departureTime("2023-10-26 12:00").arrivalTime("2023-10-26 13:00").build());
-        itineraries.add(VisitResponseDTO.builder().itineraryId(3L).placeName("카멜리아힐")
-            .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
-            .arrivalTime("2023-10-26 16:00").build());
+            AccommodationResponseDTO.builder().itineraryId(1L).itineraryName("제주 신라 호텔에서 숙박!")
+                .accommodationName("제주신라호텔").accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
+                .checkIn("2023-10-25 15:00").checkOut("2023-10-26 11:00").build());
+        itineraries.add(
+            TransportationResponseDTO.builder().itineraryId(2L).itineraryName("카카오 택시타고 이동!")
+                .transportation("카카오택시").departurePlace("제주신라호텔")
+                .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75").destination("오설록 티 뮤지엄")
+                .destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
+                .departureTime("2023-10-26 12:00").arrivalTime("2023-10-26 13:00").build());
+        itineraries.add(
+            VisitResponseDTO.builder().itineraryId(3L).itineraryName("카멜리아힐 구경!").placeName("카멜리아힐")
+                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
+                .arrivalTime("2023-10-26 16:00").build());
         GetTripResponseDTO trip = GetTripResponseDTO.builder().tripId(1L).tripName("제주도 여행")
             .startDate("2023-10-23").endDate("2023-10-27").isDomestic(true).itineraries(itineraries)
             .build();
@@ -180,7 +188,8 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
                         fieldWithPath("data.endDate").type(JsonFieldType.STRING).description("여행 종료일"),
                         fieldWithPath("data.isDomestic").type(JsonFieldType.BOOLEAN)
                             .description("국내 여행 여부"),
-                        fieldWithPath("data.itineraries").type(JsonFieldType.ARRAY).optional().description("여정 리스트"),
+                        fieldWithPath("data.itineraries").type(JsonFieldType.ARRAY).optional()
+                            .description("여정 리스트"),
                         fieldWithPath("data.itineraries[].itineraryId").type(JsonFieldType.NUMBER)
                             .optional().description("여정 식별자"),
                         fieldWithPath("data.itineraries[].accommodationName").type(JsonFieldType.STRING)
