@@ -26,7 +26,7 @@ public class ItineraryPostController {
     public ResponseEntity<ResponseDTO<AccommodationResponseDTO>> createAccommodation(@PathVariable Long tripId, @PathVariable Long itineraryId,
                                                                                      @Valid @RequestBody ItineraryAccommodationCreateDTO itineraryAccommodationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.CREATED,
-                itinerarypostUpdateService.Accommodation(itineraryAccommodationCreateDTO, tripId, itineraryId),
+                itinerarypostUpdateService.createdAccommodation(itineraryAccommodationCreateDTO, tripId, itineraryId),
                 "숙박 여정을 성공적으로 등록했습니다."));
     }
 
@@ -34,7 +34,7 @@ public class ItineraryPostController {
     public ResponseEntity<ResponseDTO<TransportationResponseDTO>> createTransportation(@PathVariable Long tripId,@PathVariable Long itineraryId,
                                                                                        @Valid @RequestBody ItineraryTransportationCreateDTO itineraryTransportationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.CREATED,
-                itinerarypostUpdateService.Transportation(itineraryTransportationCreateDTO, tripId, itineraryId),
+                itinerarypostUpdateService.createdTransportation(itineraryTransportationCreateDTO, tripId, itineraryId),
                 "이동 여정을 성공적으로 등록했습니다."));
     }
 
@@ -42,7 +42,7 @@ public class ItineraryPostController {
     public ResponseEntity<ResponseDTO<VisitResponseDTO>> createVisit(@PathVariable Long tripId, @PathVariable Long itineraryId,
                                                                      @Valid @RequestBody ItineraryVisitCreateDTO itineraryVisitCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.CREATED,
-                itinerarypostUpdateService.Visit(itineraryVisitCreateDTO, tripId, itineraryId),
+                itinerarypostUpdateService.createdVisit(itineraryVisitCreateDTO, tripId, itineraryId),
                 "체류 여정을 성공적으로 등록했습니다."));
     }
 }

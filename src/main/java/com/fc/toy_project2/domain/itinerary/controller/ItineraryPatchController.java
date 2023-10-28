@@ -25,7 +25,7 @@ public class ItineraryPatchController {
     public ResponseEntity<ResponseDTO<AccommodationResponseDTO>> updateAccommodation(@PathVariable Long tripId, @PathVariable Long itineraryId,
                                                                                      @Valid @RequestBody ItineraryAccommodationCreateDTO itineraryAccommodationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.OK,
-                itinerarypostUpdateService.Accommodation(itineraryAccommodationCreateDTO, tripId, itineraryId),
+                itinerarypostUpdateService.createdAccommodation(itineraryAccommodationCreateDTO, tripId, itineraryId),
                 "숙박 여정을 성공적으로 수정했습니다."));
     }
 
@@ -33,7 +33,7 @@ public class ItineraryPatchController {
     public ResponseEntity<ResponseDTO<TransportationResponseDTO>> updateTransportation(@PathVariable Long tripId, @PathVariable Long itineraryId,
                                                                                        @Valid @RequestBody ItineraryTransportationCreateDTO itineraryTransportationCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.OK,
-                itinerarypostUpdateService.Transportation(itineraryTransportationCreateDTO, tripId, itineraryId),
+                itinerarypostUpdateService.createdTransportation(itineraryTransportationCreateDTO, tripId, itineraryId),
                 "이동 여정을 성공적으로 수정했습니다."));
     }
 
@@ -41,7 +41,7 @@ public class ItineraryPatchController {
     public ResponseEntity<ResponseDTO<VisitResponseDTO>> updateVisit(@PathVariable Long tripId, @PathVariable Long itineraryId,
                                                                      @Valid @RequestBody ItineraryVisitCreateDTO itineraryVisitCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDTO.res(HttpStatus.OK,
-                itinerarypostUpdateService.Visit(itineraryVisitCreateDTO, tripId, itineraryId),
+                itinerarypostUpdateService.createdVisit(itineraryVisitCreateDTO, tripId, itineraryId),
                 "체류 여정을 성공적으로 수정했습니다."));
     }
 }

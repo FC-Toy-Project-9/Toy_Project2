@@ -55,7 +55,7 @@ class ItineraryPostControllerTest {
                     .checkIn("2023-10-25 15:00:00")
                     .checkOut("2023-10-26 11:00:00")
                     .build();
-            given(itineraryPostUpdateService.Accommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+            given(itineraryPostUpdateService.createdAccommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
             mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}/{itineraryId}", 1L)
                             .content(new ObjectMapper().writeValueAsString(createDTO))
@@ -95,7 +95,7 @@ class ItineraryPostControllerTest {
                 .departureTime(String.valueOf(LocalDateTime.of(2023, 10, 26, 12, 0, 0)))
                 .arrivalTime(String.valueOf(LocalDateTime.of(2023, 10, 26, 13, 0, 0)))
                 .build();
-        given(itineraryPostUpdateService.Transportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.createdTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}/{itineraryId}", 1L)
                         .content(new ObjectMapper().writeValueAsString(createDTO))
@@ -131,7 +131,7 @@ class ItineraryPostControllerTest {
                 .departureTime("2023-10-26 14:00:00")
                 .arrivalTime("2023-10-26 16:00:00")
                 .build();
-        given(itineraryPostUpdateService.Visit(any(ItineraryVisitCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.createdVisit(any(ItineraryVisitCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/visit/{tripId}/{itineraryId}", 1L)
 //                        .content(asJsonString(createDTO))

@@ -13,7 +13,6 @@ import com.fc.toy_project2.domain.itinerary.repository.ItineraryRepository;
 import com.fc.toy_project2.domain.trip.entity.Trip;
 import com.fc.toy_project2.domain.trip.service.TripService;
 import com.fc.toy_project2.global.util.DateTypeFormatterUtil;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,13 +29,14 @@ public class ItineraryPostUpdateService {
     private final TripService tripService;
 
     /**
-     * 숙박에 관한 여정 생성
+     * 숙박과 관련된 여정을 생성합니다.
      *
      * @param itineraryAccommodationCreateDTO 숙박 여정 생성 요청 DTO
-     * @param tripId                          여정을 추가할 여행의 ID
+     * @param tripId 여정을 추가할 여행의 ID
+     * @param itineraryId 여정의 고유 ID
      * @return 생성된 숙박 여정 응답 DTO
      */
-    public AccommodationResponseDTO Accommodation(
+    public AccommodationResponseDTO createdAccommodation(
             ItineraryAccommodationCreateDTO itineraryAccommodationCreateDTO, Long tripId, Long itineraryId) {
 
         Trip trip = tripService.getTrip(tripId);
@@ -56,10 +56,10 @@ public class ItineraryPostUpdateService {
                 .build();
 
         if (existingItinerary == null) {
-            // 이미 해당 여정이 데이터베이스에 존재하지 않는 경우, 새로운 여정을 저장합니다.
+            // 이미 해당 여정이 데이터베이스에 존재하지 않는 경우, 새로운 여정을 저장
             existingItinerary = itineraryRepository.save(updatedItinerary);
         } else {
-            // 이미 해당 여정이 데이터베이스에 존재하는 경우, 값을 업데이트합니다.
+            // 이미 해당 여정이 데이터베이스에 존재하는 경우, 값을 업데이트
             existingItinerary.updateAccommodationInfo(
                     updatedItinerary.getAccommodationName(),
                     updatedItinerary.getAccommodationRoadAddressName(),
@@ -72,13 +72,14 @@ public class ItineraryPostUpdateService {
     }
 
     /**
-     * 이동에 관한 여정 생성
+     * 이동과 관련된 여정을 생성합니다.
      *
-     * @param itineraryTransportationCreateDTO 이동에 관한 여정 생성 요청 DTO
-     * @param tripId                           여정을 추가할 여행의 ID
-     * @return 생성된 이동에 관한 여정 응답 DTO
+     * @param itineraryTransportationCreateDTO 이동 여정 생성 요청 DTO
+     * @param tripId 여정을 추가할 여행의 ID
+     * @param itineraryId 여정의 고유 ID
+     * @return 생성된 이동 여정 응답 DTO
      */
-    public TransportationResponseDTO Transportation(
+    public TransportationResponseDTO createdTransportation(
             ItineraryTransportationCreateDTO itineraryTransportationCreateDTO, Long tripId, Long itineraryId) {
 
         Trip trip = tripService.getTrip(tripId);
@@ -88,10 +89,10 @@ public class ItineraryPostUpdateService {
         checkTransportationVisitDate(trip, departureTime, arrivalTime);
 
         Itinerary existingItinerary = itineraryRepository.findByTripIdAndId(tripId, itineraryId);
-        // 새로운 Itinerary 객체를 생성하고 필드 설정
+
         Itinerary updatedItinerary = Itinerary.builder()
                 .trip(trip)
-                .type(1) // 이동 여정 유형
+                .type(1)
                 .transportation(itineraryTransportationCreateDTO.getTransportation())
                 .departurePlace(itineraryTransportationCreateDTO.getDeparturePlace())
                 .departurePlaceRoadAddressName(itineraryTransportationCreateDTO.getDeparturePlaceRoadAddressName())
@@ -102,10 +103,8 @@ public class ItineraryPostUpdateService {
                 .build();
 
         if (existingItinerary == null) {
-            // 이미 해당 여정이 데이터베이스에 존재하지 않는 경우, 새로운 여정을 저장합니다.
             existingItinerary = itineraryRepository.save(updatedItinerary);
         } else {
-            // 이미 해당 여정이 데이터베이스에 존재하는 경우, 값을 업데이트합니다.
             existingItinerary.updateTransportationInfo(
                     updatedItinerary.getTransportation(),
                     updatedItinerary.getDeparturePlace(),
@@ -120,15 +119,15 @@ public class ItineraryPostUpdateService {
         return existingItinerary.toTransportationResponseDTO();
     }
 
-
     /**
-     * 체류에 관한 여정 생성
+     * 체류와 관련된 여정을 생성합니다.
      *
-     * @param itineraryVisitCreateDTO 체류에 관한 여정 생성 요청 DTO
-     * @param tripId                  여정을 추가할 여행의 ID
-     * @return 생성된 체류에 관한 여정 응답 DTO
+     * @param itineraryVisitCreateDTO 방문 여정 생성 요청 DTO
+     * @param tripId 여정을 추가할 여행의 ID
+     * @param itineraryId 여정의 고유 ID
+     * @return 생성된 방문 여정 응답 DTO
      */
-    public VisitResponseDTO Visit(
+    public VisitResponseDTO createdVisit(
             ItineraryVisitCreateDTO itineraryVisitCreateDTO, Long tripId, Long itineraryId) {
 
         Trip trip = tripService.getTrip(tripId);
@@ -138,10 +137,10 @@ public class ItineraryPostUpdateService {
         checkTransportationVisitDate(trip, visitDepartureTime, visitArrivalTime);
 
         Itinerary existingItinerary = itineraryRepository.findByTripIdAndId(tripId, itineraryId);
-        // 새로운 Itinerary 객체를 생성하고 필드 설정
+
         Itinerary updatedItinerary = Itinerary.builder()
                 .trip(trip)
-                .type(1) // 이동 여정 유형
+                .type(1)
                 .placeName(itineraryVisitCreateDTO.getPlaceName())
                 .placeRoadAddressName(itineraryVisitCreateDTO.getPlaceRoadAddressName())
                 .visitArrivalTime(visitArrivalTime)
@@ -149,10 +148,8 @@ public class ItineraryPostUpdateService {
                 .build();
 
         if (existingItinerary == null) {
-            // 이미 해당 여정이 데이터베이스에 존재하지 않는 경우, 새로운 여정을 저장합니다.
             existingItinerary = itineraryRepository.save(updatedItinerary);
         } else {
-            // 이미 해당 여정이 데이터베이스에 존재하는 경우, 값을 업데이트합니다.
             existingItinerary.updateVisitInfo(
                     updatedItinerary.getPlaceName(),
                     updatedItinerary.getPlaceRoadAddressName(),

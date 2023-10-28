@@ -1,7 +1,6 @@
 package com.fc.toy_project2.itinerary.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fc.toy_project2.domain.itinerary.controller.ItineraryPostController;
 import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryAccommodationCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryTransportationCreateDTO;
 import com.fc.toy_project2.domain.itinerary.dto.request.createDTO.ItineraryVisitCreateDTO;
@@ -19,8 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -55,7 +52,7 @@ public class ItineraryPatchController {
                     .checkIn("2023-10-24 15:00:00")
                     .checkOut("2023-10-25 10:00:00")
                     .build();
-            given(itineraryPostUpdateService.Accommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+            given(itineraryPostUpdateService.createdAccommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
             // when, then
             mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}/{itineraryId}", 1L)
@@ -96,7 +93,7 @@ public class ItineraryPatchController {
                     .departureTime("2023-10-26 11:00:00")
                     .arrivalTime("2023-10-26 13:00:00")
                     .build();
-            given(itineraryPostUpdateService.Transportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+            given(itineraryPostUpdateService.createdTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
             mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}/{itineraryId}", 1L)
                             .content(new ObjectMapper().writeValueAsString(createDTO))
@@ -132,7 +129,7 @@ public class ItineraryPatchController {
                     .departureTime("2023-10-26 14:00:00")
                     .arrivalTime("2023-10-26 16:00:00")
                     .build();
-            given(itineraryPostUpdateService.Visit(any(ItineraryVisitCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+            given(itineraryPostUpdateService.createdVisit(any(ItineraryVisitCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
             mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/visit/{tripId}/{itineraryId}", 1L)
                             .content(new ObjectMapper().writeValueAsString(createDTO))

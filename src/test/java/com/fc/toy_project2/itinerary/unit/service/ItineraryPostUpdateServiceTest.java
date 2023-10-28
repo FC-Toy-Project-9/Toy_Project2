@@ -70,7 +70,7 @@ class ItineraryPostUpdateServiceTest {
             given(itineraryRepository.save(any(Itinerary.class)));
 
             // when
-            AccommodationResponseDTO result = itineraryPostUpdateService.Accommodation(createDTO, 1L,1L);
+            AccommodationResponseDTO result = itineraryPostUpdateService.createdAccommodation(createDTO, 1L,1L);
 
             // then
             assertThat(result)
@@ -101,11 +101,11 @@ class ItineraryPostUpdateServiceTest {
                 .departureTime("2023-10-24 12:00:00")
                 .arrivalTime("2023-10-25 12:00:00")
                 .build();
-        given(itineraryPostUpdateService.Transportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.createdTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
         given(tripService.getTrip(any(Long.TYPE)));
         given(itineraryRepository.save(any(Itinerary.class)));
         // when
-        TransportationResponseDTO result = itineraryPostUpdateService.Transportation(createDTO, 1L, 1L);
+        TransportationResponseDTO result = itineraryPostUpdateService.createdTransportation(createDTO, 1L, 1L);
 
         // itineraryPostUpdateService.createTransportation()의 호출을 확인
         assertThat(result)
@@ -134,7 +134,7 @@ class ItineraryPostUpdateServiceTest {
                 .build();
         given(tripService.getTrip(any(Long.TYPE)));
         given(itineraryRepository.save(any(Itinerary.class)));
-        VisitResponseDTO result = itineraryPostUpdateService.Visit(createDTO, 1L, 1L);
+        VisitResponseDTO result = itineraryPostUpdateService.createdVisit(createDTO, 1L, 1L);
 
         assertThat(result)
                 .extracting("placeName", "placeRoadAddressName", "departureTime", "arrivalTime")
@@ -161,7 +161,7 @@ class ItineraryPostUpdateServiceTest {
                 .build();
         given(tripService.getTrip(any(Long.TYPE)));
         given(itineraryRepository.save(any(Itinerary.class)));
-        VisitResponseDTO result = itineraryPostUpdateService.Visit(createDTO, 1L, eq(1L));
+        VisitResponseDTO result = itineraryPostUpdateService.createdVisit(createDTO, 1L, eq(1L));
 
         assertThat(result)
                 .extracting("placeName", "placeRoadAddressName", "departureTime", "arrivalTime")
@@ -192,7 +192,7 @@ class ItineraryPostUpdateServiceTest {
                 .departureTime("2023-10-26 11:00:00")
                 .arrivalTime("2023-10-26 13:00:00")
                 .build();
-        given(itineraryPostUpdateService.Transportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.createdTransportation(any(ItineraryTransportationCreateDTO.class), eq(1L), eq(1L))).willReturn(expectedResponse);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/transportation/{tripId}", 1L)
                         .content(new ObjectMapper().writeValueAsString(createDTO))
@@ -228,7 +228,7 @@ class ItineraryPostUpdateServiceTest {
                 .checkIn("2023-10-24 15:00:00")
                 .checkOut("2023-10-25 10:00:00")
                 .build();
-        given(itineraryPostUpdateService.Accommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L),eq(1L))).willReturn(expectedResponse);
+        given(itineraryPostUpdateService.createdAccommodation(any(ItineraryAccommodationCreateDTO.class), eq(1L),eq(1L))).willReturn(expectedResponse);
 
         // when, then
         mockMvc.perform(MockMvcRequestBuilders.post("/api/itinerary/accommodation/{tripId}", 1L)
