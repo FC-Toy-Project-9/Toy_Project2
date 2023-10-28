@@ -68,7 +68,7 @@ public class ItineraryPatchController {
                     .andExpect(jsonPath("$.data.accommodationRoadAddressName").value("제주 서귀포시 중문관광로72번길 75"))
                     .andExpect(jsonPath("$.data.checkIn").value("2023-10-24T15:00:00"))
                     .andExpect(jsonPath("$.data.checkOut").value("2023-10-25T11:00:00"))
-                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
                     .andDo(print());
         }
 
@@ -112,7 +112,7 @@ public class ItineraryPatchController {
                     .andExpect(jsonPath("$.data.destinationRoadAddressName").value("제주 서귀포시 안덕면 신화역사로 15 오설록"))
                     .andExpect(jsonPath("$.data.departureTime").value("2023-10-26 11:00:00"))
                     .andExpect(jsonPath("$.data.arrivalTime").value("2023-10-26 13:00:00"))
-                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
                     .andDo(print());
         }
 
@@ -146,7 +146,7 @@ public class ItineraryPatchController {
                     .andExpect(jsonPath("$.data.placeRoadAddressName").value("제주 서귀포시 안덕면 병악로 166"))
                     .andExpect(jsonPath("$.data.departureTime").value("2023-10-26 14:00:00"))
                     .andExpect(jsonPath("$.data.arrivalTime").value("2023-10-26 16:00:00"))
-                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
                     .andDo(print());
         }
     }

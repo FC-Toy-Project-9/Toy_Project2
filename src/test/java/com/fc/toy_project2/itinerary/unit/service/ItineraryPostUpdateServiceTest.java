@@ -14,7 +14,10 @@ import com.fc.toy_project2.domain.trip.service.TripService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -33,19 +37,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
-@WebMvcTest(ItineraryPostUpdateService.class)
+@Transactional
+@ExtendWith(MockitoExtension.class)
 class ItineraryPostUpdateServiceTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @InjectMocks
     private ItineraryPostUpdateService itineraryPostUpdateService;
 
-    @MockBean
+    @Mock
     TripService tripService;
 
-    @MockBean
+    @Mock
     ItineraryRepository itineraryRepository;
 
     @Nested
