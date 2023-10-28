@@ -2,6 +2,8 @@ package com.fc.toy_project2.domain.trip.controller;
 
 import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripResponseDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripsResponseDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.service.TripService;
 import com.fc.toy_project2.global.DTO.ResponseDTO;
@@ -36,13 +38,13 @@ public class TripRestController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDTO<List<TripResponseDTO>>> getTrips() {
+    public ResponseEntity<ResponseDTO<List<GetTripsResponseDTO>>> getTrips() {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseDTO.res(HttpStatus.OK, tripService.getTrips(), "성공적으로 여행 정보 목록을 조회했습니다."));
     }
 
     @GetMapping("/{tripId}")
-    public ResponseEntity<ResponseDTO<TripResponseDTO>> getTripById(@PathVariable long tripId) {
+    public ResponseEntity<ResponseDTO<GetTripResponseDTO>> getTripById(@PathVariable long tripId) {
         return ResponseEntity.status(HttpStatus.OK).body(
             ResponseDTO.res(HttpStatus.OK, tripService.getTripById(tripId),
                 "성공적으로 여행 정보를 조회했습니다."));
