@@ -1,7 +1,6 @@
 package com.fc.toy_project2.domain.trip.entity;
 
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
-import com.fc.toy_project2.domain.itinerary.dto.response.ItinerarySearchResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
@@ -112,53 +111,38 @@ public class Trip {
     public List<ItineraryInfoDTO> getItineraryInfoDTO() {
         List<ItineraryInfoDTO> itineraries = new ArrayList<>();
         for (Itinerary itinerary : this.itineraries) {
-            //TODO itineraries.add(ItineraryInfoDTO.builder().itineraryId(itinerary.getId())
-            //                    .itineraryName(itinerary.getAccommodationName()).build()); 로 수정
-            if (itinerary.getType() == 0) {
-                itineraries.add(ItineraryInfoDTO.builder().itineraryId(itinerary.getId())
-                    .itineraryName(itinerary.getAccommodationName()).build());
-            } else if (itinerary.getType() == 1) {
-                itineraries.add(ItineraryInfoDTO.builder().itineraryId(itinerary.getId())
-                    .itineraryName(itinerary.getTransportation()).build());
-            } else if (itinerary.getType() == 2) {
-                itineraries.add(ItineraryInfoDTO.builder().itineraryId(itinerary.getId())
-                    .itineraryName(itinerary.getPlaceName()).build());
-            }
+            itineraries.add(ItineraryInfoDTO.builder().itineraryId(itinerary.getId())
+                .itineraryName(itinerary.getItineraryName()).build());
         }
         return itineraries;
     }
 
-    public List<Object> getItineraryResponseDTO(){
+    public List<Object> getItineraryResponseDTO() {
         List<Object> itineraryList = new ArrayList<>();
         for (Itinerary itinerary : this.itineraries) {
-            //TODO itineraryName도 추가
             if (itinerary.getType() == 0) {
-                itineraryList.add(AccommodationResponseDTO.builder()
-                    .itineraryId(itinerary.getId())
+                itineraryList.add(AccommodationResponseDTO.builder().itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
                     .accommodationName(itinerary.getAccommodationName())
-                    .accommodationRoadAddressName(
-                        itinerary.getAccommodationRoadAddressName())
+                    .accommodationRoadAddressName(itinerary.getAccommodationRoadAddressName())
                     .checkIn(localDateTimeToString(itinerary.getCheckIn()))
-                    .checkOut(localDateTimeToString(itinerary.getCheckOut()))
-                    .build());
+                    .checkOut(localDateTimeToString(itinerary.getCheckOut())).build());
             } else if (itinerary.getType() == 1) {
-                itineraryList.add(TransportationResponseDTO.builder()
-                    .itineraryId(itinerary.getId())
+                itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
                     .transportation(itinerary.getTransportation())
                     .departurePlace(itinerary.getDeparturePlace())
-                    .departurePlaceRoadAddressName(
-                        itinerary.getDeparturePlaceRoadAddressName())
+                    .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
                     .destination(itinerary.getDestination())
                     .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
                     .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
                     .arrivalTime(localDateTimeToString(itinerary.getArrivalTime())).build());
             } else if (itinerary.getType() == 2) {
-                itineraryList.add(TransportationResponseDTO.builder()
-                    .itineraryId(itinerary.getId())
+                itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName())
                     .transportation(itinerary.getTransportation())
                     .departurePlace(itinerary.getDeparturePlace())
-                    .departurePlaceRoadAddressName(
-                        itinerary.getDeparturePlaceRoadAddressName())
+                    .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
                     .destination(itinerary.getDestination())
                     .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
                     .departureTime(localDateTimeToString(itinerary.getDepartureTime()))
