@@ -1,5 +1,6 @@
 package com.fc.toy_project2.domain.itinerary.controller;
 
+import com.fc.toy_project2.domain.itinerary.exception.InvalidItineraryException;
 import com.fc.toy_project2.domain.itinerary.exception.ItineraryNotFoundException;
 import com.fc.toy_project2.global.DTO.ResponseDTO;
 import org.springframework.http.HttpStatus;
@@ -8,12 +9,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ItineraryGetDeleteControllerAdvice {
+public class ItineraryRestControllerAdvice {
 
     @ExceptionHandler
-    public ResponseEntity<ResponseDTO> itineraryNotFoundException(ItineraryNotFoundException e) {
+    public ResponseEntity<ResponseDTO<Void>> itineraryNotFoundException(
+        ItineraryNotFoundException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 
+    @ExceptionHandler
+    public ResponseEntity<ResponseDTO<Void>> invalidItineraryException(
+        InvalidItineraryException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ResponseDTO.res(HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
 }

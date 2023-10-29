@@ -19,6 +19,49 @@ include::{snippets}/itinerary-rest-controller-docs-test/get-place-by-keyword/pat
 include::{snippets}/itinerary-rest-controller-docs-test/get-place-by-keyword/http-response.adoc[]
 include::{snippets}/itinerary-rest-controller-docs-test/get-place-by-keyword/response-fields.adoc[]
 
+[[Itinerary-Accommodation-Create]]
+== 숙박 여정 등록
+
+숙박 여정을 등록하는 API 입니다.
+
+=== HttpRequest
+include::{snippets}/itinerary-rest-controller-docs-test/create-accommodation/http-request.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/create-accommodation/request-body.adoc[]
+
+
+=== HttpResponse
+include::{snippets}/itinerary-rest-controller-docs-test/create-accommodation/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/create-accommodation/response-fields.adoc[]
+
+[[Itinerary-Transportation-Create]]
+== 이동 여정 등록
+
+이동 여정을 등록하는 API 입니다.
+
+=== HttpRequest
+include::{snippets}/itinerary-rest-controller-docs-test/create-transportation/http-request.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/create-transportation/request-body.adoc[]
+
+
+=== HttpResponse
+include::{snippets}/itinerary-rest-controller-docs-test/create-transportation/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/create-transportation/response-fields.adoc[]
+
+[[Itinerary-Visit-Create]]
+== 체류 여정 등록
+
+체류 여정을 등록하는 API 입니다.
+
+=== HttpRequest
+include::{snippets}/itinerary-rest-controller-docs-test/create-visit/http-request.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/create-visit/request-body.adoc[]
+
+
+=== HttpResponse
+include::{snippets}/itinerary-rest-controller-docs-test/create-visit/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/create-visit/response-fields.adoc[]
+
+
 [[Itinerary-Search]]
 == 여정 정보 목록 조회
 
@@ -32,6 +75,48 @@ include::{snippets}/itinerary-rest-controller-docs-test/get-itinerary-by-trip-id
 === HttpResponse
 include::{snippets}/itinerary-rest-controller-docs-test/get-itinerary-by-trip-id/http-response.adoc[]
 include::{snippets}/itinerary-rest-controller-docs-test/get-itinerary-by-trip-id/response-fields.adoc[]
+
+[[Itinerary-Accommodation-Update]]
+== 숙박 여정 수정
+
+숙박 여정을 수정하는 API 입니다.
+
+=== HttpRequest
+include::{snippets}/itinerary-rest-controller-docs-test/update-accommodation/http-request.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/update-accommodation/request-body.adoc[]
+
+
+=== HttpResponse
+include::{snippets}/itinerary-rest-controller-docs-test/update-accommodation/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/update-accommodation/response-fields.adoc[]
+
+[[Itinerary-Transportation-Update]]
+== 이동 여정 수정
+
+이동 여정을 수정하는 API 입니다.
+
+=== HttpRequest
+include::{snippets}/itinerary-rest-controller-docs-test/update-transportation/http-request.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/update-transportation/request-body.adoc[]
+
+
+=== HttpResponse
+include::{snippets}/itinerary-rest-controller-docs-test/update-transportation/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/update-transportation/response-fields.adoc[]
+
+[[Itinerary-Visit-Update]]
+== 체류 여정 수정
+
+체류 여정을 수정하는 API 입니다.
+
+=== HttpRequest
+include::{snippets}/itinerary-rest-controller-docs-test/update-visit/http-request.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/update-visit/request-body.adoc[]
+
+
+=== HttpResponse
+include::{snippets}/itinerary-rest-controller-docs-test/update-visit/http-response.adoc[]
+include::{snippets}/itinerary-rest-controller-docs-test/update-visit/response-fields.adoc[]
 
 
 [[Itinerary-Delete]]
