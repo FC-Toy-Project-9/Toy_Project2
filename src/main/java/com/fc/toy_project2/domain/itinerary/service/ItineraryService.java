@@ -156,7 +156,7 @@ public class ItineraryService {
         LocalDateTime arrivalTime = DateTypeFormatterUtil.dateTimeFormatter(
             visitCreateRequestDTO.getArrivalTime());
         checkVisitDate(trip, departureTime, arrivalTime);
-        return itineraryRepository.save(Itinerary.builder().trip(trip).type(1)
+        return itineraryRepository.save(Itinerary.builder().trip(trip).type(2)
                 .itineraryName(visitCreateRequestDTO.getItineraryName())
                 .placeName(visitCreateRequestDTO.getPlaceName())
                 .placeRoadAddressName(visitCreateRequestDTO.getPlaceRoadAddressName())
