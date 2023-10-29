@@ -3,6 +3,8 @@ package com.fc.toy_project2.domain.trip.service;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
 import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripResponseDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripsResponseDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.entity.Trip;
 import com.fc.toy_project2.domain.trip.exception.InvalidTripDateRangeException;
@@ -58,11 +60,11 @@ public class TripService {
      *
      * @return 여행 정보 응답 DTO 리스트
      */
-    public List<TripResponseDTO> getTrips() {
-        List<TripResponseDTO> trips = new ArrayList<>();
+    public List<GetTripsResponseDTO> getTrips() {
+        List<GetTripsResponseDTO> trips = new ArrayList<>();
         List<Trip> tripList = tripRepository.findAll(Sort.by(Direction.ASC, "id"));
         for (Trip trip : tripList) {
-            trips.add(trip.toTripResponseDTO());
+            trips.add(trip.toGetTripsResponseDTO());
         }
         return trips;
     }
@@ -73,8 +75,8 @@ public class TripService {
      * @param id 조회할 하는 여행 ID
      * @return 여행 정보 응답 DTO
      */
-    public TripResponseDTO getTripById(Long id) {
-        return getTrip(id).toTripResponseDTO();
+    public GetTripResponseDTO getTripById(Long id) {
+        return getTrip(id).toGetTripResponseDTO();
     }
 
     public TripResponseDTO updateTrip(UpdateTripRequestDTO updateTripRequestDTO) {
@@ -122,12 +124,12 @@ public class TripService {
         LocalDate max = LocalDate.MAX;
         for (Itinerary itinerary : itineraries) {
             if (itinerary.getType() == 0) {
-                if (itinerary.getDepartureTime().toLocalDate().isBefore(max)) {
-                    max = itinerary.getDepartureTime().toLocalDate();
-                }
-            } else if (itinerary.getType() == 1) {
                 if (itinerary.getCheckIn().toLocalDate().isBefore(max)) {
                     max = itinerary.getCheckIn().toLocalDate();
+                }
+            } else if (itinerary.getType() == 1) {
+                if (itinerary.getDepartureTime().toLocalDate().isBefore(max)) {
+                    max = itinerary.getDepartureTime().toLocalDate();
                 }
             } else if (itinerary.getType() == 2) {
                 if (itinerary.getArrivalTime().toLocalDate().isBefore(max)) {
@@ -148,12 +150,12 @@ public class TripService {
         LocalDate min = LocalDate.MIN;
         for (Itinerary itinerary : itineraries) {
             if (itinerary.getType() == 0) {
-                if (itinerary.getArrivalTime().toLocalDate().isAfter(min)) {
-                    min = itinerary.getArrivalTime().toLocalDate();
-                }
-            } else if (itinerary.getType() == 1) {
                 if (itinerary.getCheckOut().toLocalDate().isAfter(min)) {
                     min = itinerary.getCheckOut().toLocalDate();
+                }
+            } else if (itinerary.getType() == 1) {
+                if (itinerary.getArrivalTime().toLocalDate().isAfter(min)) {
+                    min = itinerary.getArrivalTime().toLocalDate();
                 }
             } else if (itinerary.getType() == 2) {
                 if (itinerary.getDepartureTime().toLocalDate().isAfter(min)) {

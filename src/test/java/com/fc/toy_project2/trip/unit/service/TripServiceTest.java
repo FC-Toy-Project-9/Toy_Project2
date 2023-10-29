@@ -11,6 +11,8 @@ import static org.mockito.Mockito.verify;
 
 import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripResponseDTO;
+import com.fc.toy_project2.domain.trip.dto.response.GetTripsResponseDTO;
 import com.fc.toy_project2.domain.trip.dto.response.TripResponseDTO;
 import com.fc.toy_project2.domain.trip.entity.Trip;
 import com.fc.toy_project2.domain.trip.exception.InvalidTripDateRangeException;
@@ -57,16 +59,16 @@ public class TripServiceTest {
             PostTripRequestDTO postTripRequestDTO = PostTripRequestDTO.builder().tripName("제주도 여행")
                 .startDate("2023-10-25").endDate("2023-10-26").isDomestic(true).build();
             Trip trip = Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
-                    .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true)
-                    .itineraries(new ArrayList<>()).build();
+                .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true).itineraries(new ArrayList<>())
+                .build();
             given(tripRepository.save(any(Trip.class))).willReturn(trip);
 
             // when
             TripResponseDTO result = tripService.postTrip(postTripRequestDTO);
 
             // then
-            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate", "isDomestic")
-                .containsExactly(1L, "제주도 여행", "2023-10-25", "2023-10-26", true);
+            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate",
+                "isDomestic").containsExactly(1L, "제주도 여행", "2023-10-25", "2023-10-26", true);
             verify(tripRepository, times(1)).save(any(Trip.class));
         }
 
@@ -108,7 +110,7 @@ public class TripServiceTest {
             given(tripRepository.findAll(Sort.by(Direction.ASC, "id"))).willReturn(trips);
 
             // when
-            List<TripResponseDTO> result = tripService.getTrips();
+            List<GetTripsResponseDTO> result = tripService.getTrips();
 
             // then
             assertThat(result).isNotEmpty();
@@ -131,11 +133,11 @@ public class TripServiceTest {
             given(tripRepository.findById(any(Long.TYPE))).willReturn(trip);
 
             // when
-            TripResponseDTO result = tripService.getTripById(1L);
+            GetTripResponseDTO result = tripService.getTripById(1L);
 
             // then
-            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate", "isDomestic")
-                .containsExactly(1L, "제주도 여행", "2023-10-23", "2023-10-27", true);
+            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate",
+                "isDomestic").containsExactly(1L, "제주도 여행", "2023-10-23", "2023-10-27", true);
             verify(tripRepository, times(1)).findById(any(Long.TYPE));
         }
 
@@ -176,8 +178,8 @@ public class TripServiceTest {
             TripResponseDTO result = tripService.updateTrip(updateTripRequestDTO);
 
             // then
-            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate", "isDomestic")
-                .containsExactly(1L, "울릉도 여행", "2023-10-25", "2023-10-26", true);
+            assertThat(result).extracting("tripId", "tripName", "startDate", "endDate",
+                "isDomestic").containsExactly(1L, "울릉도 여행", "2023-10-25", "2023-10-26", true);
             verify(tripRepository, times(1)).findById(any(Long.TYPE));
         }
 
@@ -212,8 +214,8 @@ public class TripServiceTest {
         void _willSuccess() {
             // given
             Trip trip = Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
-                    .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true)
-                    .itineraries(new ArrayList<>()).build();
+                .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true).itineraries(new ArrayList<>())
+                .build();
             given(tripRepository.findById(any(Long.TYPE))).willReturn(Optional.of(trip));
 
             // when

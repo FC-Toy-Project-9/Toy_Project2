@@ -9,6 +9,7 @@ import lombok.Getter;
 public class TransportationResponseDTO {
 
     private Long itineraryId;
+    private String itineraryName;
     private String transportation;
     private String departurePlace;
     private String departurePlaceRoadAddressName;

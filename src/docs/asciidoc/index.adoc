@@ -24,7 +24,7 @@ endif::[]
 |===
 | Status code | Useage
 | `200 OK` | 요청을 성공적으로 수행
-| `201 Created` | 생성 요청 (ex: 게시글 생성)을 성공적으로 수행
+| `201 Created` | 생성 요청 (ex: 여행 등록)을 성공적으로 수행
 | `400 Bad Request` | API 에 기술되어 있는 요구사항에 부적합 시 발생
 | `401 Unauthorized` | 해당 API에 대한 인증 정보가 없는 경우 발생
 | `403 Forbiddon` | 해당 API에 대한 권한이 없는 경우 발생
