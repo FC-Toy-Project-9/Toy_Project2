@@ -103,7 +103,9 @@
 > ![](src/main/resources/image/db_trip.png)
 > ![](src/main/resources/image/db_itinerary.png)
 > 
-> ※ 혹시 각 API 요청 결과가 필요하시다면 [REST Docs](#API-문서)를 참고해주세요!
+> ※ 각 API 요청 결과는 [REST Docs](#API-문서)에서 확인하실 수 있습니다.
+> 
+> ※ Postman 테스트 결과는 LMS로 제출한 기획안에서 확인하실 수 있습니다. 
 
 ---
 
