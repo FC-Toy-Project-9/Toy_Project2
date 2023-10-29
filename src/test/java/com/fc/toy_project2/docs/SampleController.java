@@ -1,10 +1,9 @@
 package com.fc.toy_project2.docs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fc.toy_project2.global.DTO.ResponseDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class SampleController {
 
     @PostMapping("/docs")
-    public ResponseEntity<Map<String, Object>> sample(
+    public ResponseEntity<ResponseDTO<Void>> sample(
         @RequestBody @Valid SampleRequestDTO sampleRequestDTO) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", 201);
-        response.put("message", "성공!");
-        response.put("data", null);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ResponseDTO.res(HttpStatus.OK, sampleRequestDTO.getName() + "님, 성공!"));
     }
 
     @Getter
