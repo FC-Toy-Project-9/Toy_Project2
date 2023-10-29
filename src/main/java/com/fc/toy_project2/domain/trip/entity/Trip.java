@@ -2,6 +2,7 @@ package com.fc.toy_project2.domain.trip.entity;
 
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
+import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.GetTripResponseDTO;
@@ -143,17 +144,12 @@ public class Trip {
                         DateTypeFormatterUtil.localDateTimeToString(itinerary.getArrivalTime()))
                     .build());
             } else if (itinerary.getType() == 2) {
-                itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
-                    .itineraryName(itinerary.getItineraryName())
-                    .transportation(itinerary.getTransportation())
-                    .departurePlace(itinerary.getDeparturePlace())
-                    .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
-                    .destination(itinerary.getDestination())
-                    .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
+                itineraryList.add(VisitResponseDTO.builder().itineraryId(itinerary.getId())
+                    .itineraryName(itinerary.getItineraryName()).placeName(itinerary.getPlaceName())
+                    .placeRoadAddressName(itinerary.getPlaceRoadAddressName()).arrivalTime(
+                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getArrivalTime()))
                     .departureTime(
                         DateTypeFormatterUtil.localDateTimeToString(itinerary.getDepartureTime()))
-                    .arrivalTime(
-                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getArrivalTime()))
                     .build());
             }
         }
