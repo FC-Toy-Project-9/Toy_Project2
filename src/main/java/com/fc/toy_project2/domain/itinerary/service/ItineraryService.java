@@ -312,11 +312,14 @@ public class ItineraryService {
         if (checkIn.isAfter(checkOut)) {
             throw new InvalidItineraryException("체크인 시간은 체크아웃 시간보다 이른 시간이어야 합니다.");
         }
+        if (checkIn.isBefore(tripStartDateTime)) {
+            throw new InvalidItineraryException("체크인 시간은 여행 시작일 이후여야 합니다.");
+        }
         if (checkIn.isAfter(tripEndDateTime)) {
             throw new InvalidItineraryException("체크인 시간은 여행 종료일보다 빠른 시간이어야 합니다.");
         }
-        if (checkOut.isBefore(tripStartDateTime)) {
-            throw new InvalidItineraryException("체크아웃 시간은 여헹 시작일보다 빠른 시간이어야 합니다.");
+        if (checkOut.isAfter(tripEndDateTime)) {
+            throw new InvalidItineraryException("체크아웃 시간은 여행 종료일보다 빠른 시간이어야 합니다.");
         }
     }
 
@@ -335,11 +338,14 @@ public class ItineraryService {
         if (departureTime.isAfter(arrivalTime)) {
             throw new InvalidItineraryException("출발 시간은 도착 시간보다 이른 시간이어야 합니다.");
         }
+        if(departureTime.isBefore(tripStartDateTime)){
+            throw new InvalidItineraryException("출발 시간은 여행 시작일 이후여야 합니다.");
+        }
         if (departureTime.isAfter(tripEndDateTime)) {
             throw new InvalidItineraryException("출발 시간은 여행 종료일보다 빠른 시간이어야 합니다.");
         }
-        if (arrivalTime.isBefore(tripStartDateTime)) {
-            throw new InvalidItineraryException("도착 시간은 여행 시작일보다 빠른 시간이어야 합니다.");
+        if(arrivalTime.isAfter(tripEndDateTime)){
+            throw new InvalidItineraryException("도착 시간은 여행 종료일보다 빠른 시간이어야 합니다.");
         }
     }
 
@@ -355,13 +361,16 @@ public class ItineraryService {
         LocalDateTime arrivalTime) {
         LocalDateTime tripStartDateTime = trip.getStartDate().atStartOfDay();
         LocalDateTime tripEndDateTime = trip.getEndDate().atTime(LocalTime.MAX);
-        if (departureTime.isBefore(arrivalTime)) {
+        if (arrivalTime.isAfter(departureTime)) {
             throw new InvalidItineraryException("도착 시간은 출발 시간보다 이른 시간이어야 합니다.");
         }
-        if (arrivalTime.isAfter(tripStartDateTime)) {
-            throw new InvalidItineraryException("도착 시간은 여행 시작일보다 빠른 시간이어야 합니다.");
+        if (arrivalTime.isBefore(tripStartDateTime)) {
+            throw new InvalidItineraryException("도착 시간은 여행 시작일 이후여야 합니다.");
         }
-        if (departureTime.isBefore(tripEndDateTime)) {
+        if(arrivalTime.isAfter(tripEndDateTime)){
+            throw new InvalidItineraryException("도착 시간은 여행 종료일보다 빠른 시간이어야 합니다.");
+        }
+        if (departureTime.isAfter(tripEndDateTime)) {
             throw new InvalidItineraryException("출발 시간은 여행 종료일보다 빠른 시간이어야 합니다.");
         }
     }
