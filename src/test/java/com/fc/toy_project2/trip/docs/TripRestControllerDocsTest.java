@@ -168,8 +168,8 @@ public class TripRestControllerDocsTest extends RestDocsSupport {
                 .departureTime("2023-10-26 12:00").arrivalTime("2023-10-26 13:00").build());
         itineraries.add(
             VisitResponseDTO.builder().itineraryId(3L).itineraryName("카멜리아힐 구경!").placeName("카멜리아힐")
-                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
-                .arrivalTime("2023-10-26 16:00").build());
+                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").arrivalTime("2023-10-26 14:00")
+                .departureTime("2023-10-26 16:00").build());
         GetTripResponseDTO trip = GetTripResponseDTO.builder().tripId(1L).tripName("제주도 여행")
             .startDate("2023-10-23").endDate("2023-10-27").isDomestic(true).itineraries(itineraries)
             .build();
