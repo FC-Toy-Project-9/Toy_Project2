@@ -12,7 +12,7 @@
     - [DB 설계](#DB-설계)
     - [API 설계](#API-설계)
 - [개발 내용](#개발-내용)
-- [API 문서](#API-Docs)
+- [API 문서](#API-문서)
 
 ---
 
@@ -56,16 +56,20 @@
 > | 기능        | Method  | URI                             |
 > |-----------|---------|---------------------------------|
 > | 여행 등록     | POST    | api/trips                       |
-> | 여정 등록     | POST    | api/itineraries                 |
+> | 숙박 여정 등록  | POST    | api/itineraries/accommodations  |
+> | 이동 여정 등록  | POST    | api/itineraries/transportations |
+> | 체류 여정 등록  | POST    | api/itineraries/visits          |
 > | 전체 여행 조회  | GET     | api/trips                       |
 > | 특정 여행 조회  | GET     | api/trips/{tripId}              |
 > | 여행 수정     | PATCH   | api/trips                       |
 > | 여행 삭제     | DELETE  | api/trips/{tripId}              |
 > | 여정 조회     | GET     | api/itineraries/{tripId}        |
 > | 키워드 장소 검색 | GET     | api/itineraries/keyword/{query} |                          |
-> | 여정 수정     | PATCH   | api/itineraries                 |
+> | 숙박 여정 수정  | PATCH   | api/itineraries/accommodations  |
+> | 이동 여정 수정  | PATCH   | api/itineraries/transportations |
+> | 체류 여정 수정  | PATCH   | api/itineraries/visits          |
 > | 여정 삭제     | DELELTE | api/itineraries/{itineraryId}   |
-※ 더 상세한 내용은 [REST Docs](#API-Docs)를 통해 확인하실 수 있습니다.
+※ 더 상세한 내용은 [REST Docs](#API-문서)를 통해 확인하실 수 있습니다.
 
 ---
 
@@ -90,9 +94,23 @@
 
 ---
 
+## 실행결과 캡처
+
+> `Console`
+> ![](src/main/resources/image/console.png)
+> 
+> `DB`
+> ![](src/main/resources/image/db_trip.png)
+> ![](src/main/resources/image/db_itinerary.png)
+> 
+> ※ 혹시 각 API 요청 결과가 필요하시다면 [REST Docs](#API-문서)를 참고해주세요!
+
+---
+
 ## API 문서
 
 ※ Spring REST Docs로 문서화했습니다.
 
 > ![](src/main/resources/image/api_docs_index.png)
 > ![](src/main/resources/image/api_docs_trip.png)
+> ![](src/main/resources/image/api_docs_itinerary.png)
