@@ -167,12 +167,12 @@ public class ItineraryRestControllerTest {
             // given
             VisitCreateRequestDTO request = VisitCreateRequestDTO.builder().tripId(1L)
                 .itineraryName("제주여정3").placeName("카멜리아힐")
-                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
-                .arrivalTime("2023-10-26 16:00").build();
+                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").arrivalTime("2023-10-26 14:00")
+                .departureTime("2023-10-26 16:00").build();
             VisitResponseDTO visitResponseDTO = VisitResponseDTO.builder().itineraryId(1L)
                 .itineraryName("제주여정3").placeName("카멜리아힐")
-                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
-                .arrivalTime("2023-10-26 16:00").build();
+                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").arrivalTime("2023-10-26 14:00")
+                .departureTime("2023-10-26 16:00").build();
             given(itineraryService.createVisit(any(VisitCreateRequestDTO.class))).willReturn(
                 visitResponseDTO);
 
@@ -212,8 +212,8 @@ public class ItineraryRestControllerTest {
                     .departureTime("2023-10-26 12:00").arrivalTime("2023-10-26 13:00").build());
             itinerarys.add(
                 VisitResponseDTO.builder().itineraryId(3L).itineraryName("제주여정3").placeName("카멜리아힐")
-                    .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
-                    .arrivalTime("2023-10-26 16:00").build());
+                    .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").arrivalTime("2023-10-26 14:00")
+                    .departureTime("2023-10-26 16:00").build());
 
             given(itineraryService.getItineraryByTripId(any(Long.TYPE))).willReturn(itinerarys);
 
@@ -312,12 +312,12 @@ public class ItineraryRestControllerTest {
         void _willSuccess() throws Exception {
             VisitUpdateRequestDTO request = VisitUpdateRequestDTO.builder().itineraryId(1L)
                 .itineraryName("즐거운 제주여정3").placeName("카멜리아힐")
-                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
-                .arrivalTime("2023-10-26 16:00").build();
+                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").arrivalTime("2023-10-26 14:00")
+                .departureTime("2023-10-26 16:00").build();
             VisitResponseDTO visitResponseDTO = VisitResponseDTO.builder().itineraryId(1L)
                 .itineraryName("즐거운 제주여정3").placeName("카멜리아힐")
-                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").departureTime("2023-10-26 14:00")
-                .arrivalTime("2023-10-26 16:00").build();
+                .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").arrivalTime("2023-10-26 14:00")
+                .departureTime("2023-10-26 16:00").build();
             given(itineraryService.updateVisit(any(VisitUpdateRequestDTO.class))).willReturn(
                 visitResponseDTO);
 
