@@ -111,6 +111,11 @@
 
 ※ Spring REST Docs로 문서화했습니다.
 
+> `index`
 > ![](src/main/resources/image/api_docs_index.png)
+> 
+> `Trip API Docs`
 > ![](src/main/resources/image/api_docs_trip.png)
+> 
+> `Itinerary API Docs`
 > ![](src/main/resources/image/api_docs_itinerary.png)
