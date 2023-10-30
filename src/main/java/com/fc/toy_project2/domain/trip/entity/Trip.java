@@ -3,7 +3,10 @@ package com.fc.toy_project2.domain.trip.entity;
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
+import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
+import com.fc.toy_project2.domain.itinerary.entity.Transportation;
+import com.fc.toy_project2.domain.itinerary.entity.Visit;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.GetTripResponseDTO;
 import com.fc.toy_project2.domain.trip.dto.response.GetTripsResponseDTO;
@@ -122,34 +125,34 @@ public class Trip {
     public List<Object> getItineraryResponseDTO() {
         List<Object> itineraryList = new ArrayList<>();
         for (Itinerary itinerary : this.itineraries) {
-            if (itinerary.getType() == 0) {
-                itineraryList.add(AccommodationResponseDTO.builder().itineraryId(itinerary.getId())
-                    .itineraryName(itinerary.getItineraryName())
-                    .accommodationName(itinerary.getAccommodationName())
-                    .accommodationRoadAddressName(itinerary.getAccommodationRoadAddressName())
-                    .checkIn(DateTypeFormatterUtil.localDateTimeToString(itinerary.getCheckIn()))
-                    .checkOut(DateTypeFormatterUtil.localDateTimeToString(itinerary.getCheckOut()))
+            if (itinerary instanceof Accommodation accommodation) {
+                itineraryList.add(AccommodationResponseDTO.builder().itineraryId(accommodation.getId())
+                    .itineraryName(accommodation.getItineraryName())
+                    .accommodationName(accommodation.getAccommodationName())
+                    .accommodationRoadAddressName(accommodation.getAccommodationRoadAddressName())
+                    .checkIn(DateTypeFormatterUtil.localDateTimeToString(accommodation.getCheckIn()))
+                    .checkOut(DateTypeFormatterUtil.localDateTimeToString(accommodation.getCheckOut()))
                     .build());
-            } else if (itinerary.getType() == 1) {
-                itineraryList.add(TransportationResponseDTO.builder().itineraryId(itinerary.getId())
-                    .itineraryName(itinerary.getItineraryName())
-                    .transportation(itinerary.getTransportation())
-                    .departurePlace(itinerary.getDeparturePlace())
-                    .departurePlaceRoadAddressName(itinerary.getDeparturePlaceRoadAddressName())
-                    .destination(itinerary.getDestination())
-                    .destinationRoadAddressName(itinerary.getDestinationRoadAddressName())
+            } else if (itinerary instanceof Transportation transportation) {
+                itineraryList.add(TransportationResponseDTO.builder().itineraryId(transportation.getId())
+                    .itineraryName(transportation.getItineraryName())
+                    .transportation(transportation.getTransportation())
+                    .departurePlace(transportation.getDeparturePlace())
+                    .departurePlaceRoadAddressName(transportation.getDeparturePlaceRoadAddressName())
+                    .destination(transportation.getDestination())
+                    .destinationRoadAddressName(transportation.getDestinationRoadAddressName())
                     .departureTime(
-                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getDepartureTime()))
+                        DateTypeFormatterUtil.localDateTimeToString(transportation.getDepartureTime()))
                     .arrivalTime(
-                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getArrivalTime()))
+                        DateTypeFormatterUtil.localDateTimeToString(transportation.getArrivalTime()))
                     .build());
-            } else if (itinerary.getType() == 2) {
-                itineraryList.add(VisitResponseDTO.builder().itineraryId(itinerary.getId())
-                    .itineraryName(itinerary.getItineraryName()).placeName(itinerary.getPlaceName())
-                    .placeRoadAddressName(itinerary.getPlaceRoadAddressName()).arrivalTime(
-                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getArrivalTime()))
+            } else if (itinerary instanceof Visit visit) {
+                itineraryList.add(VisitResponseDTO.builder().itineraryId(visit.getId())
+                    .itineraryName(visit.getItineraryName()).placeName(visit.getPlaceName())
+                    .placeRoadAddressName(visit.getPlaceRoadAddressName()).arrivalTime(
+                        DateTypeFormatterUtil.localDateTimeToString(visit.getArrivalTime()))
                     .departureTime(
-                        DateTypeFormatterUtil.localDateTimeToString(itinerary.getDepartureTime()))
+                        DateTypeFormatterUtil.localDateTimeToString(visit.getDepartureTime()))
                     .build());
             }
         }

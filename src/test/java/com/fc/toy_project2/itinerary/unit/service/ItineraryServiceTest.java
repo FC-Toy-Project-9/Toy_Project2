@@ -17,9 +17,15 @@ import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDT
 import com.fc.toy_project2.domain.itinerary.dto.response.ItineraryDeleteResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
+import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
+import com.fc.toy_project2.domain.itinerary.entity.Transportation;
+import com.fc.toy_project2.domain.itinerary.entity.Visit;
 import com.fc.toy_project2.domain.itinerary.exception.ItineraryNotFoundException;
+import com.fc.toy_project2.domain.itinerary.repository.AccommodationRepository;
 import com.fc.toy_project2.domain.itinerary.repository.ItineraryRepository;
+import com.fc.toy_project2.domain.itinerary.repository.TransportationRepository;
+import com.fc.toy_project2.domain.itinerary.repository.VisitRepository;
 import com.fc.toy_project2.domain.itinerary.service.ItineraryService;
 import com.fc.toy_project2.domain.trip.entity.Trip;
 import com.fc.toy_project2.domain.trip.exception.TripNotFoundException;
@@ -49,6 +55,15 @@ public class ItineraryServiceTest {
     private ItineraryRepository itineraryRepository;
 
     @Mock
+    private AccommodationRepository accommodationRepository;
+
+    @Mock
+    private TransportationRepository transportationRepository;
+
+    @Mock
+    private VisitRepository visitRepository;
+
+    @Mock
     private TripService tripService;
 
     @Nested
@@ -67,8 +82,8 @@ public class ItineraryServiceTest {
                 Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
                     .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true)
                     .itineraries(new ArrayList<>()).build());
-            given(itineraryRepository.save(any(Itinerary.class))).willReturn(
-                Itinerary.builder().id(1L).itineraryName("제주여정1").accommodationName("제주신라호텔")
+            given(accommodationRepository.save(any(Accommodation.class))).willReturn(
+                Accommodation.builder().id(1L).itineraryName("제주여정1").accommodationName("제주신라호텔")
                     .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                     .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
                     .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0)).build());
@@ -102,8 +117,8 @@ public class ItineraryServiceTest {
                 Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
                     .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true)
                     .itineraries(new ArrayList<>()).build());
-            given(itineraryRepository.save(any(Itinerary.class))).willReturn(
-                Itinerary.builder().id(2L).itineraryName("제주여정2").transportation("카카오택시")
+            given(transportationRepository.save(any(Transportation.class))).willReturn(
+                Transportation.builder().id(2L).itineraryName("제주여정2").transportation("카카오택시")
                     .departurePlace("제주신라호텔").departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                     .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
                     .departureTime(LocalDateTime.of(2023, 10, 26, 12, 0))
@@ -119,7 +134,7 @@ public class ItineraryServiceTest {
                     "departureTime", "arrivalTime")
                 .containsExactly("제주여정2", "카카오택시", "제주신라호텔", "제주 서귀포시 중문관광로72번길 75", "오설록 티 뮤지엄",
                     "제주 서귀포시 안덕면 신화역사로 15 오설록", "2023-10-26 12:00", "2023-10-26 13:00");
-            verify(itineraryRepository, times(1)).save(any(Itinerary.class));
+            verify(transportationRepository, times(1)).save(any(Transportation.class));
         }
     }
 
@@ -139,8 +154,8 @@ public class ItineraryServiceTest {
                 Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 25))
                     .endDate(LocalDate.of(2023, 10, 26)).isDomestic(true)
                     .itineraries(new ArrayList<>()).build());
-            given(itineraryRepository.save(any(Itinerary.class))).willReturn(
-                Itinerary.builder().id(3L).itineraryName("제주여정3").placeName("카멜리아힐")
+            given(visitRepository.save(any(Visit.class))).willReturn(
+                Visit.builder().id(3L).itineraryName("제주여정3").placeName("카멜리아힐")
                     .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                     .arrivalTime(LocalDateTime.of(2023, 10, 26, 14, 0))
                     .departureTime(LocalDateTime.of(2023, 10, 26, 16, 0)).build());
@@ -153,7 +168,7 @@ public class ItineraryServiceTest {
                     "arrivalTime", "departureTime")
                 .containsExactly("제주여정3", "카멜리아힐", "제주 서귀포시 안덕면 병악로 166", "2023-10-26 14:00",
                     "2023-10-26 16:00");
-            verify(itineraryRepository, times(1)).save(any(Itinerary.class));
+            verify(visitRepository, times(1)).save(any(Visit.class));
         }
     }
 
@@ -165,19 +180,19 @@ public class ItineraryServiceTest {
         @DisplayName("tripId를 통해 Itinerary를 조회할 수 있다.")
         void _willSuccess() throws TripNotFoundException {
             // given
-            Itinerary accommodation = Itinerary.builder().id(1L).type(0).itineraryName("제주여정1")
+            Itinerary accommodation = Accommodation.builder().id(1L).itineraryName("제주여정1")
                 .accommodationName("제주신라호텔").accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
                 .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0)).build();
 
-            Itinerary transportation = Itinerary.builder().id(2L).type(1).itineraryName("제주여정2")
+            Itinerary transportation = Transportation.builder().id(2L).itineraryName("제주여정2")
                 .transportation("카카오택시").departurePlace("제주신라호텔")
                 .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75").destination("오설록 티 뮤지엄")
                 .destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
                 .departureTime(LocalDateTime.of(2023, 10, 26, 12, 0))
                 .arrivalTime(LocalDateTime.of(2023, 10, 26, 13, 0)).build();
 
-            Itinerary visit = Itinerary.builder().id(3L).type(2).itineraryName("제주여정2")
+            Itinerary visit = Visit.builder().id(3L).itineraryName("제주여정2")
                 .placeName("카멜리아힐").placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                 .arrivalTime(LocalDateTime.of(2023, 10, 26, 14, 0))
                 .departureTime(LocalDateTime.of(2023, 10, 26, 16, 0)).build();
@@ -212,13 +227,14 @@ public class ItineraryServiceTest {
                 .itineraryId(1L).itineraryName("즐거운 제주여정1").accommodationName("제주신라호텔")
                 .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75").checkIn("2023-10-25 15:00")
                 .checkOut("2023-10-26 10:00").build();
-            given(itineraryRepository.findById(any(Long.TYPE))).willReturn(Optional.of(
-                Itinerary.builder().id(1L).itineraryName("제주여정1").accommodationName("제주신라호텔")
+            Optional<Itinerary> itinerary = Optional.of(
+                Accommodation.builder().id(1L).itineraryName("제주여정1").accommodationName("제주신라호텔")
                     .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                     .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
                     .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0)).trip(
                         Trip.builder().id(1L).startDate(LocalDate.of(2023, 10, 25))
-                            .endDate(LocalDate.of(2023, 10, 26)).build()).build()));
+                            .endDate(LocalDate.of(2023, 10, 26)).build()).build());
+            given(itineraryRepository.findById(any(Long.TYPE))).willReturn(itinerary);
 
             // when
             AccommodationResponseDTO result = itineraryService.updateAccommodation(
@@ -245,14 +261,15 @@ public class ItineraryServiceTest {
                 .departurePlace("제주신라호텔").departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
                 .departureTime("2023-10-26 12:00").arrivalTime("2023-10-26 13:00").build();
-            given(itineraryRepository.findById(any(Long.TYPE))).willReturn(Optional.of(
-                Itinerary.builder().id(2L).itineraryName("제주여정2").transportation("카카오택시")
+            Optional<Itinerary> itinerary = Optional.of(
+                Transportation.builder().id(2L).itineraryName("제주여정2").transportation("카카오택시")
                     .departurePlace("제주신라호텔").departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                     .destination("오설록 티 뮤지엄").destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
                     .departureTime(LocalDateTime.of(2023, 10, 26, 12, 0))
                     .arrivalTime(LocalDateTime.of(2023, 10, 26, 13, 0)).trip(
                         Trip.builder().id(1L).startDate(LocalDate.of(2023, 10, 25))
-                            .endDate(LocalDate.of(2023, 10, 26)).build()).build()));
+                            .endDate(LocalDate.of(2023, 10, 26)).build()).build());
+            given(itineraryRepository.findById(any(Long.TYPE))).willReturn(itinerary);
 
             // when
             TransportationResponseDTO result = itineraryService.updateTransportation(
@@ -280,13 +297,14 @@ public class ItineraryServiceTest {
                 .itineraryId(1L).itineraryName("즐거운 제주여정3").placeName("카멜리아힐")
                 .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166").arrivalTime("2023-10-26 14:00")
                 .departureTime("2023-10-26 16:00").build();
-            given(itineraryRepository.findById(any(Long.TYPE))).willReturn(Optional.of(
-                Itinerary.builder().id(3L).itineraryName("제주여정3").placeName("카멜리아힐")
+            Optional<Itinerary> itinerary = Optional.of(
+                Visit.builder().id(3L).itineraryName("제주여정3").placeName("카멜리아힐")
                     .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                     .arrivalTime(LocalDateTime.of(2023, 10, 26, 14, 0))
                     .departureTime(LocalDateTime.of(2023, 10, 26, 16, 0)).trip(
                         Trip.builder().id(1L).startDate(LocalDate.of(2023, 10, 25))
-                            .endDate(LocalDate.of(2023, 10, 26)).build()).build()));
+                            .endDate(LocalDate.of(2023, 10, 26)).build()).build());
+            given(itineraryRepository.findById(any(Long.TYPE))).willReturn(itinerary);
 
             // when
             VisitResponseDTO result = itineraryService.updateVisit(visitUpdateRequestDTO);
@@ -311,7 +329,7 @@ public class ItineraryServiceTest {
             Trip trip = Trip.builder().id(1L).name("제주도 여행").startDate(LocalDate.of(2023, 10, 23))
                 .endDate(LocalDate.of(2023, 10, 27)).isDomestic(true).itineraries(new ArrayList<>())
                 .build();
-            Itinerary itinerary = Itinerary.builder().id(1L).trip(trip).build();
+            Itinerary itinerary = Accommodation.builder().id(1L).trip(trip).build();
             when(itineraryRepository.findById(itineraryId)).thenReturn(Optional.of(itinerary));
 
             // when
