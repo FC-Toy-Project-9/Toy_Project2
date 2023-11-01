@@ -23,9 +23,11 @@ public class Visit extends Itinerary {
     private LocalDateTime departureTime;
 
     @Builder
-    public Visit(Long id, Trip trip, String itineraryName, String placeName, String placeRoadAddressName, LocalDateTime arrivalTime,
-        LocalDateTime departureTime) {
-        super(id, trip, itineraryName);
+    public Visit(Long id, Trip trip, String itineraryName, String placeName,
+        String placeRoadAddressName, LocalDateTime arrivalTime, LocalDateTime departureTime) {
+        this.id = id;
+        this.trip = trip;
+        this.itineraryName = itineraryName;
         this.placeName = placeName;
         this.placeRoadAddressName = placeRoadAddressName;
         this.arrivalTime = arrivalTime;
@@ -42,7 +44,7 @@ public class Visit extends Itinerary {
 
     public void updateVisitInfo(String itineraryName, String placeName, String placeRoadAddressName,
         LocalDateTime visitDepartureTime, LocalDateTime visitArrivalTime) {
-        super.updateItineraryName(itineraryName);
+        this.itineraryName = itineraryName;
         this.placeName = placeName;
         this.placeRoadAddressName = placeRoadAddressName;
         this.departureTime = visitDepartureTime;

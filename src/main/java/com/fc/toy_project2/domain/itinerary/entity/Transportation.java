@@ -32,7 +32,9 @@ public class Transportation extends Itinerary{
     public Transportation(Long id, Trip trip, String itineraryName, String transportation, String departurePlace,
         String departurePlaceRoadAddressName, String destination, String destinationRoadAddressName,
         LocalDateTime arrivalTime, LocalDateTime departureTime) {
-        super(id, trip, itineraryName);
+        this.id = id;
+        this.trip = trip;
+        this.itineraryName = itineraryName;
         this.transportation = transportation;
         this.departurePlace = departurePlace;
         this.departurePlaceRoadAddressName = departurePlaceRoadAddressName;
@@ -56,7 +58,7 @@ public class Transportation extends Itinerary{
     public void updateTransportationInfo(String itineraryName, String transportation,
         String departurePlace, String departurePlaceRoadAddressName, String destination,
         String destinationRoadAddressName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        super.updateItineraryName(itineraryName);
+        this.itineraryName = itineraryName;
         this.transportation = transportation;
         this.departurePlace = departurePlace;
         this.departurePlaceRoadAddressName = departurePlaceRoadAddressName;

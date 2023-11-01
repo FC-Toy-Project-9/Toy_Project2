@@ -26,7 +26,9 @@ public class Accommodation extends Itinerary{
     @Builder
     public Accommodation(Long id, Trip trip, String itineraryName, String accommodationName, String accommodationRoadAddressName,
         LocalDateTime checkIn, LocalDateTime checkOut) {
-        super(id, trip, itineraryName);
+        this.id = id;
+        this.trip = trip;
+        this.itineraryName = itineraryName;
         this.accommodationName = accommodationName;
         this.accommodationRoadAddressName = accommodationRoadAddressName;
         this.checkIn = checkIn;
@@ -43,7 +45,7 @@ public class Accommodation extends Itinerary{
 
     public void updateAccommodationInfo(String itineraryName, String accommodationName,
         String accommodationRoadAddressName, LocalDateTime checkIn, LocalDateTime checkOut) {
-        super.updateItineraryName(itineraryName);
+        this.itineraryName = itineraryName;
         this.accommodationName = accommodationName;
         this.accommodationRoadAddressName = accommodationRoadAddressName;
         this.checkIn = checkIn;

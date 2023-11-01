@@ -25,21 +25,11 @@ public abstract class Itinerary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_id")
-    private Trip trip;
+    protected Trip trip;
 
-    private String itineraryName;
-
-    public Itinerary(Long id, Trip trip, String itineraryName) {
-        this.id = id;
-        this.trip = trip;
-        this.itineraryName = itineraryName;
-    }
-
-    protected void updateItineraryName(String itineraryName) {
-        this.itineraryName = itineraryName;
-    }
+    protected String itineraryName;
 }
