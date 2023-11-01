@@ -17,7 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fc.toy_project2.domain.itinerary.dto.response.AccommodationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.TransportationResponseDTO;
 import com.fc.toy_project2.domain.itinerary.dto.response.VisitResponseDTO;
+import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
+import com.fc.toy_project2.domain.itinerary.entity.Transportation;
+import com.fc.toy_project2.domain.itinerary.entity.Visit;
 import com.fc.toy_project2.domain.trip.controller.TripRestController;
 import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
@@ -450,17 +453,17 @@ public class TripRestControllerTest {
         void _willSuccess() throws Exception {
             //given
             List<Itinerary> itineraries = new ArrayList<>();
-            itineraries.add(Itinerary.builder().id(1L).accommodationName("제주신라호텔")
+            itineraries.add(Accommodation.builder().id(1L).accommodationName("제주신라호텔")
                 .accommodationRoadAddressName("제주 서귀포시 중문관광로72번길 75")
                 .checkIn(LocalDateTime.of(2023, 10, 25, 15, 0))
                 .checkOut(LocalDateTime.of(2023, 10, 26, 11, 0)).build());
             itineraries.add(
-                Itinerary.builder().id(2L).transportation("카카오택시").departurePlace("제주신라호텔")
+                Transportation.builder().id(2L).transportation("카카오택시").departurePlace("제주신라호텔")
                     .departurePlaceRoadAddressName("제주 서귀포시 중문관광로72번길 75").destination("오설록 티 뮤지엄")
                     .destinationRoadAddressName("제주 서귀포시 안덕면 신화역사로 15 오설록")
                     .departureTime(LocalDateTime.of(2023, 10, 26, 12, 0))
                     .arrivalTime(LocalDateTime.of(2023, 10, 26, 13, 0)).build());
-            itineraries.add(Itinerary.builder().id(3L).placeName("카멜리아힐")
+            itineraries.add(Visit.builder().id(3L).placeName("카멜리아힐")
                 .placeRoadAddressName("제주 서귀포시 안덕면 병악로 166")
                 .departureTime(LocalDateTime.of(2023, 10, 26, 14, 0))
                 .arrivalTime(LocalDateTime.of(2023, 10, 26, 16, 0)).build());

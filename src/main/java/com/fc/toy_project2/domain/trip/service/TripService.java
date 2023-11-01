@@ -1,6 +1,9 @@
 package com.fc.toy_project2.domain.trip.service;
 
+import com.fc.toy_project2.domain.itinerary.entity.Accommodation;
 import com.fc.toy_project2.domain.itinerary.entity.Itinerary;
+import com.fc.toy_project2.domain.itinerary.entity.Transportation;
+import com.fc.toy_project2.domain.itinerary.entity.Visit;
 import com.fc.toy_project2.domain.trip.dto.request.PostTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.request.UpdateTripRequestDTO;
 import com.fc.toy_project2.domain.trip.dto.response.GetTripResponseDTO;
@@ -123,17 +126,17 @@ public class TripService {
     private LocalDate getMaxDate(List<Itinerary> itineraries) {
         LocalDate max = LocalDate.MAX;
         for (Itinerary itinerary : itineraries) {
-            if (itinerary.getType() == 0) {
-                if (itinerary.getCheckIn().toLocalDate().isBefore(max)) {
-                    max = itinerary.getCheckIn().toLocalDate();
+            if (itinerary instanceof Accommodation accommodation) {
+                if (accommodation.getCheckIn().toLocalDate().isBefore(max)) {
+                    max = accommodation.getCheckIn().toLocalDate();
                 }
-            } else if (itinerary.getType() == 1) {
-                if (itinerary.getDepartureTime().toLocalDate().isBefore(max)) {
-                    max = itinerary.getDepartureTime().toLocalDate();
+            } else if (itinerary instanceof Transportation transportation) {
+                if (transportation.getDepartureTime().toLocalDate().isBefore(max)) {
+                    max = transportation.getDepartureTime().toLocalDate();
                 }
-            } else if (itinerary.getType() == 2) {
-                if (itinerary.getArrivalTime().toLocalDate().isBefore(max)) {
-                    max = itinerary.getArrivalTime().toLocalDate();
+            } else if (itinerary instanceof Visit visit) {
+                if (visit.getArrivalTime().toLocalDate().isBefore(max)) {
+                    max = visit.getArrivalTime().toLocalDate();
                 }
             }
         }
@@ -149,17 +152,17 @@ public class TripService {
     private LocalDate getMinDate(List<Itinerary> itineraries) {
         LocalDate min = LocalDate.MIN;
         for (Itinerary itinerary : itineraries) {
-            if (itinerary.getType() == 0) {
-                if (itinerary.getCheckOut().toLocalDate().isAfter(min)) {
-                    min = itinerary.getCheckOut().toLocalDate();
+            if (itinerary instanceof Accommodation accommodation) {
+                if (accommodation.getCheckOut().toLocalDate().isAfter(min)) {
+                    min = accommodation.getCheckOut().toLocalDate();
                 }
-            } else if (itinerary.getType() == 1) {
-                if (itinerary.getArrivalTime().toLocalDate().isAfter(min)) {
-                    min = itinerary.getArrivalTime().toLocalDate();
+            } else if (itinerary instanceof Transportation transportation) {
+                if (transportation.getArrivalTime().toLocalDate().isAfter(min)) {
+                    min = transportation.getArrivalTime().toLocalDate();
                 }
-            } else if (itinerary.getType() == 2) {
-                if (itinerary.getDepartureTime().toLocalDate().isAfter(min)) {
-                    min = itinerary.getDepartureTime().toLocalDate();
+            } else if (itinerary instanceof Visit visit) {
+                if (visit.getDepartureTime().toLocalDate().isAfter(min)) {
+                    min = visit.getDepartureTime().toLocalDate();
                 }
             }
         }
